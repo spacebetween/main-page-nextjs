@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   const [menuMobile, showMenuMobile] = useState(false);
-  const [numberOfJobs, setNumberOfJobs] = useState(987)
+  const [numberOfJobs, setNumberOfJobs] = useState(987);
 
   const handleClickHamburger = () => {
     showMenuMobile(true);
@@ -24,6 +24,10 @@ export default function Home() {
   const handleCrossClick = () => {
     showMenuMobile(false);
   };
+
+  const removeFilter = (filter, removeAll) => {
+    console.log('remove Filter')
+  }
 
   return (
     <div className="mega-navigation">
@@ -480,7 +484,7 @@ export default function Home() {
                                 id="countryCode"
                               />
 
-                             <Inputs/>
+                              <Inputs />
                               <div className="d-none d-lg-block col-md-2">
                                 <button
                                   type="submit"
@@ -494,7 +498,7 @@ export default function Home() {
                                   Find Jobs
                                 </button>
                               </div>
-                              <Dropdowns/>
+                              <Dropdowns />
                               <div className="d-block d-lg-none col-md-2">
                                 <button
                                   type="submit"
@@ -554,11 +558,14 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="col-md-4">
-                        <SortButtons/>
+                        <SortButtons />
                       </div>
                     </div>
-                    <SelectedFilters/>
-                   <JobsList/>
+                    <SelectedFilters
+                      selectedFilters={{ type: "", distance: "", sector: "" }}
+                      removeFilter={removeFilter}
+                    />
+                    <JobsList />
                   </div>
                 </div>
               </div>

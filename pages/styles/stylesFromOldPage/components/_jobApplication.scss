@@ -1,0 +1,44 @@
+﻿.succesApplication {
+    text-align: center;
+
+    &_wrapper {
+        width: 80px;
+        height: 80px;
+        background-color: $brand-success;
+        border-radius: 50%;
+        font-size: $font-size-base * 3;
+    }
+}
+
+#coveringLetterContentPreview {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    font: medium -moz-fixed;
+    font: -webkit-small-control;
+    height: 100px;
+    overflow: auto;
+    padding: 2px;
+    resize: both;
+}
+
+#coveringLetterContentEditor {
+    min-height: 150px;
+}
+
+#coveringLetterContentEditor .ql-editor {
+    max-height: 400px;
+}
+
+#coveringLetterContentModal .modal-dialog {
+    max-width: 1140px !important;
+}
+
+#coveringLetterContentModal.modal {
+    margin-top: 100px !important;
+}
+
+#coveringLetterBackButton {
+    color: #6d6d6d;
+    border-color: #6d6d6d;
+    background-color: #fff;
+}

@@ -1,0 +1,28 @@
+.tiles {
+	display: grid;
+	grid-gap: 16px;
+	grid-template-columns: 1fr 1fr 1fr;
+
+	&.tiles-2,
+	&.tiles-4 {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.tile-wrapper {
+		margin: 0;
+		padding: 0;
+	}
+
+	.tile {
+
+		.tile-image {
+			width: 100%;
+			height: auto;
+			max-height: none;
+		}
+	}
+
+	&.tiles-2,
+	&.tiles-4 {
+	}
+}

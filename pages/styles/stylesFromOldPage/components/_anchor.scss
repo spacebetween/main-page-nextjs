@@ -1,0 +1,26 @@
+﻿.anchor {
+    &-primary {
+        color: $brand-primary;
+    }
+
+    &-secondary {
+        color: $brand-secondary;
+    }
+
+    &-white {
+        color: $white;
+    }
+
+    a:hover {
+        color: $brand-primary-dark;
+    }
+
+    &-underline {
+        text-decoration: underline;
+    }
+    &-noStyle,
+    &-noStyle:hover {
+        text-decoration: none;
+        color: $black;
+    }
+}

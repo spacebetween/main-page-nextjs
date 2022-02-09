@@ -1,0 +1,104 @@
+.searchBox {
+    max-width: 600px;
+
+    &_fieldContainer {
+        display: flex;
+        flex-wrap: wrap;
+
+        @include media-breakpoint-up(md) {
+            flex-wrap: no-wrap;
+            justify-content: space-between;
+        }
+    }
+
+    &_field {
+        flex: 0 1 auto;
+        margin-top: $card-spacer-x;
+
+        @include media-breakpoint-up(md) {
+            margin-top: 0;
+        }
+
+        &-keywords,
+        &-location {
+            flex-basis: 100%;
+
+            @include media-breakpoint-up(md) {
+                flex-basis: 38%;
+            }
+        }
+
+        &-competitonCode {
+            flex-basis: 100%;
+
+            @include media-breakpoint-up(md) {
+                flex-basis: 70%;
+            }
+        }
+
+        &_icon {
+            position: absolute;
+            top: 43px;
+            right: $spacer * .5;
+            color: $link-color;
+        }
+    }
+
+    &_title {
+        color: $white;
+
+        &-black {
+            color: $black;
+        }
+    }
+
+    &-primary {
+        background-color: transparentize($brand-primary, .4);
+    }
+
+    &-secondary {
+        background-color: transparentize($brand-secondary, .4);
+    }
+
+    &-monochrome {
+        background-color: transparentize($white, .4);
+        color: $black;
+    }
+
+    &-transparentBlack {
+        background-color: transparentize($black, .4);
+    }
+
+    &-primary,
+    &-secondary,
+    &-monochrome,
+    &-transparentBlack {
+        border-radius: $border-radius;
+    }
+
+    &_basicField {
+        width: 100%;
+
+        @include media-breakpoint-up(md) {
+            height: 100%;
+        }
+
+        @include media-breakpoint-up(lg) {
+            min-width: 235px;
+        }
+    }
+
+    &_basicContainer {
+        justify-content: center;
+        align-items: start;
+        width: 100%;
+
+        @include media-breakpoint-up(md) {
+            height: 38px;
+        }
+
+        @include media-breakpoint-up(lg) {
+            width: auto;
+        }
+    }
+}

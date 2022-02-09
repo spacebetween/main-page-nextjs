@@ -1,0 +1,57 @@
+﻿.radio-custom {
+    &:checked,
+    &:not(:checked) {
+        display: none;
+    }
+
+    &:checked + label,
+    &:not(:checked) + label {
+        color: $radio-text-color;
+        position: relative;
+        padding: 0 15px 0 28px;
+        cursor: pointer;
+        line-height: 20px;
+        display: inline-block;
+    }
+
+    &:checked + label::before,
+    &:not(:checked) + label::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 100%;
+        background: $white;
+    }
+
+    &:checked + label::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: $link-color;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border-radius: 100%;
+        transition: .2s ease;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    &:not(:checked) + label::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: $link-color;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border-radius: 100%;
+        transition: .2s ease;
+        opacity: 0;
+        transform: scale(0);
+    }
+}

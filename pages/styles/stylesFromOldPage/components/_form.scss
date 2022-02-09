@@ -1,0 +1,12 @@
+﻿.form {
+    &_numberBox {
+        width: 63px;
+    }
+
+    &-control:focus {
+        box-shadow: none;
+    }
+    &-control  {
+        border: $form-border;
+    }
+}

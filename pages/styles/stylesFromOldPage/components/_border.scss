@@ -1,0 +1,27 @@
+﻿.border {
+    &-solid {
+        border-style: solid;
+    }
+
+    &-thick {
+        border-width: 5px;
+    }
+
+    &-colour {
+        &-1 {
+            border-color: $color-1-bg;
+        }
+
+        &-2 {
+            border-color: $color-2-bg;
+        }
+
+        &-3 {
+            border-color: $color-3-bg;
+        }
+
+        &-4 {
+            border-color: $color-4-bg;
+        }
+    }
+}

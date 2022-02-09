@@ -1,0 +1,27 @@
+﻿.hr {
+    &-thick {
+        border-width: 3px;
+    }
+
+    &-primary {
+        border-color: $brand-primary;
+    }
+
+    &-secondary {
+        border-color: $brand-secondary;
+    }
+
+    &-heading {
+        border-color: $hr-heading-color;
+        margin: auto;
+    }
+
+    &-small {
+        width: 42px;
+    }
+}
+
+.location-page .hr-heading {
+    border-color: $hr-location-heading-color;
+}
+

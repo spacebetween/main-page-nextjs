@@ -1,0 +1,30 @@
+.members_nav {
+    &_icon_parent {
+        margin-top: 2px;
+    }
+
+    &_icon {
+        background-image: url('/images/icons/profile.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 25px;
+        height: 25px;
+    }
+
+    &_item_hr {
+        margin: 5px 15px;
+        line-height: 1;
+    }
+
+    // this is here due to the fact _nav.scss has `margin-left: 0!important;` for .nav-dropdown
+    // sass-lint:disable no-important
+    &_dropdown {
+        @include media-breakpoint-down(xs) {
+            left: -117px!important;
+        }
+    }
+    // Hide third party dropdown arrow that is not required
+    .sub-arrow {
+        display: none;
+    }
+}

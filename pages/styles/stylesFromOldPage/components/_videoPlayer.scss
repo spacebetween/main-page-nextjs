@@ -1,0 +1,55 @@
+﻿.video {
+    &_iframeContainer {
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 30px;
+        height: 0;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    &_iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &_logo {
+        width: 185px;
+
+        @include media-breakpoint-up(lg) {
+            width: 260px;
+        }
+    }
+
+    &_frame {
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding: 0 20px;
+        background-position-y: 85px;
+
+        @include media-breakpoint-up(lg) {
+            padding: 0;
+        }
+    }
+
+    &_container {
+        max-width: 560px;
+    }
+
+    &_thumbnail {
+        height: 147px;
+    }
+
+    &_information {
+        padding: 0 10px;
+        max-width: 560px;
+
+        @include media-breakpoint-up(lg) {
+            margin: 0 auto;
+        }
+    }
+}

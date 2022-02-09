@@ -1,0 +1,35 @@
+.flexLinks {
+    display: flex;
+    align-items: center;
+
+    &-left {
+        justify-content: flex-start;
+    }
+    &-center {
+        justify-content: center;
+    }
+    &_justifyCenter {
+        justify-content: space-between;
+    }
+
+    &_xsBlock {
+        display: block;
+
+        @include media-breakpoint-up(md) {
+            display: flex;
+        }
+    }
+
+    &_link {
+        display: block;
+        max-width: 100px;
+    }
+
+    &-centerAlign {
+        align-items: center;
+    }
+
+    &_justifyAround {
+        justify-content: space-around;
+    }
+}

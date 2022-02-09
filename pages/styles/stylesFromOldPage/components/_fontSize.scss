@@ -1,0 +1,44 @@
+﻿.font {
+    &Size {
+        &-11 {
+            font-size: 11px;
+        }
+
+        &-12 {
+            font-size: 12px;
+        }
+
+        &-13 {
+            font-size: 13px;
+        }
+
+        &-14 {
+            font-size: 14px;
+        }
+
+        &-15 {
+            font-size: 15px;
+        }
+
+        &-16 {
+            font-size: 16px;
+        }
+
+        &-18 {
+            font-size: 18px;
+        }
+
+        &-20 {
+            font-size: 20px;
+        }
+
+        &-24 {
+            font-size: 24px;
+        }
+    }
+    &Weight {
+        &-600 {
+            font-weight: 600;
+        }
+    }
+}

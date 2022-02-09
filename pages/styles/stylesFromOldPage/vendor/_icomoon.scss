@@ -1,0 +1,195 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('/Fonts/IcoMoon-Ultimate.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^='icomoon-'], [class*=' icomoon-'] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+.icomoon {
+    &-p {
+        &-l {
+            padding-left: 15px;
+        }
+
+        &-r {
+            padding-right: 5px;
+        }
+    }
+
+    &-envelope::before {
+        content: '\ea33';
+    }
+
+    &-googlePlus::before {
+        content: '\eeea';
+    }
+
+    &-facebook::before {
+        content: '\eeef';
+    }
+
+    &-twitter::before {
+        content: '\eef5';
+    }
+
+    &-vimeo::before {
+        content: '\eeff';
+    }
+
+    &-flickr::before {
+        content: '\ef03';
+    }
+
+    &-linkedin::before {
+        content: '\ef29';
+    }
+
+    &-pointer::before {
+        content: '\ea39';
+    }
+
+    &-clock::before {
+        content: '\ea4d';
+    }
+
+    &-pound::before {
+        content: '\ea0d';
+    }
+
+    &-case::before {
+        content: '\ec02';
+    }
+
+    &-phone::before {
+        content: '\ea1c';
+    }
+
+    &-location::before {
+        content: '\ea3b';
+    }
+
+    &-truck::before {
+        content: '\ec0f';
+    }
+
+    &-bubble-user::before {
+        content: '\eae2'
+    }
+
+    &-cross::before {
+        content: '\ed6e';
+    }
+
+    &-cross-thin::before {
+        content: '\ed6d';
+    }
+
+    &-spinner::before {
+        content: '\eb23';
+    }
+
+    &-arrow {
+        &-right::before {
+            content: '\edbd';
+        }
+
+        &-left::before {
+            content: '\edc5';
+        }
+
+        &-up::before {
+            content: '\edd4';
+        }
+    }
+
+    &-dropbox::before {
+        content: '\ef0d';
+    }
+
+    &-google-drive::before {
+        content: '\eeee';
+    }
+
+    &-onedrive::before {
+        content: '\ef0e';
+    }
+
+    &-checkmark::before {
+        content: '\ed71';
+    }
+
+    &-arrow-bold::before {
+        content: '\edd2';
+    }
+
+    &-notification::before {
+        content: '\ed51';
+    }
+
+    &-compass::before {
+        content: '\ea44';
+    }
+
+    &-warning::before {
+        content: '\ed4f';
+    }
+
+    &-plus-circle::before {
+        content: '\ed5f';
+    }
+
+    &-plus::before {
+        content: '\ed5b';
+    }
+
+    &-user::before {
+        content: '\eaf7';
+    }
+
+    &-historyTime::before {
+        content: '\ea4c';
+    }
+
+    &-car::before {
+        content: '\ec0a';
+    }
+
+    &-card::before {
+        content: '\ea15';
+    }
+
+    &-file::before {
+        content: '\e9ad';
+    }
+
+    &-emergency::before {
+        content: '\ea22';
+    }
+
+    &-info::before {
+        content: '\ed64';
+    }
+}

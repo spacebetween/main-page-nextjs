@@ -1,0 +1,144 @@
+.footer {
+    background: $footer-bg;
+    color: $white;
+    padding-top: $spacer;
+    padding-bottom: $spacer * 2;
+    border-top: 3px solid $footer-border;
+    text-align: center;
+    font-size: 13px;
+
+    @include media-breakpoint-up(md) {
+        text-align: left;
+    }
+
+    &_nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: $spacer 0;
+
+        &-white {
+            color: $white;
+        }
+    }
+
+    &_navItem {
+        flex: 1 0 auto;
+        text-align: center;
+    }
+    // Specific overriding style, as when image list is used for icons in the footer
+    // IE11 doesn't resize them so this is a fallback and is specific to the footer
+    .flexLinks_image {
+        max-height: 40px;
+    }
+
+    .flexLinks-left {
+        @include media-breakpoint-down(md) {
+            justify-content: center;
+        }
+    }
+
+    a {
+        color: $footer-color;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+
+    &-centered {
+        padding: 48px 24px;
+        text-align: center;
+
+        @include media-breakpoint-up(md) {
+            text-align: left;
+        }
+
+        @include media-breakpoint-down(md) {
+            padding: 32px 16px;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding: 16px;
+        }
+
+        &_logo {
+            padding: 0;
+            max-height: 100px;
+            height: auto;
+
+            @include media-breakpoint-down(md) {
+                width: 15%;
+            }
+
+            @include media-breakpoint-down(sm) {
+                width: 25%;
+            }
+
+            &-link {
+                text-align: center;
+            }
+        }
+
+        &_linkList {
+
+            &-nav {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                text-decoration: none;
+                display: flex;
+                flex-flow: row;
+                justify-content: space-evenly;
+                width: 100%;
+
+                @include media-breakpoint-down(sm) {
+                    flex-flow: column;
+                }
+
+                > div {
+                    margin: 8px;
+                    font-weight: 600;
+                }
+
+                &_links {
+                    display: flex;
+                    flex-flow: column;
+                }
+
+                li {
+                    color: #000;
+                }
+            }
+
+            &-policies {
+                list-style: none;
+                padding: 0;
+                margin: 32px 0 16px;
+                display: flex;
+
+                li {
+                    display: flex;
+                    font-size: .8em;
+                    color: #d3d3d3;
+
+                    @include media-breakpoint-down(sm) {
+                        flex-flow: .8em;
+                    }
+                }
+            }
+            // eslint disable-next-line no-trailing-whitespace
+        }
+
+        &_row {
+            display: flex;
+            justify-content: center;
+            padding: 8px;
+
+            > div {
+                margin: 8px;
+                padding: 8px;
+            }
+        }
+    }
+}

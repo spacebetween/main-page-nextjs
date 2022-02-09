@@ -1,0 +1,88 @@
+﻿.callout {
+    background-color: $gray-light;
+    color: $gray;
+    width: 100%;
+
+    &::after {
+        color: $gray-light;
+        content: '';
+        position: absolute;
+        border-top: 20px solid;
+    }
+    &-front,
+    &-back {
+        color: $white;
+    }
+    &-back {
+        background-color: $gray;
+        &::after {
+            color: $gray;
+            left: 0;
+            bottom: 5px;
+            border-left: 0 solid transparent;
+            border-right: 20px solid transparent;
+        }
+    }
+    &-front {
+        &::after {
+            right: 0;
+            bottom: 5px;
+            border-left: 20px solid transparent;
+            border-right: 0 solid transparent;
+        }
+    }
+    &-primary,
+    &-secondary {
+        color: $white;
+        .callout_button {
+            color: $white;
+        }
+    }
+    &-primary {
+        background-color: $brand-primary;
+
+        &::after {
+            color: $brand-primary;
+        }
+    }
+    &-secondary {
+        background-color: $brand-secondary;
+
+        &::after {
+            color: $brand-secondary;
+        }
+    }
+    &-monochrome {
+        background-color: $white;
+        color: $black;
+
+        &::after {
+            color: $white;
+        }
+    }
+    &_text {
+        height: 100%;
+        display: block;
+        @include media-breakpoint-up(sm) {
+            display: inline-block;
+            height: 110px;
+        }
+    }
+    &_button {
+        background: none;
+        border: 0;
+        color: $white;
+    }
+    &_flipText {
+        height: 100%;
+
+        &_content {
+            overflow: auto;
+            text-overflow: ellipsis;
+            height: 185px;
+            @include media-breakpoint-up(sm) {
+                height: 110px;
+            }
+        }
+    }
+}

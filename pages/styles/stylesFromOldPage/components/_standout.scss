@@ -1,0 +1,57 @@
+﻿.standout {
+    color: $black;
+
+    a {
+        color: $black;
+        text-decoration: underline;
+
+        &:hover {
+            color: darken($black, 10%);
+        }
+    }
+
+    &_header {
+        display: inline-block;
+    }
+
+    &-primary {
+        color: $brand-primary-text;
+
+        a {
+            color: $brand-primary-text;
+            text-decoration: underline;
+
+            &:hover {
+                color: darken($brand-primary-text, 10%);
+            }
+        }
+    }
+
+    &-secondary {
+        color: $brand-secondary-text;
+
+        a {
+            color: $brand-secondary-text;
+            text-decoration: underline;
+
+            &:hover {
+                color: darken($brand-secondary-text, 10%);
+            }
+        }
+    }
+
+    &-primary .standout_header,
+    &-primary .standout_description {
+        background-color: transparentize($brand-primary, .2);
+    }
+
+    &-secondary .standout_header,
+    &-secondary .standout_description {
+        background-color: transparentize($brand-secondary, .2);
+    }
+
+    &-monochrome .standout_header,
+    &-monochrome .standout_description {
+        background-color: transparentize($white, .2);
+    }
+}

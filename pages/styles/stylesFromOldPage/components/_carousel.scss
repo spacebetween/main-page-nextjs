@@ -1,0 +1,46 @@
+﻿.image-carousel {
+    margin: 0 auto;
+
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    &_container {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+
+        @include media-breakpoint-up(md) {
+            width: 100%;
+            height: auto;
+        }
+
+        @include media-breakpoint-up(lg) {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &_arrow {
+        display: block;
+        position: absolute;
+        top: 50%;
+        color: $brand-primary;
+
+        &-left {
+            left: -35px;
+        }
+
+        &-right {
+            right: -35px;
+        }
+    }
+
+    .slick-list {
+        padding: 0;
+    }
+}

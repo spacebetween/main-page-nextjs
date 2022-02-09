@@ -1,0 +1,34 @@
+﻿.onboardUser {
+    .icomoon {
+        &_wrapper-user {
+            background-color: $brand-info;
+            border: $border-width solid $brand-info;
+            overflow: hidden;
+        }
+
+        &-user {
+            font-size: 128px;
+            top: $spacer * .5;
+
+            @media screen and (max-width: 425px) {
+                font-size: 77px;
+            }
+        }
+
+        &-plus {
+            color: $white;
+            background: $brand-success;
+            font-size: 23px;
+            border: $border-width solid $brand-success;
+            padding: $spacer * .5;
+            position: absolute;
+            right: 26px;
+            bottom: 0;
+
+            @media screen and (max-width: 425px) {
+                font-size: $font-size-base;
+                padding: .3rem;
+            }
+        }
+    }
+}

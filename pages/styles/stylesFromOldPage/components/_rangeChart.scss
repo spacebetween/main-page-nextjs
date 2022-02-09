@@ -1,0 +1,59 @@
+﻿.rangeChart {
+    width: 100%;
+    position: relative;
+    min-height: 200px;
+    align-items: center;
+    &_line {
+        height: 5px;
+        width: 100%;
+        background-color: $black;
+        margin-top: 99px;
+        position: absolute;
+    }
+    &_pointer {
+        position: absolute;
+    }
+    &_min,
+    &_max {
+        bottom: 40px;
+    }
+    &_min,
+    &_localMinimum {
+        left: 0;
+    }
+    &_max,
+    &_localMaximum {
+        right: 0;
+    }
+    &_arrow {
+        height: 30px;
+        width: 30px;
+        &-upsidedown {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.select2-container {
+    margin: 5px 0;
+
+    @include media-breakpoint-up(md) {
+        margin: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+        width: 100% !important;
+    }
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding: 5px 10px;
+    height: 38px;
+    text-align: left;
+}
+.select2-container--default .select2-selection--single {
+    height: 38px;
+    border: 0;
+}

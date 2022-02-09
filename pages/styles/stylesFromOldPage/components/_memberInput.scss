@@ -1,0 +1,12 @@
+.member-input {
+    &-dropdown {
+        appearance: none;
+    }
+    &-dropdown::-ms-expand { // sass-lint:disable-line no-vendor-prefixes
+        display: none;
+        // background: url('/images/icons/select-arrow.svg') no-repeat;
+        // background-size: 10px;
+        // background-position: 90%;
+        // margin-right: 2px;
+    }
+}

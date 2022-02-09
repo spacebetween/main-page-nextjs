@@ -1,0 +1,322 @@
+﻿.searchForm,
+.jobSearchForm {
+    padding: 20px 0;
+    background: #F9F9F9 !important;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .advancedPanel {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .filter-wrapper {
+            margin-top: 10px;
+            display: flex;
+            padding-right: 8px;
+        }
+    }
+
+    .filterButton {
+        margin-top: -20px;
+    }
+
+    .dropdown-toggle {
+        background-color: #E5ECF4;
+        color: #495057;
+
+        &:hover {
+            background-color: darken(#E5ECF4, 7%);
+        }
+    }
+
+    .dropdown-remove {
+        background-color: #495057;
+        color: #fff;
+
+        &:hover {
+            background-color: darken(#495057, 7%);
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding-bottom: 0;
+
+        .advancedPanel {
+            padding-bottom: 1rem;
+        }
+    }
+
+    .form {
+        flex-grow: 1;
+    }
+
+    .searchBox {
+        max-width: none;
+    }
+    // Top level
+    &_mainInputs {
+        margin-bottom: 20px;
+    }
+    // Filters & sorting category label
+    &_categoryLabel {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0 10px 0 0;
+        color: #495057;
+    }
+    // Form elements
+    .input-block {
+        display: inline-block;
+
+        label {
+            font-size: 14px;
+            padding: 0 15px 0 22px !important;
+        }
+    }
+
+    .form-group {
+        margin: 0;
+    }
+    // Radio buttons & labels
+    &_radio {
+        color: #495057;
+        margin: 0 20px 0 0;
+        font-size: 14px;
+        font-weight: 400;
+
+        input {
+            position: relative;
+            top: 2px;
+            margin: 0 2px 0 0;
+        }
+    }
+
+    &_checkbox {
+        display: inline-block;
+        margin: 0 20px 0 0;
+        font-size: 14px;
+        font-weight: 400;
+
+        input {
+            position: relative;
+            top: 2px;
+            margin: 0 2px 0 0;
+        }
+    }
+
+    &_textField {
+        position: relative;
+        margin: 0 0 20px 0;
+
+        @include media-breakpoint-up(md) {
+            margin: 0;
+        }
+
+        .input {
+            border-radius: 0;
+            border: 0;
+            border-bottom: 1px solid #979797;
+            background: transparent;
+            font-size: 34px;
+            margin-left: 0;
+            padding-left: 0;
+            width: 100%;
+
+
+
+            &::placeholder {
+                font-size: 34px;
+                color: #495057;
+            }
+
+            &:focus {
+                outline: none;
+                border-bottom-color: #000;
+
+                &::placeholder {
+                    font-size: 34px;
+                    color: rgba(0, 0, 0, 0.3);
+                }
+            }
+        }
+
+        .label {
+            color: rgba(73, 80, 87, 0.5);
+            font-size: 20px;
+        }
+
+        .locateMe {
+            position: absolute;
+            top: 42px;
+            right: 15px;
+            border: 1px solid #2095f3;
+            outline: none;
+            box-shadow: none;
+            border-radius: 8px;
+            width: 50px;
+            height: 40px;
+            background: #fff url('https://www.hrgo.co.uk/images/icons/aim.svg') center center no-repeat;
+            background-size: 25px;
+            cursor: pointer;
+
+            &.located {
+                background: #fff url(/images/icons/remove.svg) center center no-repeat;
+            }
+        }
+    }
+
+
+    &_searchButton,
+    &_advancedButton {
+        background: #2095F3;
+        border: 0;
+        font-size: 20px;
+        font-weight: 400;
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 42px;
+        transition: all 100ms linear;
+        color: #fff;
+        padding: 5px 16px;
+        height: 40px;
+        text-align: center;
+
+        &:hover {
+            background: darken(#2095F3, 20%)
+        }
+
+        @include media-breakpoint-up(md) {
+            width: auto;
+            min-width: 150px;
+            text-align: left;
+        }
+
+        .icon {
+            background: url('https://www.hrgo.co.uk/images/icons/magnifier-linear.svg');
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin: 0 8px 0 0;
+            margin: 6px 8px 0 0;
+            vertical-align: top;
+        }
+
+        &:focus {
+            background: rgba(32, 149, 243, 0.5)
+        }
+    }
+
+    &_advancedButton {
+        margin: 20px 0 0 0;
+        border: 1px solid #495057;
+        color: #495057;
+        background: transparent;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: none;
+            background: none;
+        }
+
+        &:focus {
+            background: transparent;
+        }
+
+        .icon {
+            background: url(/images/icons/ellipsis.svg);
+        }
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+
+        .button {
+            font-size: 14px;
+        }
+
+        .box {
+            background: #F9F9F9;
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.5);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            z-index: 999;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+
+            &.multiple.active {
+                display: flex;
+                flex-wrap: wrap;
+                min-width: 600px;
+
+                .input-block {
+                    width: 33.33%;
+                    height: 38px;
+                    padding-top: 8px;
+                }
+            }
+
+            .input-block {
+                display: block;
+                padding: 5px 10px;
+
+                &:hover {
+                    background: #EBEBEB;
+                }
+            }
+
+            label {
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
+
+.job-search-results {
+    background: #E5ECF4 !important;
+
+    h1.mb-hf {
+        font-size: 28px;
+        color: #495057;
+        margin: 40px 0 70px 0 !important;
+        font-weight: 400;
+    }
+
+    .card-job {
+        min-height: 230px;
+    }
+
+    .customPagination-jobs_text {
+        color: rgba(0,0,0,.87);
+        background: #fff;
+        padding: 3px;
+        display: inline-block;
+    }
+}
+
+.sort-form {
+    margin: 30px 0 0 0;
+    text-align: right;
+    width: 100%;
+
+    .label {
+        color: #979797;
+        margin: 0 0 20px 0;
+        vertical-align: bottom;
+    }
+
+    .sort-form-inputs {
+        margin: 10px 0 0 10px;
+    }
+}

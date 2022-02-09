@@ -1,0 +1,75 @@
+﻿//styles that will always apply to the container
+
+.flipper {
+    width: 100%;
+    height: 200px;
+
+    @include media-breakpoint-down(xs) {
+        height: 270px;
+    }
+
+    &-front,
+    &-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+    &_body {
+        position: relative;
+    }
+}
+
+//this style is applied to the body when the transform style preserve-3d is usable in the browser,
+//this is done using medernizr
+.preserve3d {
+    // entire container, keeps perspective
+    .flipper {
+        perspective: 1000;
+        transform-style: preserve-3d;
+        &.hover {
+            .flipper-back {
+                transform: rotateY(0deg);
+            }
+            .flipper-front {
+                transform: rotateY(180deg);
+            }
+        }
+    }
+    // flip speed goes here
+    .flipper_body {
+        transition: .6s;
+        transform-style: preserve-3d;
+    }
+
+    // hide back of panel during swap
+    .flipper-front,
+    .flipper-back {
+        backface-visibility: hidden;
+        transition: .6s;
+        transform-style: preserve-3d;
+    }
+
+    //  front panel placed above back
+    .flipper-front {
+        z-index: 2;
+        transform: rotateY(0deg);
+    }
+
+    // back, initially hidden panel
+    .flipper-back {
+        transform: rotateY(-180deg);
+    }
+}
+
+// if the browser can't use the preserve3d then it will apply this to the page instead,
+// so there's no animation but will still show the other side
+.no-preserve3d {
+    .flipper.hover .flipper-back {
+        display: block;
+    }
+    .flipper.hover .flipper-front,
+    .flipper .flipper-back {
+        display: none;
+    }
+}

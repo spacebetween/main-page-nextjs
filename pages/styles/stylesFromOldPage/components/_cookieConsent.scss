@@ -1,0 +1,33 @@
+﻿.cookieConsentContainer {
+  background-color: $white;
+  border-bottom: 1px solid $brand-primary;
+  color: $black;
+  display: flex;
+  justify-content: space-between; // woop woop!
+  position: absolute;
+  top: 79px;
+  width: 100%;
+  z-index: 13000 !important;
+  @include media-breakpoint-down(sm) {
+    top: 60px;
+  }
+
+  &-fixed {
+    position: fixed;
+    z-index: 99999;
+  }
+
+  &_button {
+    padding: 2px 7px;
+    font-size: .8em;
+    height: 100%;
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    appearance: none;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}

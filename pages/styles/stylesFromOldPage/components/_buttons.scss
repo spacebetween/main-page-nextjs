@@ -1,0 +1,528 @@
+﻿// sass-lint:disable no-transition-all
+.btn {
+    line-height: 1.25;
+    padding: .6rem 1rem;
+    border-radius: $btn-border-radius;
+    transition: .25s ease-out;
+    white-space: nowrap;
+    text-transform: $btn-transform;
+    overflow: hidden;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &-flex {
+        display: block;
+
+        @media (min-width: breakpoint-min(md)) {
+            flex-grow: 1;
+            margin: 0 2px;
+        }
+
+        &Container {
+            @media (min-width: breakpoint-min(md)) {
+                display: flex;
+            }
+        }
+    }
+
+    &-hoverText {
+        position: relative;
+        overflow: hidden;
+        transition: none;
+
+        &:hover::before {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        &::before {
+            content: attr(data-hover);
+            position: absolute;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translate(-100%, 0);
+            transition: all .3s ease-in-out;
+        }
+
+        &:hover div {
+            opacity: 0;
+            transform: translate(100%, 0);
+        }
+
+        div {
+            transition: all .3s ease-in-out;
+        }
+    }
+
+    &-primary {
+        color: $brand-primary-text;
+
+        &_alternative {
+            color: $brand-primary-text;
+            background-color: $btn-primary-alt-bg-color;
+            border-color: $btn-primary-alt-border-color;
+
+            &:hover {
+                color: $btn-primary-alt-color-hover;
+                background-color: $btn-primary-alt-bg-color-hover;
+            }
+        }
+
+        &:hover {
+            color: $brand-primary-text;
+        }
+    }
+
+    &-secondary {
+        color: $btn-secondary-text;
+
+        &:hover {
+            color: $btn-secondary-text-hover;
+            background-color: $btn-secondary-bg-hover;
+            border-color: $btn-secondary-border-hover;
+        }
+    }
+
+    &-white {
+        @include button-variant($btn-white-bg, $btn-white-border);
+        color: $btn-white-color;
+    }
+
+    &-black {
+        @include button-variant($btn-black-bg, $btn-black-border);
+        color: $btn-black-color;
+    }
+
+    &-colour1 {
+        @include button-variant($color-1-bg, $color-1-bg);
+        color: $color-1-text;
+    }
+
+    &-colour2 {
+        @include button-variant($color-2-bg, $color-2-bg);
+        color: $color-2-text;
+    }
+
+    &-colour3 {
+        @include button-variant($color-3-bg, $color-3-bg);
+        color: $color-3-text;
+    }
+
+    &-colour4 {
+        @include button-variant($color-4-bg, $color-4-bg);
+        color: $color-4-text;
+    }
+
+    &-disabled {
+        color: $white;
+        background-color: $gray-light;
+        opacity: .65;
+    }
+
+    &-plain {
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    &-outline {
+        @include button-variant(transparent, $black);
+
+        &-white {
+            @include button-variant(transparent, $white);
+            color: $black;
+        }
+
+        &-black {
+            @include button-variant(transparent, $black);
+            color: $black;
+        }
+
+        &-primary {
+            @include button-variant(transparent, $brand-primary);
+            color: $btn-primary-outline-text;
+
+            &_alternative {
+                @include button-variant(transparent, $btn-primary-alt-outline-border-color);
+                color: $btn-primary-alt-outline-text;
+
+                &:hover {
+                    color: $btn-primary-alt-outline-color-hover;
+                    background-color: $btn-primary-alt-outline-bg-color-hover;
+                }
+            }
+        }
+
+        &-secondary {
+            @include button-variant(transparent, $brand-secondary);
+            color: $brand-secondary-outline-text;
+        }
+
+        &-colour1 {
+            @include button-variant(transparent, $color-1-bg);
+            color: $color-1-outline-text;
+        }
+
+        &-colour2 {
+            @include button-variant(transparent, $color-2-bg);
+            color: $color-2-outline-text;
+        }
+
+        &-colour3 {
+            @include button-variant(transparent, $color-3-bg);
+            color: $color-3-outline-text;
+        }
+
+        &-colour4 {
+            @include button-variant(transparent, $color-4-bg);
+            color: $color-4-outline-text;
+
+            &:hover {
+                background-color: $color-4-bg;
+            }
+        }
+
+        &-info {
+            @include button-variant(transparent, $brand-info);
+            color: $brand-info;
+
+            &:hover {
+                background-color: $brand-info;
+            }
+        }
+
+        &-success {
+            @include button-variant(transparent, $brand-success);
+        }
+
+        &-warning {
+            @include button-variant(transparent, $brand-warning);
+        }
+
+        &-danger {
+            @include button-variant(transparent, $brand-danger);
+        }
+
+        &-white,
+        &-black,
+        &-primary,
+        &-secondary,
+        &-colour1,
+        &-colour2,
+        &-colour3,
+        &-colour4,
+        &-info,
+        &-success,
+        &-warning,
+        &-danger {
+            color: $black;
+        }
+    }
+
+    &-wireframe {
+        @include button-variant(transparent, $black, transparent);
+        color: $black;
+
+        &:hover,
+        p {
+            color: $black;
+        }
+
+        &-white {
+            @include button-variant(transparent, $white, transparent);
+            color: $white;
+
+            &:hover,
+            p {
+                color: $white;
+            }
+        }
+
+        &-black {
+            @include button-variant(transparent, $black, transparent);
+            color: $black;
+
+            &:hover,
+            p {
+                color: $black;
+            }
+        }
+
+        &-primary {
+            @include button-variant($brand-primary-wireframe-bg, $brand-primary-wireframe-border, transparent, $brand-primary-wireframe-border-hover);
+            color: $brand-primary-wireframe-text;
+
+            p {
+                color: $brand-primary-wireframe-text;
+            }
+
+            &:hover {
+                color: $brand-primary-wireframe-text-hover;
+
+                p {
+                    color: $brand-primary-wireframe-text-hover;
+                }
+            }
+
+            &_alternative {
+                @include button-variant($btn-primary-alt-wireframe-bg, $btn-primary-alt-wireframe-border, transparent, $btn-primary-alt-wireframe-border-hover);
+                color: $btn-primary-alt-wireframe-text;
+
+                p {
+                    color: $btn-primary-alt-wireframe-text;
+                }
+
+                &:hover {
+                    color: $btn-primary-alt-wireframe-text-hover;
+
+                    p {
+                        color: $btn-primary-alt-wireframe-text-hover;
+                    }
+                }
+            }
+        }
+
+
+        &-secondary {
+            @include button-variant($brand-secondary-wireframe-bg, $brand-secondary-wireframe-border, transparent, $brand-secondary-wireframe-border-hover);
+            color: $brand-secondary-wireframe-text;
+
+            p {
+                color: $brand-secondary-wireframe-text;
+            }
+
+            &:hover {
+                color: $brand-secondary-wireframe-text-hover;
+
+                p {
+                    color: $brand-secondary-wireframe-text-hover;
+                }
+            }
+        }
+
+        &-colour1 {
+            @include button-variant($color-1-wireframe-bg, $color-1-wireframe-border, $color-1-wireframe-bg-hover, $color-1-wireframe-border-hover);
+            color: $color-1-wireframe-text;
+
+            p {
+                color: $color-1-wireframe-text;
+            }
+
+            &:hover {
+                color: $color-1-wireframe-text-hover;
+
+                p {
+                    color: $color-1-wireframe-text-hover;
+                }
+            }
+        }
+
+        &-colour2 {
+            @include button-variant($color-2-wireframe-bg, $color-2-wireframe-border, $color-2-wireframe-bg-hover, $color-2-wireframe-border-hover);
+            color: $color-2-wireframe-text;
+
+            p {
+                color: $color-2-wireframe-text;
+            }
+
+            &:hover {
+                color: $color-2-wireframe-text-hover;
+
+                p {
+                    color: $color-2-wireframe-text-hover;
+                }
+            }
+        }
+
+        &-colour3 {
+            @include button-variant($color-3-wireframe-bg, $color-3-wireframe-border, $color-3-wireframe-bg-hover, $color-3-wireframe-border-hover);
+            color: $color-3-wireframe-text;
+
+            p {
+                color: $color-3-wireframe-text;
+            }
+
+            &:hover {
+                color: $color-3-wireframe-text-hover;
+
+                p {
+                    color: $color-3-wireframe-text-hover;
+                }
+            }
+        }
+
+        &-colour4 {
+            @include button-variant($color-4-wireframe-bg, $color-4-wireframe-border, $color-4-wireframe-bg-hover, $color-4-wireframe-border-hover);
+            color: $color-4-wireframe-text;
+
+            p {
+                color: $color-4-wireframe-text;
+            }
+
+            &:hover {
+                color: $color-4-wireframe-text-hover;
+
+                p {
+                    color: $color-4-wireframe-text-hover;
+                }
+            }
+        }
+
+        &-info {
+            @include button-variant(transparent, $brand-info);
+            color: $brand-info;
+        }
+
+        &-success {
+            @include button-variant(transparent, $brand-success);
+            color: $brand-success;
+        }
+
+        &-warning {
+            @include button-variant(transparent, $brand-warning);
+            color: $brand-warning;
+        }
+
+        &-danger {
+            @include button-variant(transparent, $brand-danger);
+            color: $brand-danger;
+        }
+    }
+
+    &-twitter {
+        @include button-variant($icon-twitter, $icon-twitter);
+    }
+
+    &-facebook {
+        @include button-variant($icon-facebook, $icon-facebook);
+    }
+
+    &-linkedin {
+        @include button-variant($icon-linkedin, $icon-linkedin);
+    }
+
+    &-googlePlus {
+        @include button-variant($icon-googleplus, $icon-googleplus);
+    }
+
+    &-envelope {
+        @include button-variant($icon-envelope, $icon-envelope);
+    }
+
+    &-cloudStorage {
+        @include button-variant($icon-cloudstorage, $icon-cloudstorage);
+
+        &:focus {
+            background-color: $icon-cloudstorage;
+        }
+    }
+
+    &-twitter,
+    &-facebook,
+    &-linkedin,
+    &-googlePlus,
+    &-envelope,
+    &-cloudStorage {
+        color: $white;
+    }
+
+    &-white,
+    &-flat-white {
+        @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
+    }
+
+    &-listItem {
+        margin-top: 3px;
+        margin-right: 0.5rem;
+    }
+
+    &-search {
+        padding: 6px 0;
+    }
+
+    &_searchContainer {
+        width: 100%;
+
+        @include media-breakpoint-up(md) {
+            height: 100%;
+        }
+
+        @include media-breakpoint-up(md) {
+            max-width: 85px;
+        }
+    }
+
+    &_searchContainer .inline-search-btn {
+        @include media-breakpoint-up(md) {
+            height: 100%;
+        }
+    }
+
+    &-nav {
+        padding: 5px;
+        width: 95px;
+        font-weight: 100;
+        font-size: 13px;
+
+        &:not(:last-child) {
+            margin-right: 6px;
+        }
+    }
+
+    &_transition {
+        color: $brand-primary-text;
+
+        &:hover {
+            color: $brand-primary-text;
+        }
+
+        &-none {
+            background-image: linear-gradient(90deg, $brand-primary, $brand-primary);
+        }
+
+        &-slide {
+            background-image: linear-gradient(90deg, $brand-secondary 0, $brand-secondary 33%, $brand-primary 33%, $brand-primary 66%, $brand-secondary 66%, $brand-secondary 100%);
+            // over compensated bg width as necessary
+            background-size: 315% 100%;
+            transition: background-position .45s ease;
+            background-position: 50% 100%;
+
+            &-ltr {
+                &:hover {
+                    background-position: 0% 100%;
+                }
+            }
+
+            &-rtl {
+                &:hover {
+                    background-position: 100% 100%;
+                }
+            }
+        }
+    }
+}
+
+.location-page {
+  .btn-listItem {
+    margin-right: 0!important;
+  }
+  .btn-colour1 {
+      @include button-variant($color-1-alt-bg, $color-1-alt-bg);
+      color: $color-1-text;
+  }
+}
+
+button:disabled{
+    opacity: .65;
+}

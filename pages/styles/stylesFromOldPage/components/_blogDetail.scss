@@ -1,0 +1,13 @@
+.blogDetailContainer {
+    padding-top: calc(#{$nav-height} + 20px);
+    padding-bottom: 80px;
+}
+
+.blogDetail {
+    &_socialLink {
+        font-size: 140%;
+    }
+    &_author {
+        margin-bottom: 2rem;
+    }
+}

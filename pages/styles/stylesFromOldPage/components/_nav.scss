@@ -1,0 +1,189 @@
+// sass-lint:disable empty-args
+.navbar {
+    &-primary {
+        color: $nav-primary-color;
+    }
+
+    &-secondary {
+        color: $nav-secondary-color;
+    }
+
+    &-only-hrgo {
+        &-menu {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            @media (max-width: breakpoint-min(md)) {
+                margin-top: 6px;
+            }
+            @media (min-width: breakpoint-min(md)) {
+                margin-top: 12px;
+            }
+        }
+    }
+
+    &-hrgo {
+        background: $nav-bg;
+        border-bottom: 3px solid $brand-primary;
+
+        .nav-link {
+            color: $nav-color;
+            padding: .2em .5em;
+            border: 1px solid transparent;
+            border-radius: $border-radius;
+        }
+
+        .nav-item:hover .nav-link {
+            border: 1px solid $brand-primary;
+        }
+    }
+
+    &-transparent {
+        position: relative;
+
+        &_container {
+
+            @include media-breakpoint-up(lg) {
+                border-bottom: $nav-border;
+                height: $nav-height;
+            }
+        }
+    }
+
+    .nav-link {
+        text-transform: $nav-text-transform;
+    }
+
+    &_logo {
+        max-height: 30px;
+        max-width: $logo-max-width;
+
+        @include media-breakpoint-up(md) {
+            max-height: 50px;
+        }
+
+        &-large {
+            width: 55px;
+
+            @include media-breakpoint-up(md) {
+                width: $navbar-logo-medium;
+            }
+
+            @include media-breakpoint-up(lg) {
+                width: $navbar-logo-large;
+            }
+        }
+    }
+
+    &_container {
+        @include make-container();
+        max-width: 1140px;
+
+        @include media-breakpoint-up(md) {
+            justify-content: center;
+        }
+    }
+
+    &_menu {
+        width: 100%;
+
+        @media (min-width: breakpoint-min(sm)) {
+            margin-top: 13px;
+        }
+    }
+
+    &_menuContainer {
+        width: 100%;
+
+        &_hrgo {
+            margin-top: 3px;
+            width: auto;
+        }
+
+        @media (min-width: breakpoint-min(sm)) {
+            width: auto;
+            flex-grow: 0;
+        }
+    }
+
+    &_item {
+        width: 100%;
+        text-transform: $headings-weight;
+
+        @media (min-width: breakpoint-min(sm)) {
+            width: auto;
+            padding-right: 1em;
+        }
+    }
+
+    &-small {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    &-custom-toggler {
+        background-color: $brand-primary;
+    }
+
+
+    &-hamburger {
+        background-image: url('/images/icons/hamburger.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 0;
+        width: 21px;
+        height: 21px;
+    }
+}
+
+.nav-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sub-arrow {
+    color: $brand-primary;
+    padding-left: 5px;
+    font-size: $font-size-sm;
+}
+
+.active .sub-arrow {
+    color: $white;
+}
+
+.dropdown-item {
+    .sub-arrow {
+        float: right;
+        transform: rotate(-90deg);
+    }
+}
+
+.nav {
+    &_line {
+        width: 20px;
+        height: 2px;
+        margin-bottom: 10px;
+
+        &-primary {
+            background-color: $brand-primary;
+        }
+
+        &-secondary {
+            background-color: $brand-secondary;
+        }
+    }
+}
+
+// sass-lint:disable no-important
+.dropdown-menu {
+    @include media-breakpoint-down(xs) {
+        margin-left: 0!important;
+    }
+}
+
+// accomdates for the header space when using sticky nav
+.negative-nav {
+    @include media-breakpoint-up(lg) {
+        margin-top: -$negative-nav-height;
+    }
+}

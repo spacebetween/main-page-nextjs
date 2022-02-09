@@ -1,4 +1,3 @@
-import Cookies from "cookies";
 import { v4 as uuidv4 } from "uuid";
 import App from "next/app";
 import Head from "next/head";
@@ -24,14 +23,7 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async (appContext) => {
 
   const appProps = await App.getInitialProps(appContext);
-  const { req, res } = appContext.ctx;
-  const cookies = new Cookies(req, res);
-
-  let token = cookies.get("token");
-  if (!token) {
-    token = uuidv4();
-    cookies.set("token", token);
-  }
+    const token = uuidv4();
   return { ...appProps, token };
 };
 

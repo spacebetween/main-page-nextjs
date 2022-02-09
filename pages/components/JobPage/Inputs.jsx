@@ -38,6 +38,7 @@ const Inputs = () => {
           Where?
         </label>
         <AutoComplete
+        className="input"
         apiKey="AIzaSyDYs_dbyLHice28mYB3KU2Vx7xGZZeAYic"
         onPlaceSelected={(place) => console.log(place)}
         options={{
@@ -54,39 +55,9 @@ const Inputs = () => {
           paddingLeft: '0',
           width: '100%',
           outline: 'none',
-          borderBottomColor: '#000'
+          borderBottomColor: '#000',
         }}
       />
-        <input
-          data-val="true"
-          data-val-number="The field Latitude must be a number."
-          id="Latitude"
-          name="Latitude"
-          type="hidden"
-          defaultValue=""
-        />
-        <input
-          data-val="true"
-          data-val-number="The field Longitude must be a number."
-          id="Longitude"
-          name="Longitude"
-          type="hidden"
-          defaultValue=""
-        />
-        <input
-          id="ExcludedKeywords"
-          name="ExcludedKeywords"
-          type="hidden"
-          defaultValue=""
-        />
-        <input
-          data-val="true"
-          data-val-required="The ExcludeNationwide field is required."
-          id="ExcludeNationwide"
-          name="ExcludeNationwide"
-          type="hidden"
-          value="False"
-        />
         <div className="locateMe">
           <i className="location"></i>
         </div>

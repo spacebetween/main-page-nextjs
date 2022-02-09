@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import Dropdowns from "./components/JobPage/Dropdowns";
 import Inputs from "./components/JobPage/Inputs";
 import JobsList from "./components/JobPage/JobsList";
+import SelectedFilters from "./components/JobPage/SelectedFilters";
 import SortButtons from "./components/JobPage/SortButtons";
 
 export default function Home() {
@@ -23,8 +24,6 @@ export default function Home() {
   const handleCrossClick = () => {
     showMenuMobile(false);
   };
-
-
 
   return (
     <div className="mega-navigation">
@@ -558,69 +557,7 @@ export default function Home() {
                         <SortButtons/>
                       </div>
                     </div>
-                    <div className="filterTabs mb-2 pos-relative icon-lightGrey">
-                      <div className="d-inline-block">
-                        <div className="filterTabs_item d-inline-block fontSize-12">
-                          Temporary
-                          <a
-                            href=""
-                            className="icon-white filterTabs_item_link"
-                          >
-                            <i
-                              className="icomoon-cross align-middle fontSize-18 filterTabs_item-close"
-                              id="JobType"
-                            ></i>
-                          </a>
-                        </div>
-                        <div className="filterTabs_wrapper-arrow pos-relative d-inline-block">
-                          <div className="filterTabs-right-arrow d-inline-block"></div>
-                        </div>
-                      </div>
-                      <div className="d-inline-block">
-                        <div className="filterTabs_item d-inline-block fontSize-12">
-                          5 miles
-                          <a
-                            href=""
-                            className="icon-white filterTabs_item_link"
-                          >
-                            <i
-                              className="icomoon-cross align-middle fontSize-18 filterTabs_item-close"
-                              id="Distance"
-                            ></i>
-                          </a>
-                        </div>
-                        <div className="filterTabs_wrapper-arrow pos-relative d-inline-block">
-                          <div className="filterTabs-right-arrow d-inline-block"></div>
-                        </div>
-                      </div>
-                      <div className="d-inline-block">
-                        <div className="filterTabs_item d-inline-block fontSize-12">
-                          Design
-                          <a
-                            href=""
-                            className="icon-white filterTabs_item_link"
-                          >
-                            <i
-                              className="icomoon-cross align-middle fontSize-18 filterTabs_item-close"
-                              id="JobSector"
-                            ></i>
-                          </a>
-                        </div>
-                        <div className="filterTabs_wrapper-arrow pos-relative d-inline-block">
-                          <div className="filterTabs-right-arrow d-inline-block"></div>
-                        </div>
-                      </div>
-
-                      <div className="d-inline-block mt-hf">
-                        <a
-                          href="/jobs"
-                          className="fontSize-14"
-                          id="clearAllFilters"
-                        >
-                          Clear all filters
-                        </a>
-                      </div>
-                    </div>
+                    <SelectedFilters/>
                    <JobsList/>
                   </div>
                 </div>

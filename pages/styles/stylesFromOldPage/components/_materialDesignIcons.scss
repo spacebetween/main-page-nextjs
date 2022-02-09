@@ -1,0 +1,37 @@
+// http://google.github.io/material-design-icons/
+// https://design.google.com/icons/
+
+$md-dark: rgba(0, 0, 0, .54);
+$md-dark-inactive: rgba(0, 0, 0, .26);
+
+$md-light: rgba(255, 255, 255, 1);
+$md-light-inactive: rgba(255, 255, 255, .3);
+
+.material-icons {
+    &.md-tiny {
+        font-size: 8px;
+    }
+    &.md-small {
+        font-size: 14px;
+    }
+    &.md-medium {
+        font-size: 20px;
+    }
+    &.md-large {
+        font-size: 32px;
+    }
+
+    &.md-dark {
+        color: $md-dark;
+        &.md-inactive {
+            color: $md-dark-inactive;
+        }
+    }
+
+    &.md-light {
+        color: $md-light;
+        &.md-inactive {
+            color: $md-light-inactive;
+        }
+    }
+}

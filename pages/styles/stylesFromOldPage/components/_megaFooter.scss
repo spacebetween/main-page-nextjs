@@ -1,0 +1,146 @@
+.site-footer {
+	background: #2A2C2E;
+	color: $white;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	border-top: 3px solid $footer-border;
+
+	.menu-item {
+		@include media-breakpoint-up(lg) {
+			width: 20%;
+		}
+
+		.icon {
+			background: url("https://www.hrgo.co.uk/images/nav/nav-circle-plus.svg");
+			background-size: 16px;
+			margin: 0 0 0 10px;
+			display: inline-block;
+		}
+
+		&.active {
+			.icon {
+				background-image: url("https://www.hrgo.co.uk/images/nav/nav-circle-minus.svg");
+			}
+		}
+	}
+
+	.menu-link {
+		display: inline-block;
+		color: $white;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 16px;
+		margin-bottom: 10px;
+
+		@include media-breakpoint-up(lg) {
+			margin-bottom: 25px;
+		}
+	}
+
+	.submenu-link {
+		color: #D3DAE2;
+		font-size: 16px;
+		font-weight: 400;
+		padding: 12px 0;
+
+		@include media-breakpoint-up(md) {
+			font-size: 12px;
+			padding: 0;
+		}
+	}
+
+	.submenu {
+		margin: 0 0 10px 0;
+		height: 0;
+		overflow: hidden;
+
+		@include media-breakpoint-up(lg) {
+			height: auto;
+		}
+
+		.submenu-item {
+			@include media-breakpoint-up(lg) {
+				margin: 0 0 10px 0;
+			}
+		}
+	}
+
+	.footer-columns {
+		@include media-breakpoint-up(lg) {
+			display: flex;
+			margin-top: 20px;
+			justify-content: center;
+		}
+
+		.main-column {
+			text-align: center;
+
+			@include media-breakpoint-up(lg) {
+				width: 60%;
+				text-align: left;
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		.side-column {
+			text-align: center;
+
+			@include media-breakpoint-up(lg) {
+				width: 20%;
+				text-align: left;
+				display: flex;
+				align-items: center;
+			}
+		}
+	}
+
+	.copyright {
+		color: #D3DAE2;
+		font-size: 12px;
+		text-align: center;
+
+		a {
+			color: #999999;
+
+			&:hover {
+				color: #ffffff;
+			}
+		}
+	}
+
+	.footer-links {
+		display: flex;
+		align-items: center;
+
+		a {
+			display: inline-block;
+
+			@include media-breakpoint-up(lg) {
+				margin-right: 32px;
+			}
+		}
+
+		img {
+			height: 33px !important;
+			width: auto !important;
+		}
+	}
+
+	.footer-media-link {
+		display: inline-block;
+		width: 25px;
+		height: 25px;
+		margin: 0 7px 0 0;
+
+		img {
+			width: 25px !important;
+			height: 25px !important;
+		}
+	}
+
+	.reviews-logo {
+		width: 150px;
+		height: 70px;
+	}
+}

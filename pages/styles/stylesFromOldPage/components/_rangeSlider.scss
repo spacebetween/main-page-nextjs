@@ -1,0 +1,150 @@
+﻿// sass-lint:disable no-vendor-prefixes
+.rangeSlider,
+.rangeSlider .rangeSlider_slider,
+.rangeSlider .rangeSlider_track,
+.rangeSlider .rangeSlider_fill,
+.range_labels {
+    max-width: 223px;
+}
+
+.rangeSlider,
+.rangeSlider .rangeSlider_slider,
+.rangeSlider .rangeSlider_track {
+    overflow: visible;
+    border: 0 none;
+}
+
+.rangeSlider {
+
+    &_slider,
+    &_track,
+    &_fill,
+    &_thumb {
+        position: absolute;
+    }
+
+    &_slider {
+        left: 0;
+        top: 0;
+        z-index: 100;
+
+        &[type='range'] {
+            height: 5px;
+            -webkit-appearance: none;
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                border: 0 none;
+                height: 17px;
+                width: 17px;
+                border-radius: 50%;
+                background: transparent;
+                cursor: pointer;
+            }
+
+            &::-moz-range-track {
+                width: 100%;
+                height: 5px;
+                -moz-appearance: none;
+                margin: 0;
+                padding: 0;
+                border: 0 none;
+                background: transparent;
+                color: transparent;
+                overflow: visible;
+            }
+
+            &::-moz-range-thumb {
+                -webkit-appearance: none;
+                border: 0 none;
+                height: 17px;
+                width: 17px;
+                border-radius: 50%;
+                background: transparent;
+                cursor: pointer;
+            }
+
+            &::-ms-track {
+                width: 100%;
+                height: 5px;
+                -webkit-appearance: none;
+                margin: 0;
+                padding: 0;
+                border: 0 none;
+                background: transparent;
+                color: transparent;
+                overflow: visible;
+            }
+
+            &::-ms-thumb {
+                -webkit-appearance: none;
+                border: 0 none;
+                height: 17px;
+                width: 17px;
+                border-radius: 50%;
+                background: transparent;
+                cursor: pointer;
+            }
+
+            &::-ms-fill-lower {
+                background: transparent;
+                border: 0 none;
+            }
+
+            &::-ms-fill-upper {
+                background: transparent;
+                border: 0 none;
+            }
+
+            &::-ms-tooltip {
+                display: none;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    &_track,
+    &_fill {
+        height: 5px;
+    }
+
+    &_track {
+        background: $gray-lighter;
+        z-index: 1;
+    }
+
+    &_fill {
+        width: 100%;
+        background: $link-color;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    &_thumb {
+        border: 2px solid $gray-lightest;
+        background: $brand-primary;
+        border-radius: 50%;
+        height: 17px;
+        width: 17px;
+        cursor: pointer;
+        top: -6px;
+        z-index: 3;
+    }
+}
+
+.range_labels {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+
+    &_item {
+        color: $gray-light;
+        font-size: 10px;
+    }
+}

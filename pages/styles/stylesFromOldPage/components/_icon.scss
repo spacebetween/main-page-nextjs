@@ -1,0 +1,26 @@
+﻿.icon {
+    &-lightGrey {
+        color: $icon-colour;
+    }
+
+    &-primary {
+        color: $brand-primary;
+    }
+
+    &-secondary {
+        color: $brand-secondary;
+    }
+
+    &-white {
+        color: $white;
+    }
+}
+
+.cash-icon {
+    background-image: url('/images/icons/coin.svg');
+    width: 14px;
+    display: inline-block;
+    height: 14px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

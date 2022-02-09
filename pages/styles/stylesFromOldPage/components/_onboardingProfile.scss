@@ -1,0 +1,91 @@
+﻿.onboardProfile {
+    &_notify {
+        .icomoon-warning,
+        .icomoon-cross-thin,
+        .icomoon-info {
+            font-size: 65px;
+        }
+
+        &_content {
+            @media screen and (max-width: 992px) {
+                flex-direction: column;
+            }
+        }
+
+        &_headline {
+            @media screen and (max-width: 425px) {
+                font-size: 18px;
+            }
+        }
+    }
+
+    &_task {
+        .icomoon {
+            &-case,
+            &-file,
+            &-card,
+            &-car,
+            &-user,
+            &-emergencyLight,
+            &-historyTime,
+            &-clock,
+            &-emergency,
+            &-info,
+            &-bubble-user {
+                font-size: 65px;
+            }
+        }
+    }
+
+    &_disabled,
+    &_disabled:hover,
+    &_disabled:focus {
+        color: $icon-colour;
+        pointer-events: none;
+        cursor: not-allowed;
+        background-color: $gray-lightest;
+        opacity: .85;
+    }
+
+    &_icon {
+        color: $white;
+        font-size: 97px;
+        min-width: 140px;
+        height: 140px;
+        border-bottom: $border-width solid $gray-lighter;
+
+        @media screen and (max-width: 425px) {
+            min-width: 102px;
+            height: 97px;
+            font-size: 70px;
+        }
+
+        &-done {
+            background-color: $brand-success;
+        }
+
+        &-visible {
+            background-color: #2196f3;
+            .icomoon-info {
+                font-size: 94px;
+            }
+        }
+
+        &-warning {
+            background-color: $brand-info;
+        }
+
+        &-error {
+            background-color: $brand-danger;
+        }
+
+        &-disabled {
+            background-color: $gray-light;
+            opacity: .65;
+        }
+    }
+
+    &_cta-disabled {
+        color: $gray-light;
+    }
+}

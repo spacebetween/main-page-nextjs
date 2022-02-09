@@ -1,0 +1,69 @@
+﻿.customPagination {
+    text-align: center;
+
+    &_element {
+        &_link {
+            min-width: 35px;
+            background-color: $white;
+            border: $border-width solid $gray-lighter;
+            padding: $spacer * .5;
+
+            @include media-breakpoint-up(sm) {
+                min-width: 42px;
+            }
+        }
+
+        &_link.active,
+        &_link.active:hover,
+        &_link.active:focus {
+            background-color: $link-color;
+            border-color: $link-color;
+            z-index: 2;
+            color: $white;
+            cursor: default;
+        }
+
+        &_link.disabled,
+        &_link.disabled:hover,
+        &_link.disabled:focus {
+            color: $icon-colour;
+            pointer-events: none;
+            cursor: not-allowed;
+            background-color: $gray-lightest;
+        }
+
+        &_link:hover,
+        &_link:focus {
+            text-decoration: none;
+            background-color: $gray-lightest;
+        }
+    }
+
+    &_navBtn {
+        justify-content: center;
+        align-items: baseline;
+    }
+
+    &-jobs {
+        z-index: 1;
+
+        &::before {
+            border-top: $border-width solid $hr-border-color;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        &_text {
+            background-color: $gray-lighter;
+        }
+    }
+}
+
+.blogList .pagination {
+  overflow: hidden;
+}

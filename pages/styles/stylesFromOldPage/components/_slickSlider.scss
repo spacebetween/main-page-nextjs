@@ -1,0 +1,42 @@
+﻿// sass-lint:disable no-important
+.slick {
+    &-next,
+    &-prev {
+        width: unset;
+        height: unset;
+        padding: unset;
+        transform: unset;
+        top: 20%;
+    }
+
+    &-next::before,
+    &-prev::before {
+        font-family: 'icomoon'!important;
+        font-size: $spacer * 3;
+        color: $black;
+
+        @media screen and (max-width: 425px) {
+            font-size: $spacer * 2;
+        }
+    }
+
+    &-prev {
+        @media screen and (max-width: 575px) {
+            left: 0;
+        }
+
+        &::before {
+            content: '\edc6';
+        }
+    }
+
+    &-next {
+        @media screen and (max-width: 575px) {
+            right: 0;
+        }
+
+        &::before {
+            content: '\edbe';
+        }
+    }
+}

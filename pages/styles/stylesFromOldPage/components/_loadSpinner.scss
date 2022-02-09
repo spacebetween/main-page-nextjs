@@ -1,0 +1,34 @@
+﻿.spinner {
+    &_wrapper {
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        height: 100%;
+        background-color: transparentize($gray-lighter, .3);
+    }
+
+    &_component {
+        margin: 25% auto;
+        width: 145px;
+        height: 90px;
+        box-shadow: $box-shadow;
+
+        &_icon {
+            color: $brand-primary;
+            font-size: $font-size-base * 2;
+            animation: spinner .7s linear infinite;
+        }
+    }
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

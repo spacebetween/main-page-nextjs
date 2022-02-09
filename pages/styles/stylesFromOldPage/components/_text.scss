@@ -1,0 +1,39 @@
+﻿.text {
+    &-nowrap {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-black {
+        color: $black;
+    }
+
+    &-white {
+        color: $white;
+    }
+
+    &-darkGrey {
+        color: $gray-dark;
+    }
+
+    &-lightGrey {
+        color: $gray-light;
+    }
+
+    &-info {
+        color: $brand-info;
+    }
+
+    &_borderBottom {
+        border-bottom: .5px solid $icon-colour;
+    }
+
+    &-spacedOut {
+        letter-spacing: .6px;
+    }
+
+    &-prewrap {
+        white-space: pre-wrap;
+    }
+}

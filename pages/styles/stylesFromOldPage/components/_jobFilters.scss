@@ -1,0 +1,65 @@
+﻿.sortBy {
+    &_wrapper {
+        overflow: hidden;
+        text-align: center;
+    }
+
+    &_element {
+        line-height: 1.25;
+        color: $gray;
+        padding: .3rem .9rem;
+        background-color: $white;
+        float: left;
+        cursor: pointer;
+
+        @include media-breakpoint-between(md, lg) {
+            width: 100%;
+        }
+
+        &.active {
+            color: $link-color;
+            border-color: $link-color;
+        }
+
+        &-date {
+            border-radius: $border-radius 0 0 $border-radius;
+        }
+
+        &-pay {
+            border-radius: 0 $border-radius $border-radius 0;
+        }
+
+        &-relevance,
+        &-pay,
+        &-date {
+            border: $border-width * .5 solid $hr-border-color;
+
+            @include media-breakpoint-between(md, lg) {
+                border-radius: $border-radius;
+            }
+        }
+    }
+}
+
+.loadMore_link:focus,
+.loadMore_link:hover,
+.goBack_link:focus,
+.goBack_link:hover {
+    text-decoration: none;
+}
+
+.loadMore_wrapper {
+
+    .loadMore_link:focus {
+        color: $link-color;
+    }
+
+    .loadMore_link:hover {
+        color: $link-hover-color;
+    }
+}
+
+.industryCount {
+    font-size: .7rem;
+    color: #c2c1c2;
+}

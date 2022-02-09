@@ -1,0 +1,143 @@
+﻿// sass-lint:disable no-ids
+
+.customUmbracoForm {
+    padding: $spacer 0;
+
+    .contourPageName {
+        font-size: $h2-font-size;
+        line-height: 2em;
+    }
+
+    .contourField {
+        clear: both;
+        input {
+            line-height: 1rem;
+        }
+    }
+
+    .contourField div label {
+        display: inline;
+    }
+
+    label.fieldLabel {
+        font-weight: $dt-font-weight;
+        display: block;
+        background: transparent;
+    }
+
+    small {
+        display: block;
+        float: left;
+        clear: both;
+        padding: $spacer * .5 $spacer * .5 $spacer * .5 200px;
+    }
+
+    fieldset {
+        padding: $spacer $spacer 0 0;
+        margin: 0 0 $spacer * 1.5;
+        border: 0;
+    }
+
+    .contourNavigation {
+        padding: $spacer 0;
+    }
+
+    legend {
+        font-weight: $dt-font-weight;
+        font-size: $font-size-lg;
+        line-height: 1.2em;
+        display: block;
+    }
+
+    input.text,
+    input.title,
+    textarea,
+    select {
+        margin: $spacer * .5 0;
+        border: $border-width solid lighten($gray, 30);
+    }
+
+    input.text:focus,
+    input.title:focus,
+    textarea:focus,
+    select:focus {
+        border: $border-width solid $gray;
+    }
+
+    input.text,
+    textarea {
+        max-width: 400px;
+        padding: $spacer * .5 $spacer * .5;
+        display: block;
+        width: 95%;
+    }
+
+    input.fileupload {
+        height: auto;
+    }
+
+    span.checkboxlist,
+    span.radiobuttonlist,
+    span.checkbox {
+        display: block;
+        float: left;
+        padding: $spacer;
+    }
+
+    .checkboxlist label {
+        float: left;
+        clear: left;
+    }
+
+    .checkboxlist input,
+    .radiobuttonlist input,
+    .checkbox input {
+        width: auto;
+        height: auto;
+        border: 0;
+        display: inline;
+    }
+
+    .hiddenfield {
+        display: none;
+    }
+
+    .contourButton {
+        margin-right: $spacer;
+        padding: 2px $spacer;
+    }
+
+    .contourErrorMessage {
+        padding: $spacer;
+        margin-bottom: $spacer * .5;
+        border: 2px solid lighten($brand-danger, 25);
+    }
+
+    .contourErrorMessage,
+    .contourError {
+        background: $brand-danger;
+        color: $brand-danger;
+    }
+
+    input.contourError,
+    textarea.contourError,
+    input.input-validation-error,
+    textarea.input-validation-error {
+        background: lighten($brand-danger, 35);
+        border-color: lighten($brand-danger, 25);
+    }
+
+    #span.contourError,
+    span.field-validation-error {
+        color: $brand-danger;
+        background: transparent;
+    }
+
+    #recaptcha_widget_div {
+        margin-left: 200px;
+    }
+
+    .field-validation-error {
+        padding-left: $spacer * .5;
+    }
+}

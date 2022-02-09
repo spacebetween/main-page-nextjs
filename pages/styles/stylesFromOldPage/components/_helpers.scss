@@ -1,0 +1,163 @@
+// sass-lint:disable no-vendor-prefixes
+
+.subTitleOffSet {
+    position: absolute;
+    top: -1rem;
+}
+
+.defaultCursor {
+    cursor: default;
+}
+
+.minHeight {
+    &-small {
+        min-height: 100px;
+    }
+}
+
+.responsiveImage {
+    max-width: 100%;
+}
+
+.arrowedListItem::before {
+    content: '>';
+}
+
+.flexElements {
+    display: flex;
+
+    &_equalChild {
+        flex: 1;
+    }
+
+    &-spaceAround {
+        flex-flow: row wrap;
+        justify-content: space-around;
+    }
+
+    &-center {
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    &-spacebetween {
+        justify-content: space-between;
+    }
+}
+
+.retainAspect {
+    position: relative;
+    width: 75px;
+    height: 50px;
+
+    &_child {
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        margin: auto;
+        top: 0;
+    }
+
+    &-block {
+        display: block;
+    }
+}
+
+.blockquote {
+    padding: $spacer * .5 $spacer;
+    border-left: $spacer * .25 solid;
+    border-color: $brand-primary;
+}
+
+.rounded {
+    border-radius: 5px;
+}
+
+.scrollable {
+    overflow-y: scroll;
+}
+
+.d-flex {
+    display: flex;
+
+    &-icon {
+        flex: 0 0 64px;
+    }
+    &-grow {
+        flex: 1;
+    }
+}
+
+.my-auto {
+    margin: auto 0;
+}
+
+.error {
+    color: $brand-danger;
+}
+
+.pos-relative {
+    position: relative;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.hoverImage {
+    img:last-child {
+        display: none;
+    }
+
+    &:hover img:last-child {
+        display: block;
+    }
+
+    &:hover img:first-child {
+        display: none;
+    }
+}
+
+.verticalAlign {
+    &-middle {
+        vertical-align: -webkit-baseline-middle;
+    }
+}
+
+.flexAlign-center {
+    align-items: center;
+}
+
+@mixin transition-transform {
+    transition: transform $animation-timing $animation-curve;
+}
+
+@mixin transition-left {
+    transition: left $animation-timing $animation-curve;
+}
+
+@mixin transition-visibility {
+    transition: visibility $animation-timing $animation-curve;
+}
+
+@mixin transition-opacity {
+    transition: opacity calc($animation-timing / 2) $animation-curve;
+}
+
+.useJobFont,
+.useJobFont h1,
+.useJobFont h3,
+.useJobFont h5,
+.useJobFont a {
+    font-family: $job-page-font-family;
+
+    h1 {
+        font-size: 48px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+}

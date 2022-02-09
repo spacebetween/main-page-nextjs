@@ -1,0 +1,15 @@
+.header {
+  height: 80px;
+}
+
+.header-active {
+  @media (min-width: 992px) {
+    height: 1000px;
+  }
+}
+
+.header-inactive {
+  @media (min-width: 992px) {
+    height: 0px;
+  }
+}

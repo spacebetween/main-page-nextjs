@@ -1,0 +1,248 @@
+.register {
+
+    &_container {
+        width: 100%;
+        margin: 0;
+        padding: 40px;
+
+        @include media-breakpoint-up(sm) {
+            width: 540px;
+            border-radius: 5px;
+            box-shadow: $box-shadow;
+        }
+    }
+
+    &_lead {
+        font-size: 18px;
+    }
+
+    &_block {
+        position: relative;
+    }
+
+    &_field:active,
+    &_field:focus,
+    &_field_dropdown:active,
+    &_field_dropdown:focus {
+        border: 1px solid $brand-info;
+        outline: none;
+    }
+
+    &_field {
+        border: 1px solid rgba(0, 0, 0, .15);
+        padding: 5px 10px;
+        color: $gray;
+        min-height: 42px;
+
+        &-dropdown,
+        &-left {
+            appearance: none;
+            background: url('/images/icons/select-arrow.svg') no-repeat;
+            background-size: 10px;
+            background-position: 90%;
+            margin-right: 2px;
+        }
+
+        &-left {
+            border-radius: 5px 0 0 5px;
+            width: 98px;
+        }
+
+        &-right {
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            width: calc(100% - 100px);
+            margin-left: -5px;
+            margin-top: 2px;
+        }
+    }
+
+    &_icon {
+        position: absolute;
+        top: 40%;
+        right: 5px;
+        color: $brand-warning;
+    }
+
+    &_link {
+        color: $brand-info;
+
+        &-right {
+            font-size: 14px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    &_dropDown {
+        color: $gray;
+
+        &::after {
+            font-family: Material Icons;
+            content: 'arrow_drop_down';
+            width: 0;
+            height: 0;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            margin-top: -3px;
+        }
+    }
+
+    &_label {
+        font-family: $font-family-serif;
+    }
+
+    &_fieldParent {
+        position: relative;
+
+        &::after {
+            position: absolute;
+            right: 9px;
+            font-family: Material Icons;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            top: 10px;
+        }
+
+        &.error {
+            &::after {
+                content: '\E5CD';
+            }
+
+            input,
+            select {
+                border: 1px solid lighten($brand-danger, 30);
+            }
+        }
+
+        &.success {
+            &::after {
+                content: '\E5CA';
+                color: $brand-success;
+            }
+        }
+
+        &-padded {
+            &::after {
+                top: 17px;
+            }
+        }
+    }
+
+    &-tick {
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
+        position: relative;
+        background-color: $brand-success;
+        margin: 0 auto;
+
+        &::after {
+            content: '\E5CA';
+            position: absolute;
+            right: 15px;
+            font-family: Material Icons;
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 1;
+            top: 15px;
+            color: $white;
+        }
+    }
+
+    &-cross {
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
+        position: relative;
+        background-color: $brand-danger;
+        margin: 0 auto;
+
+        &-modalHeader {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+        }
+
+        &::after {
+            content: '\E5CD';
+            position: absolute;
+            right: 15px;
+            font-family: Material Icons;
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 1;
+            top: 15px;
+            color: $white;
+        }
+    }
+
+    &_checkboxWrapper {
+        padding: 5px 10px 10px 35px;
+    }
+
+    &_checkbox {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 16px;
+        background-color: $brand-info;
+    }
+
+    &_arrow {
+        position: absolute;
+        top: -20px;
+        height: 90px;
+        right: -80px;
+    }
+
+    &_loader {
+        border-radius: 100%;
+        position: relative;
+        margin: 0 auto;
+
+        span {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 100%;
+            background-color: $white;
+            margin: 0 3px;
+            opacity: 0;
+        }
+
+        span:nth-child(1) {
+            animation: opacitychange 1s ease-in-out infinite;
+        }
+
+        span:nth-child(2) {
+            animation: opacitychange 1s ease-in-out .33s infinite;
+        }
+
+        span:nth-child(3) {
+            animation: opacitychange 1s ease-in-out .66s infinite;
+        }
+
+        @keyframes opacitychange {
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            60% {
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+﻿.checkbox {
+    &_container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    &_label {
+        .checkbox-custom {
+            top: 3px;
+        }
+    }
+
+    &_container,
+    &_label {
+        cursor: pointer;
+        user-select: none;
+
+        .error {
+            position: absolute;
+            bottom: 0;
+        }
+
+        input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .checkbox-custom::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: $link-color;
+            border-radius: 2px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+        }
+
+        input:checked ~ .checkbox-custom::after { // Show the checkmark when checked
+            display: block;
+        }
+    }
+
+    &-custom {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 16px;
+        width: 16px;
+        background-color: #fff;
+        border: $border-width solid $color-3-bg;
+        border-radius: 3px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            display: none;
+        }
+    }
+}

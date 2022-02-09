@@ -1,0 +1,324 @@
+// GLOBAL STYLES
+//Variables
+
+// Colors
+//
+// Grayscale and brand colors for use across Bootstrap.
+
+$gray-dark: #373a3c;
+$gray: #55595c;
+$gray-light: #818a91;
+$gray-lighter: #ebebeb;
+$gray-lightest: #f7f7f7;
+
+$white: #fff;
+$black: rgba(0, 0, 0, 0.87);
+
+$brand-primary: #f60;
+$brand-primary-light: lighten($brand-primary, 20);
+$brand-primary-dark: darken($brand-primary, 20);
+$brand-primary-text: $white;
+
+$brand-secondary: #0054a6;
+$brand-secondary-light: lighten($brand-secondary, 20);
+$brand-secondary-dark: darken($brand-secondary, 20);
+$brand-secondary-text: $white;
+
+$brand-success: #0ead0e;
+$brand-info: #2196f3;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+
+$color-1-bg: $black;
+$color-1-text: $white;
+$color-2-bg: $white;
+$color-2-text: $black;
+$color-3-bg: $gray-lighter;
+$color-3-text: $black;
+$color-4-bg: #e4eaed;
+$color-4-text: $black;
+
+// Body
+//
+// Settings for the `<body>` element.
+$body-bg: $white;
+$body-color: $black;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif: "Lato", Helvetica, Arial, sans-serif;
+$font-family-serif: "Lato", "Times New Roman", Times, serif;
+$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base: $font-family-sans-serif;
+
+// Logo
+//
+// Setting max widths
+$logo-max-width: 215px;
+
+// Links
+//
+// Style anchor elements.
+
+$link-color: #2095f3 !default;
+$link-decoration: none !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
+
+//Imports
+@import "./stylesFromOldPage/globalSettings";
+
+// Overrides
+$headings-font-weight: 700;
+$hr-location-heading-color: #9e9e9e;
+$color-1-alt-bg: #018af1;
+
+@import "./stylesFromOldPage/vendor/jquery-ui";
+@import "./stylesFromOldPage/vendor/jquery-ui.theme";
+@import "./stylesFromOldPage/vendor/owl.carousel";
+@import "./stylesFromOldPage/vendor/owl.theme.default";
+
+// Additional button with new brand colour
+.btn {
+  border-radius: 8px;
+}
+
+.btn-blue,
+.btn-blue:hover {
+  background-color: #2095f3;
+  border-color: #2095f3;
+  color: #fff;
+}
+
+.btn-green,
+.btn-green:hover {
+  background-color: #06b87d;
+  border-color: #06b87d;
+  color: #fff;
+}
+
+.bg-video {
+  display: none;
+  margin: 0 auto;
+}
+
+.opacity-low {
+  opacity: 0.8;
+}
+
+.opacity-medium {
+  opacity: 0.5;
+}
+
+.opacity-high {
+  opacity: 0.2;
+}
+
+.font-large {
+  font-size: 30px;
+}
+
+.font-medium {
+  font-size: 24px;
+}
+
+.card_body-large {
+  height: 488px !important;
+}
+
+.footer-links img {
+  display: inline !important;
+}
+
+// END OF GLOBAL STYLES
+
+// sass-lint:disable clean-import-paths
+// Import bootstrap
+// Core variables and mixins
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// Reset and dependencies
+// @import 'bootstrap/scss/reboot';
+@import "bootstrap/scss/print";
+
+// Core CSS
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/code";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+
+// // Components
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/input-group";
+@import "bootstrap/scss/custom-forms";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/media";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/transitions";
+
+// Components w/ JavaScript
+@import "bootstrap/scss/modal";
+
+// Utility classes
+@import "bootstrap/scss/utilities";
+
+// import hover css
+// @import 'imagehover.css/scss/imagehover';
+
+//import slick slider. File extensions needed as there a multiple file types
+// @import 'slick-carousel/slick/slick.scss';
+// @import 'slick-carousel/slick/slick-theme.scss';
+
+// @import 'stylesFromOldPage/globalSettings';
+
+// Import Custom Components
+@import "stylesFromOldPage/components/text";
+
+@import "stylesFromOldPage/components/align";
+@import "stylesFromOldPage/components/anchor";
+@import "stylesFromOldPage/components/animation";
+
+@import "stylesFromOldPage/components/blogDetail";
+@import "stylesFromOldPage/components/blogList";
+@import "stylesFromOldPage/components/border";
+@import "stylesFromOldPage/components/backdrop";
+@import "stylesFromOldPage/components/branchLocator";
+@import "stylesFromOldPage/components/branchFinder";
+@import "stylesFromOldPage/components/branchDetails";
+@import "stylesFromOldPage/components/brandLogo";
+@import "stylesFromOldPage/components/callout";
+@import "stylesFromOldPage/components/card";
+@import "stylesFromOldPage/components/checkbox";
+@import "stylesFromOldPage/components/colouredTextBlock";
+@import "stylesFromOldPage/components/filterTabs";
+@import "stylesFromOldPage/components/flexLink";
+@import "stylesFromOldPage/components/flipper";
+@import "stylesFromOldPage/components/fontSize";
+@import "stylesFromOldPage/components/footer";
+@import "stylesFromOldPage/components/form";
+@import "stylesFromOldPage/components/header";
+@import "stylesFromOldPage/components/helpers";
+@import "stylesFromOldPage/components/hr";
+@import "stylesFromOldPage/components/icon";
+@import "stylesFromOldPage/components/imageGrid";
+@import "stylesFromOldPage/components/searchForm";
+@import "stylesFromOldPage/components/jobDetail";
+@import "stylesFromOldPage/components/jobDetails";
+@import "stylesFromOldPage/components/jobApplication";
+@import "stylesFromOldPage/components/jobFilters";
+@import "stylesFromOldPage/components/loadSpinner";
+@import "stylesFromOldPage/components/locationMap";
+@import "stylesFromOldPage/components/materialDesignIcons";
+@import "stylesFromOldPage/components/modal";
+@import "stylesFromOldPage/components/memberProgressBar";
+@import "stylesFromOldPage/components/memberNavBar";
+@import "stylesFromOldPage/components/memberInput";
+@import "stylesFromOldPage/components/megaFooter";
+@import "stylesFromOldPage/components/nav";
+@import "stylesFromOldPage/components/onboardingState";
+@import "stylesFromOldPage/components/onboardingProfile";
+@import "stylesFromOldPage/components/onboardUser";
+@import "stylesFromOldPage/components/orderedList";
+@import "stylesFromOldPage/components/pagination";
+@import "stylesFromOldPage/components/profile";
+@import "stylesFromOldPage/components/radiobutton";
+@import "stylesFromOldPage/components/rangeChart";
+@import "stylesFromOldPage/components/rangeSlider";
+@import "stylesFromOldPage/components/register";
+@import "stylesFromOldPage/components/rteHelper";
+@import "stylesFromOldPage/components/searchBox";
+@import "stylesFromOldPage/components/shadows";
+@import "stylesFromOldPage/components/snow";
+@import "stylesFromOldPage/components/squareGrid";
+@import "stylesFromOldPage/components/standout";
+@import "stylesFromOldPage/components/slickSlider";
+@import "stylesFromOldPage/components/tiles";
+@import "stylesFromOldPage/components/transparentOverlay";
+@import "stylesFromOldPage/components/umbracoForms";
+@import "stylesFromOldPage/components/videoPlayer";
+@import "stylesFromOldPage/components/cookieConsent.scss";
+@import "stylesFromOldPage/components/_carousel.scss";
+@import "stylesFromOldPage/components/_imageCard.scss";
+@import "stylesFromOldPage/components/_fullPageNav.scss";
+@import "stylesFromOldPage/components/_overlay.scss";
+// moving backgrounds to bottom - needs to take precedence over footer
+@import "stylesFromOldPage/components/backgrounds";
+@import "stylesFromOldPage/components/buttons";
+@import "stylesFromOldPage/components/_testimonialsCarousel";
+@import "stylesFromOldPage/components/_tailwindAdj";
+
+@import "stylesFromOldPage/components/menu";
+
+@import "stylesFromOldPage/components/membersAreaSections";
+
+//Import Custom Content
+@import "stylesFromOldPage/content/typography";
+
+// Vendor Import
+@import "stylesFromOldPage/vendor/icomoon";
+@import "stylesFromOldPage/vendor/hvr";
+
+@import "stylesFromOldPage/components/_btnListFlexbox.scss";
+
+.megaNavigation {
+  padding-top: 60px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 80px;
+  }
+}
+
+.header {
+  height: 80px;
+}
+
+.header-active {
+  @media (max-width: 992px) {
+    height: 1000px !important;
+  }
+}
+
+.header-inactive {
+  @media (max-width: 992px) {
+    height: 0px !important;
+  }
+}
+
+body {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+
+.cross {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dropdownsJobFilters {
+  width: auto;
+  display: none;
+  top: auto;
+  left: 0px;
+  margin-left: -103px;
+  margin-top: 0px;
+  min-width: 10em;
+}

@@ -1,0 +1,47 @@
+﻿.filterTabs {
+    color: $gray;
+
+    &_item {
+        //background: transparentize($gray, .8);
+        background: #495057;
+        color: #fff;
+        min-width: 50px;
+        padding: 5px 0 5px 10px;
+        border-radius: $border-radius 0 0 $border-radius;
+        text-align: center;
+        border-color: #f60;
+
+        &_link:hover,
+        &_link:active,
+        &_link:focus {
+            text-decoration: $link-decoration;
+        }
+    }
+
+    &_wrapper-arrow {
+        overflow: hidden;
+        width: 16px;
+        height: 29px;
+        top: 11px;
+        left: -3.1px;
+    }
+
+    &-right-arrow {
+        background: transparentize($gray, .8);
+        background: #fff;
+        background: #495057;
+        position: absolute;
+        transform: rotate(45deg);
+        border-radius: $border-radius;
+        width: 40px;
+        height: 40px;
+        top: -5px;
+        left: -33px;
+    }
+}
+
+
+// Not BEM but required for handling the nesting of the grid editor content
+.bg-secondary .filterTabs {
+    color: $white;
+}

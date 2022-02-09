@@ -1,0 +1,25 @@
+.blogList {
+    padding-left: 0;
+    list-style: none;
+    &_blockLink {
+        display: block;
+        width: 100%;
+        color: $body-color;
+        &:hover,
+        &:focus {
+            color: $body-color;
+            text-decoration: none;
+        }
+    }
+    &_header {
+        color: $brand-primary;
+    }
+    &_image {
+        height: 185px; //16:9 for 8 lg columns
+        background: $gray-lightest no-repeat center;
+        background-size: cover;
+    }
+    &_intro {
+        padding: 0 $card-spacer-x;
+    }
+}

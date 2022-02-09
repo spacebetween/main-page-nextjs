@@ -1,0 +1,37 @@
+﻿.textBlock {
+    background-color: $gray-light;
+    color: $white;
+    position: relative;
+    &::after {
+        color: $gray-light;
+        content: '';
+        position: absolute;
+        border-top: 20px solid;
+        right: 0;
+        bottom: -20px;
+        border-left: 20px solid transparent;
+        border-right: 0 solid transparent;
+    }
+    &-primary {
+        background-color: $brand-primary;
+
+        &::after {
+            color: $brand-primary;
+        }
+    }
+    &-secondary {
+        background-color: $brand-secondary;
+
+        &::after {
+            color: $brand-secondary;
+        }
+    }
+    &-monochrome {
+        background-color: $white;
+        color: $black;
+
+        &::after {
+            color: $white;
+        }
+    }
+}

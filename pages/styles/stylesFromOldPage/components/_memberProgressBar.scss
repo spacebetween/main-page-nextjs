@@ -1,0 +1,15 @@
+﻿.progressbar {
+    &_wrapper {
+        width: 200px;
+    }
+
+    &_status {
+        left: 70px;
+        top: 38px;
+    }
+
+    &_complete {
+        bottom: 50px;
+        left: 56px;
+    }
+}

@@ -1,0 +1,90 @@
+﻿.rte {
+    &Text {
+        &-black {
+            color: $black;
+
+            a {
+                color: $black;
+            }
+        }
+
+        &-white {
+            color: $white;
+
+            a {
+                color: $white;
+            }
+        }
+
+        &-primary {
+            color: $brand-primary;
+
+            a {
+                color: $brand-primary;
+            }
+        }
+
+        &-secondary {
+            color: $brand-secondary;
+
+            a {
+                color: $brand-secondary;
+            }
+        }
+
+        &-color1 {
+            color: $color-1-bg;
+
+            a {
+                color: $color-1-bg;
+            }
+        }
+
+        &-color2 {
+            color: $color-2-bg;
+
+            a {
+                color: $color-2-bg;
+            }
+        }
+
+        &-color3 {
+            color: $color-3-bg;
+
+            a {
+                color: $color-3-bg;
+            }
+        }
+
+        &-color4 {
+            color: $rte-color-4;
+
+            a {
+                color: $rte-color-4;
+            }
+        }
+
+        &-color5 {
+            color: $rte-color-5;
+
+            a {
+                color: $rte-color-5;
+            }
+        }
+
+        &-h4,
+        &-headline {
+            font-size: $h4-font-size;
+        }
+
+        &-h5 {
+            font-size: $h5-font-size;
+        }
+    }
+
+    &Helper {
+        p {
+            margin: 0;
+        }
+    }
+}

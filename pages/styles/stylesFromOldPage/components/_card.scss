@@ -1,0 +1,350 @@
+.card {
+    width: 100%;
+    background-color: $white;
+    display: block;
+    border-radius: $border-radius;
+    overflow: hidden;
+    margin-bottom: $card-spacer-y;
+    color: $black;
+
+    @include media-breakpoint-up(md) {
+        min-height: 125px;
+    }
+
+    &_container {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &_border {
+        border: $card-border-width solid $black;
+
+        &-primary {
+            border: $card-border-width solid $brand-primary;
+        }
+
+        &-secondary {
+            border: $card-border-width solid $brand-secondary;
+        }
+    }
+
+    &-primary {
+        background-color: $brand-primary;
+        color: $brand-primary-text;
+
+        .card_link {
+            color: $brand-primary-text;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($brand-primary, .2);
+        }
+    }
+
+    &-secondary {
+        background-color: $brand-secondary;
+        color: $brand-secondary-text;
+
+        .card_link {
+            color: $brand-secondary-text;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($brand-secondary, .2);
+        }
+    }
+
+    &-monochrome {
+        background-color: $white;
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($white, .2);
+        }
+    }
+
+    &-color1 {
+        background-color: $color-1-bg;
+        color: $color-1-text;
+
+        .card_link {
+            color: $color-1-text;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($color-1-bg, .2);
+        }
+    }
+
+    &-color2 {
+        background-color: $color-2-bg;
+        color: $color-2-text;
+
+        .card_link {
+            color: $color-2-text;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($color-2-bg, .2);
+        }
+    }
+
+    &-color3 {
+        background-color: $color-3-bg;
+        color: $color-3-text;
+
+        .card_link {
+            color: $color-3-text;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($color-3-bg, .2);
+        }
+    }
+
+    &-color4 {
+        background-color: $color-4-bg;
+        color: $color-4-text;
+
+        .card_link {
+            color: $color-4-text;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($color-4-bg, .2);
+        }
+    }
+
+    &-grayLightest {
+        background-color: $gray-lightest;
+        color: $black;
+
+        .card_link {
+            color: $black;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.card-wBackgroundImage .card_bottom {
+            background-color: transparentize($gray-lightest, .2);
+        }
+    }
+
+    &-wBackgroundImage {
+        .card {
+            &_body {
+                height: 320px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                position: relative;
+
+                &-large {
+                    height: 455px;
+                }
+            }
+
+            &_bottom {
+                width: 100%;
+                display: block;
+                position: absolute;
+                bottom: 0;
+                background-color: transparentize($white, .2);
+            }
+        }
+    }
+
+    &-wLink {
+        cursor: pointer;
+    }
+
+    &-noMinHeight {
+        @include media-breakpoint-up(sm) {
+            min-height: auto;
+        }
+    }
+
+    &_top,
+    &_body {
+        width: 100%;
+        display: block;
+    }
+
+    &_top {
+        padding: $card-spacer-y $card-spacer-x;
+    }
+
+    &_description {
+        font-weight: 300;
+
+        &-fixedHeight {
+            height: 46px;
+            overflow: hidden;
+        }
+    }
+
+    &_bottom {
+        padding: $card-spacer-x;
+
+        &-slim {
+            padding: $card-spacer-y $card-spacer-x;
+        }
+    }
+
+    &_image {
+        width: 100%;
+        height: 250px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+
+        &-avatar {
+            height: 110px;
+            background-blend-mode: multiply;
+            background-color: $white;
+            border: $border-width solid $gray-lighter;
+            background-size: contain;
+        }
+    }
+
+    &_title {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+    }
+
+    &_register {
+        background-size: cover;
+        background-position: center center;
+        color: $white;
+        margin-bottom: $card-spacer-y;
+        min-height: 293px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    &_note {
+        position: absolute;
+        top: 20px;
+        right: -4px;
+        color: $white;
+        background-color: $brand-success;
+        border-radius: 4px;
+        line-height: 1.2rem;
+        font-size: 10px;
+        padding: 0 1em;
+        font-weight: 900;
+    }
+
+    &-testimonial {
+        min-height: 290px;
+        width: 255px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+
+        &_text {
+            font-family: $font-family-tertiary;
+            line-height: 17px;
+        }
+
+        &_icon {
+            width: 65px;
+            height: 65px;
+            margin-top: 9px;
+        }
+
+        &_name {
+            line-height: 13px;
+        }
+
+        &_quote {
+            height: 25px;
+            width: 65px;
+            background-color: $black;
+            left: 0;
+            right: 0;
+            top: -10px;
+            color: $white;
+        }
+
+        &_container {
+            width: 290px;
+
+            @include media-breakpoint-up(md) {
+                width: 100%;
+            }
+        }
+
+        &_arrow {
+            display: block;
+            position: absolute;
+            top: 50%;
+
+            &-left {
+                left: -35px;
+            }
+
+            &-right {
+                right: -35px;
+            }
+        }
+    }
+
+    &_profile {
+        width: 180px;
+
+        &_image {
+            background-color: $card-image-bg-color;
+            background-size: cover;
+            width: 180px;
+            height: 195px;
+
+            figcaption {
+                background: rgba(87, 87, 86, .7);
+            }
+        }
+    }
+
+    &_view_on_map {
+        position: absolute;
+        right: 20px;
+    }
+}
+
+// LeBlender override to make cards same height
+.sameCardHeight {
+    .card {
+        height: 100%;
+    }
+
+    .column {
+        > div {
+            height: 100%;
+        }
+    }
+}
+

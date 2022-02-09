@@ -1,0 +1,303 @@
+﻿// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+
+
+$enable-flex:               false;
+$enable-rounded:            true;
+$enable-shadows:            false;
+$enable-gradients:          false;
+$enable-transitions:        false;
+$enable-hover-media-query:  false;
+$enable-grid-classes:       true;
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+
+$spacer:                     1rem;
+$spacers:                    ();
+$spacers: map-merge(
+    (
+        0:  0,
+        hf: ($spacer * .5),
+        1:  ($spacer),
+        2:  ($spacer * 1.5),
+        3:  ($spacer * 3),
+        4:  ($spacer * 4),
+        5:  ($spacer * 5)
+    ),
+        $spacers
+);
+
+$border-width:               1px;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+$line-height-lg:         calc(4 / 3);
+$line-height-sm:         1.5;
+
+$border-radius:          .3rem;
+$border-radius-lg:       .3rem;
+$border-radius-sm:       .15rem;
+$border-color: rgba(0, 0, 0, 87);
+$border-thickness: 1px;
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-primary-color:              $white;
+$btn-primary-bg:                 $brand-primary;
+$btn-primary-border:             $btn-primary-bg;
+
+$btn-primary-alt-bg-color:           $brand-primary;
+
+$btn-primary-alt-bg-color-hover:     darken($brand-primary, 10%);
+$btn-primary-alt-border-color:       $brand-primary;
+$btn-primary-alt-color-hover:        $brand-primary-text;
+
+$btn-primary-outline-text: $brand-primary;
+$btn-primary-alt-outline-text:     $brand-primary;
+$btn-primary-alt-outline-color-hover: $black;
+$btn-primary-alt-outline-bg-color-hover: $white;
+$btn-primary-alt-outline-border-color: $white;
+
+$btn-primary-alt-wireframe-bg: transparent;
+$btn-primary-alt-wireframe-border: $white;
+$btn-primary-alt-wireframe-border-hover: $black;
+$btn-primary-alt-wireframe-text: $white;
+$btn-primary-alt-wireframe-text-hover: $black;
+
+$btn-secondary-color: $white;
+$btn-secondary-bg:               $brand-secondary;
+$btn-secondary-border:           $btn-secondary-bg;
+
+$btn-white-color:                $brand-primary;
+$btn-white-bg:                   $white;
+$btn-white-border:               $btn-white-bg;
+
+$btn-black-color:                $white;
+$btn-black-bg:                   $black;
+$btn-black-border:               $btn-black-bg;
+
+$btn-padding-x-sm:               .75rem;
+$btn-padding-y-sm:               .25rem;
+
+$btn-padding-x-lg:               1.25rem;
+$btn-padding-y-lg:               .75rem;
+
+$btn-transform:                  default;
+$btn-border-width:               1px;
+$btn-font-weight:                400;
+$btn-font-weight-hover:          $btn-font-weight;
+
+// Secondary button hover values
+$btn-secondary-border:         $brand-secondary;
+$btn-secondary-text:           $brand-secondary-text;
+$btn-secondary-text-hover:     $brand-secondary-text;
+$btn-secondary-border-hover:   darken($brand-secondary, 10%);
+$btn-secondary-bg-hover:       darken($brand-secondary, 10%);
+
+// Default outline button values
+$brand-primary-outline-text:     $black;
+$brand-secondary-outline-text:   $black;
+$color-1-outline-text:           $black;
+$color-2-outline-text:           $black;
+$color-3-outline-text:           $black;
+$color-4-outline-text:           $black;
+
+// Default wireframe button values
+$brand-primary-wireframe-text:             $brand-primary;
+$brand-secondary-wireframe-text:           $brand-secondary;
+$color-1-wireframe-text:                   $color-1-bg;
+$color-2-wireframe-text:                   $color-2-bg;
+$color-3-wireframe-text:                   $color-3-bg;
+$color-4-wireframe-text:                   $color-4-bg;
+
+$brand-primary-wireframe-text-hover:       $brand-primary;
+$brand-secondary-wireframe-text-hover:     $brand-secondary;
+$color-1-wireframe-text-hover:             $color-1-bg;
+$color-2-wireframe-text-hover:             $color-2-bg;
+$color-3-wireframe-text-hover:             $color-3-bg;
+$color-4-wireframe-text-hover:             $color-4-bg;
+
+$brand-primary-wireframe-border:           $brand-primary;
+$brand-secondary-wireframe-border:         $brand-secondary;
+$color-1-wireframe-border:                 $color-1-bg;
+$color-2-wireframe-border:                 $color-2-bg;
+$color-3-wireframe-border:                 $color-3-bg;
+$color-4-wireframe-border:                 $color-4-bg;
+
+$brand-primary-wireframe-border-hover:     darken($brand-primary-wireframe-border, 10%);
+$brand-secondary-wireframe-border-hover:   darken($brand-secondary-wireframe-border, 10%);
+$color-1-wireframe-border-hover:           darken($color-1-bg, 10%);
+$color-2-wireframe-border-hover:           darken($color-2-bg, 10%);
+$color-3-wireframe-border-hover:           darken($color-3-bg, 10%);
+$color-4-wireframe-border-hover:           darken($color-4-bg, 10%);
+
+$brand-primary-wireframe-bg:               transparent;
+$brand-secondary-wireframe-bg:             transparent;
+$color-1-wireframe-bg:                     transparent;
+$color-2-wireframe-bg:                     transparent;
+$color-3-wireframe-bg:                     transparent;
+$color-4-wireframe-bg:                     transparent;
+
+$brand-primary-wireframe-bg-hover:         transparent;
+$brand-secondary-wireframe-bg-hover:       transparent;
+$color-1-wireframe-bg-hover:               transparent;
+$color-2-wireframe-bg-hover:               transparent;
+$color-3-wireframe-bg-hover:               transparent;
+$color-4-wireframe-bg-hover:               transparent;
+
+$brand-primary-wireframe-bg-hover:         transparent;
+$brand-secondary-wireframe-bg-hover:       transparent;
+$color-1-wireframe-bg-hover:               transparent;
+$color-2-wireframe-bg-hover:               transparent;
+$color-3-wireframe-bg-hover:               transparent;
+$color-4-wireframe-bg-hover:               transparent;
+
+$color-1-alt-bg: $color-1-bg;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius:              .25rem;
+$btn-border-radius-lg:           .25rem;
+$btn-border-radius-sm:           .25rem;
+
+// Pixel value used to responsively scale all typography. Applied to the `<html>` element.
+$font-size-root:             16px;
+
+$font-size-base:             1rem;
+$font-size-lg:               1.25rem;
+$font-size-sm:               .875rem;
+$font-size-xs:               .75rem;
+
+$font-family-tertiary:       Lucida Console;
+
+$h1-font-size:               3rem!default;
+$h2-font-size:               2rem!default;
+$h3-font-size:               1.75rem!default;
+$h4-font-size:               1.5rem!default;
+$h5-font-size:               1.25rem!default;
+$h6-font-size:               1rem!default;
+
+$display1-size:               6rem;
+$display2-size:               5.5rem;
+$display3-size:               4.5rem;
+$display4-size:               3.5rem;
+
+$display1-weight:             400;
+$display2-weight:             400;
+$display3-weight:             400;
+$display4-weight:             400;
+
+$line-height-base:            1.5;
+
+$headings-margin-bottom:     calc($spacer / 2);
+$headings-font-family:       $font-family-serif;
+$headings-font-weight:       400;
+$headings-line-height:       1.1;
+$headings-color:             inherit;
+$headings-weight:            initial!default;
+
+$lead-font-size:             1.25rem;
+$lead-font-weight:           400;
+$lead-line-height:            1.5;
+$lead-line-height-sm:         1.3;
+$text-muted:                  transparentize($white, .3);
+
+$abbr-border-color:           $gray-light;
+
+$btn-info-color:              $white;
+$btn-info-bg:                 $brand-info;
+$btn-info-border:             $brand-info;
+
+$blockquote-small-color:      $gray-light;
+$blockquote-font-size:        ($font-size-base * 1.25);
+$blockquote-border-color:     $gray-lighter;
+
+$hr-border-color:             rgba(0, 0, 0, .1);
+$hr-border-width:             $border-width;
+$hr-heading-color:            $brand-primary;
+$hr-location-heading-color:   $brand-primary;
+
+$dt-font-weight:              bold;
+
+$nested-kbd-font-weight:      bold;
+
+$list-inline-padding:         5px;
+
+$nav-text-transform:          none;
+$nav-bg:                      $white;
+$nav-color:                   $gray-dark;
+$nav-border:                  1px solid #979797;
+$nav-primary-color:           $white;
+$nav-secondary-color:         $black;
+$nav-height:                  70px;
+$negative-nav-height:         0;
+$navbar-logo-large:           185px;
+$navbar-logo-medium:          85px;
+
+$footer-bg:                   $brand-secondary;
+$footer-color:                $white;
+$footer-border:               $brand-primary;
+
+$form-border:                 1px solid #ced4da;
+
+$shadow-color:                rgba(0, 0, 0, .1);
+$box-shadow:                  0 0 8px 0 $shadow-color;
+
+$icon-colour:                 rgba(0, 0, 0, .25);
+
+$icon-twitter: #55acee;
+$icon-facebook: #3b5998;
+$icon-linkedin: #007bb5;
+$icon-googleplus: #dd4b39;
+$icon-envelope: #55595c;
+$icon-cloudstorage: #00459a;
+
+$info-color: #2196f3;
+
+$theme-colors: (
+    primary: $brand-primary,
+    secondary: $brand-secondary,
+    info: $info-color
+);
+
+$shadow1: rgba(0, 0, 0, .12);
+$shadow2: rgba(0, 0, 0, .24);
+$shadow3: rgba(0, 0, 0, .25);
+$shadow4: rgba(0, 0, 0, .22);
+
+$figcaption-bg: $black;
+$image-bg: $black;
+$text-color: $white;
+
+$menu-mobile-width: 100vw;
+$menu-link-color-primary: $brand-primary;
+$menu-link-color-secondary: $brand-secondary;
+
+// Transitions
+$animation-timing: .33s;
+$animation-curve: cubic-bezier(.945, .02, .27, .665);
+
+$job-page-font-family: 'Lato', Helvetica, Arial, sans-serif;
+
+// Cards
+$card-border-width: 1px;
+$card-image-bg-color: transparent;
+
+//Radio buttons
+$radio-text-color: rgba(0, 0, 0, .75);
+
+// rte colors:
+$color-5-bg: $color-4-bg !default;
+$rte-color-4: $color-4-bg;
+$rte-color-5: $color-5-bg;
+
+body {
+    overflow-x: hidden;
+}

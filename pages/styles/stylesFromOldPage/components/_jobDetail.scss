@@ -1,0 +1,6 @@
+.job_description {
+  &_body * {
+    // sass-lint:disable no-important
+    color: #000 !important;
+  }
+}

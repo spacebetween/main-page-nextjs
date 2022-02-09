@@ -1,0 +1,39 @@
+.imageGrid {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    &-leftAlign {
+        align-items: left;
+    }
+    &-greyScale {
+        .imageGrid_image {
+            filter: grayscale(100%);
+            &:hover {
+                filter: grayscale(0);
+            }
+        }
+    }
+    &_imageContainer {
+        padding: calc($spacer / 2);
+        justify-content: center;
+        flex-basis: 100%;
+        @include media-breakpoint-up(md) {
+            padding: $spacer;
+        }
+    }
+    &_image {
+        max-height: 100px;
+        transition: .5s;
+        @include media-breakpoint-up(md) {
+            max-height: 150px;
+        }
+    }
+}
+
+.no-flexbox {
+    .imageGrid {
+        &_imageContainer {
+            display: inline-block;
+        }
+    }
+}

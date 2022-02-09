@@ -1,0 +1,21 @@
+﻿.align {
+    &-bottom {
+        vertical-align: bottom;
+
+        &-desktop {
+            @include media-breakpoint-up(lg) {
+                float: none;
+            }
+        }
+    }
+
+    &-middle {
+        vertical-align: middle;
+    }
+
+    &-vertical {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

@@ -155,7 +155,7 @@
                 padding: 0 30px;
                 color: #495057;
                 height: 80px;
-                background: url(/images/nav/nav-active.png) no-repeat bottom center;
+                background: url("https://www.hrgo.co.uk/images/nav/nav-active.png") no-repeat bottom center;
                 background-size: 50px 0;
                 transition: all 100ms linear;
             }
@@ -164,7 +164,7 @@
                 background: rgba(32, 149, 243, 0.1);
 
                 @include media-breakpoint-up(lg) {
-                    background: url(/images/nav/nav-active.png) no-repeat bottom center;
+                    background: url("https://www.hrgo.co.uk/images/nav/nav-active.png") no-repeat bottom center;
                     background-size: 50px 0;
                 }
             }
@@ -186,7 +186,7 @@
                         display: inline-block;
                         height: 12px;
                         width: 12px;
-                        background: url(/images/nav/nav-arrow-down.svg) no-repeat;
+                        background: url('https://www.hrgo.co.uk/images/nav/nav-arrow-down.svg') no-repeat;
                         background-size: cover;
                         transition: all 100ms linear;
                     }

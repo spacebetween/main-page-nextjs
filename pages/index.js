@@ -7,6 +7,7 @@ import SortButtons from "./components/JobPage/SortButtons";
 
 export default function Home() {
   useEffect(() => {
+    //ADD STYLES TO HTML AND BODY
     document.querySelector("html").classList.add("js");
     document.querySelector("html").classList.add("preserve3d");
     document.querySelector("html").classList.add("flexbox");
@@ -16,6 +17,11 @@ export default function Home() {
 
   const [menuMobile, showMenuMobile] = useState(false);
   const [numberOfJobs, setNumberOfJobs] = useState(987);
+
+  const [submenu, showSubMenu] = useState({
+    careers: false,
+    employers: false
+  })
 
   const handleClickHamburger = () => {
     showMenuMobile(true);
@@ -116,13 +122,13 @@ export default function Home() {
                   <i className="arrow-down d-none d-lg-inline-block"></i>
                 </a>
               </li>
-              <li className="menu-item text-nowrap has-submenu">
-                <a href="javascript:void(0);" className="menu-link ">
+              <li onClick={()=>showSubMenu({...submenu, careers: true})} className={`menu-item text-nowrap has-submenu ${submenu.careers && 'active open'}`}>
+                <a className="menu-link ">
                   Careers Advice
                   <i className="chevron d-lg-none"></i>
-                  <i className="arrow-down d-none d-lg-inline-block"></i>
+                  <i style={{marginLeft:'5px'}} className="arrow-down d-none d-lg-inline-block"></i>
                 </a>
-                <div className="submenu text-wrap">
+                <div onMouseLeave={()=>showSubMenu({employers:false, careers: false})} className={`submenu text-wrap ${submenu.careers && 'active'}`}>
                   <div className="container small-padding-container ">
                     <ul className="submenu-item-list list-unstyled">
                       <li className="back-link d-lg-none">
@@ -236,13 +242,13 @@ export default function Home() {
                   <div className="cross"></div>
                 </div>
               </li>
-              <li className="menu-item text-nowrap  has-submenu">
-                <a href="javascript:void(0);" className="menu-link ">
+              <li onClick={()=>showSubMenu({...submenu, employers: true})} className={`menu-item text-nowrap has-submenu ${submenu.employers && 'active open'}`}>
+                <a className="menu-link ">
                   Employers
                   <i className="chevron d-lg-none"></i>
-                  <i className="arrow-down d-none d-lg-inline-block"></i>
+                  <i style={{marginLeft:'5px'}} className="arrow-down d-none d-lg-inline-block"></i>
                 </a>
-                <div className="submenu text-wrap">
+                <div onMouseLeave={()=>showSubMenu({employers:false, careers: false})} className={`submenu text-wrap ${submenu.employers && 'active'}`}>
                   <div className="container small-padding-container ">
                     <ul className="submenu-item-list list-unstyled">
                       <li className="back-link d-lg-none">

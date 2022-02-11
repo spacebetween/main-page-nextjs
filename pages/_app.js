@@ -21,9 +21,8 @@ function MyApp({ Component, pageProps }) {
 }
 
 MyApp.getInitialProps = async (appContext) => {
-
   const appProps = await App.getInitialProps(appContext);
-    const token = uuidv4();
+  const token = uuidv4();
   return { ...appProps, token };
 };
 

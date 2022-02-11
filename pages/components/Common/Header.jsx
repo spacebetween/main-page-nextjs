@@ -192,7 +192,7 @@ const Header = () => {
               <i className="arrow-down d-none d-lg-inline-block"></i>
             </a>
           </li>
-          <li onClick={()=>showSubMenu({...submenu, careers: true})} style={{cursor:'pointer'}}  className={`menu-item text-nowrap has-submenu ${submenu.careers && !cross && 'active open'}`}>
+          <li onClick={()=>showSubMenu({...submenu, careers: true})} style={{cursor:'pointer'}}  className={`menu-item text-nowrap has-submenu ${submenu.careers  && 'active open'}`}>
             <a className="menu-link ">
               Careers Advice
               <i className="chevron d-lg-none"></i>
@@ -226,7 +226,7 @@ const Header = () => {
               <div className="cross"></div>
             </div>
           </li>
-          <li onClick={()=>showSubMenu({...submenu, employers: true})} style={{cursor:'pointer'}} className={`menu-item text-nowrap has-submenu ${submenu.employers && !cross && 'active open'}`}>
+          <li onClick={()=>showSubMenu({...submenu, employers: true})} style={{cursor:'pointer'}} className={`menu-item text-nowrap has-submenu ${submenu.employers  && 'active open'}`}>
             <a className="menu-link ">
               Employers
               <i className="chevron d-lg-none"></i>

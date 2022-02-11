@@ -11,6 +11,7 @@ const Header = () => {
     })
 
     const [loginDropdown, setShowLoginDropdown] = useState(false);
+
   
     const handleClickHamburger = () => {
       showMenuMobile(true);
@@ -191,7 +192,7 @@ const Header = () => {
               <i className="arrow-down d-none d-lg-inline-block"></i>
             </a>
           </li>
-          <li onClick={()=>showSubMenu({...submenu, careers: true})} style={{cursor:'pointer'}}  className={`menu-item text-nowrap has-submenu ${submenu.careers && 'active open'}`}>
+          <li onClick={()=>showSubMenu({...submenu, careers: true})} style={{cursor:'pointer'}}  className={`menu-item text-nowrap has-submenu ${submenu.careers && !cross && 'active open'}`}>
             <a className="menu-link ">
               Careers Advice
               <i className="chevron d-lg-none"></i>
@@ -205,9 +206,9 @@ const Header = () => {
                       </div> Careers Advice
                   </li>
                   {loginMobile()}
-                  {submenuCareers.map((el)=>{
+                  {submenuCareers.map((el, i)=>{
                     return (
-                      <li className="submenu-item">
+                      <li key={i + 'careers'} className="submenu-item">
                     <a
                       href={el.link}
                       className="submenu-link"
@@ -225,7 +226,7 @@ const Header = () => {
               <div className="cross"></div>
             </div>
           </li>
-          <li onClick={()=>showSubMenu({...submenu, employers: true})} style={{cursor:'pointer'}} className={`menu-item text-nowrap has-submenu ${submenu.employers && 'active open'}`}>
+          <li onClick={()=>showSubMenu({...submenu, employers: true})} style={{cursor:'pointer'}} className={`menu-item text-nowrap has-submenu ${submenu.employers && !cross && 'active open'}`}>
             <a className="menu-link ">
               Employers
               <i className="chevron d-lg-none"></i>
@@ -238,9 +239,9 @@ const Header = () => {
                     <div className="chevron"></div> Employers
                   </li>
                   {loginMobile()}
-                  {submenuEmployers.map((el)=>{
+                  {submenuEmployers.map((el, i )=>{
                     return (
-                      <li className="submenu-item">
+                      <li key={i + 'empl'}  className="submenu-item">
                     <a
                       href={el.link}
                       className="submenu-link"
@@ -303,7 +304,7 @@ const Header = () => {
                 display: loginDropdown ? "block" : "none",
                 top: "auto",
                 left: "0px",
-                marginLeft: -"103px",
+                marginLeft: "-103px",
                 marginTop: "0px",
                 minWidth: "10em",
               }}

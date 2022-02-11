@@ -1,9 +1,0 @@
-.resultContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.verdict {
-    padding: 20px;
-}

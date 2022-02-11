@@ -6,6 +6,9 @@
 	border-top: 3px solid $footer-border;
 
 	.menu-item {
+
+		cursor: pointer;
+
 		@include media-breakpoint-up(lg) {
 			width: 20%;
 		}

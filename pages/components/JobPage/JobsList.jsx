@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const JobsList = () => {
 
+
     const [jobsList, setJobsList] = useState([{
         title: 'Senior Industrial Designers',
         isNew: true,
@@ -43,7 +44,7 @@ const JobsList = () => {
               />
             )
        }
-       else return (<img class="brandLogo_logo lozad" src="https://hrgo-image-cache.spacebetween.co.uk/media/6911/hrgo.png?format=webp" data-loaded="true"/>)
+       else return (<img className="brandLogo_logo lozad" src="https://hrgo-image-cache.spacebetween.co.uk/media/6911/hrgo.png?format=webp" data-loaded="true"/>)
     }
 
 
@@ -60,9 +61,9 @@ const JobsList = () => {
           </div>
         </div>
         {
-            jobsList ?    jobsList.map((el)=>{
-                return (
-<div className="pos-relative">
+            jobsList ?    jobsList.map((el, i)=>
+                
+        <div key={i} className="pos-relative">
           {el.isNew &&
           <div className="card_note">NEW</div>
           }
@@ -161,12 +162,86 @@ const JobsList = () => {
               </div>
             </div>
           </div>
-        </div>
-                )
-            })
+        </div> 
+            )
         :
         <div>SPINNER</div>
         }
+        <div className="w-100 customPagination">
+                    <div className="row">
+                        <div className="col-12 mb-hf">
+                            <p className="customPagination-jobs pos-relative">
+                                <span className="customPagination-jobs_text px-hf">1 - 50 of 997 jobs</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="float-left d-inline customPagination_element">
+                        <a href="#" className="customPagination_element_link rounded d-inline-block disabled" rel="prev">
+                            <div className="d-inline-block d-lg-none">
+                                <i className="fontSize-13 icomoon-arrow-left"></i>
+                            </div>
+                            <div className="d-none d-lg-flex customPagination_navBtn">
+                                <i className="fontSize-13 icomoon-arrow-left"></i>
+                                <strong>Previous</strong>
+                            </div>
+                        </a>
+                    </div>
+                    <ul className="customPagination_list d-inline-block pl-0">
+                                <li className="d-inline customPagination_element">
+                                    <span className="customPagination_element_link rounded d-inline-block active">
+                                        <strong>1</strong>
+                                    </span>
+                                </li>
+                                <li className="d-inline customPagination_element">
+                                    <a href="/jobs?page=2" className="customPagination_element_link rounded d-inline-block">
+                                        <strong>2</strong>
+                                    </a>
+                                </li>
+                                <li className="d-inline customPagination_element">
+                                    <a href="/jobs?page=3" className="customPagination_element_link rounded d-inline-block">
+                                        <strong>3</strong>
+                                    </a>
+                                </li>
+                                <li className="d-inline customPagination_element">
+                                    <a href="/jobs?page=4" className="customPagination_element_link rounded d-inline-block">
+                                        <strong>4</strong>
+                                    </a>
+                                </li>
+                                <li className="d-inline customPagination_element">
+                                    <a href="/jobs?page=5" className="customPagination_element_link rounded d-inline-block">
+                                        <strong>5</strong>
+                                    </a>
+                                </li>
+                                <li className="d-inline customPagination_element">
+                                    <a href="/jobs?page=6" className="customPagination_element_link rounded d-inline-block">
+                                        <strong>6</strong>
+                                    </a>
+                                </li>
+                                <li className="d-none d-sm-inline">
+                                    <span className="d-inline-block icon-lightGrey px-hf">
+                                        <strong>...</strong>
+                                    </span>
+                                </li>
+                                <li className="d-inline customPagination_element">
+                                    <a href="/jobs?page=20" className="customPagination_element_link rounded d-inline-block">
+                                        <strong>20</strong>
+                                    </a>
+                                </li>
+                    </ul>
+                    <div className="float-right d-inline customPagination_element">
+                        <a href="/jobs?page=2" className="customPagination_element_link rounded d-inline-block " rel="next">
+                            <div className="d-inline-block d-lg-none">
+                                <i className="fontSize-13 icomoon-arrow-right"></i>
+                            </div>
+                            <div className="d-none d-lg-flex customPagination_navBtn">
+                                <strong>Next</strong>
+                                <i className="fontSize-13 icomoon-arrow-right"></i>
+                            </div>
+                        </a>
+                    </div>
+
+                <hr/>
+            </div>
       </div>
     )
 }

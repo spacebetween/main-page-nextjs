@@ -239,10 +239,10 @@ const Dropdowns = () => {
             </ul>
           </div>
         ) : (
-          <div class="dropdown">
+          <div className="dropdown">
             <a
               href="#"
-              class="btn dropdown-remove"
+              className="btn dropdown-remove"
               style={{ display: "inline-block" }}
               id="menu-remove-distanceInput"
               onClick={() => {

@@ -1,20 +1,7 @@
 import React, { Fragment, useState } from "react";
 import AutoComplete  from 'react-google-autocomplete';
 
-const Inputs = () => {
-  const [input, setInput] = useState({
-    job: "",
-    location: "",
-  });
-
-  const handleInput = (type, event) => {
-    if (type === "job") {
-      setInput({ ...input, job: event.target.value });
-    }
-    if (type === "location") {
-      setInput({ ...input, location: event.target.value });
-    }
-  };
+const Inputs = ({handleKeyword, handleLocation, keyword }) => {
 
   return (
     <Fragment>
@@ -29,8 +16,8 @@ const Inputs = () => {
           name="Keywords"
           placeholder="Job Title, Keywords"
           type="text"
-          value={input.job}
-          onChange={(e) => handleInput("job", e)}
+          value={keyword}
+          onChange={handleKeyword}
         />
       </div>
       <div className="searchForm_textField col-md-5">
@@ -40,7 +27,7 @@ const Inputs = () => {
         <AutoComplete
         className="input"
         apiKey="AIzaSyDYs_dbyLHice28mYB3KU2Vx7xGZZeAYic"
-        onPlaceSelected={(place) => console.log(place)}
+        onPlaceSelected={(place) => handleLocation(place)}
         options={{
           types: ["(regions)"],
           componentRestrictions: { country: "uk" },

@@ -1,19 +1,41 @@
 import React, { useState } from "react";
-import Dropdowns from "./Dropdowns.jsx";
+import Dropdowns from "./DropdownFilters.jsx";
 import Inputs from "./Inputs";
 import JobsList from "./JobsList";
 import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
 
-const JobPage = () => {
+
+const JobPage = ({jobs}) => {
+
   const [numberOfJobs, setNumberOfJobs] = useState(987);
+
   const [input, setInput] = useState({
     keyword: "",
     location: null,
   });
 
-  const removeFilter = (filter, removeAll) => {
-    console.log("remove Filter");
+  const [selectedFilters, setSelectedFilters] = useState({
+    type: "",
+    distance: "",
+    sector: "",
+  });
+  
+
+
+  const removeFilter = (filter) => {
+    if (filter === 'type') {
+        setSelectedFilters({...selectedFilters, type: ""})
+    }
+    if (filter === 'distance') {
+        setSelectedFilters({...selectedFilters, distance: ""})
+    }
+    if (filter === 'sector') {
+        setSelectedFilters({...selectedFilters, sector: ""})
+    }
+    else {
+        setSelectedFilters({type: "", distance: "", sector: ""})
+    }
   };
 
   const handleKeyword = (event) => {
@@ -34,7 +56,6 @@ const JobPage = () => {
     });
   };
 
-  console.log(input.location);
 
   return (
     <div className="umb-grid">
@@ -158,10 +179,10 @@ const JobPage = () => {
                     </div>
                   </div>
                   <SelectedFilters
-                    selectedFilters={{ type: "", distance: "", sector: "" }}
+                    selectedFilters={selectedFilters}
                     removeFilter={removeFilter}
                   />
-                  <JobsList />
+                  <JobsList jobs={jobs}/>
                 </div>
               </div>
             </div>

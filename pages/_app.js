@@ -1,9 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
-import App from "next/app";
 import Head from "next/head";
-
 import './styles/style.scss'
-function MyApp({ Component, pageProps }) {
+
+
+function MyApp({ Component, pageProps}) {
   return (
     <div>
       <Head>
@@ -20,10 +19,6 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-MyApp.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  const token = uuidv4();
-  return { ...appProps, token };
-};
+
 
 export default MyApp;

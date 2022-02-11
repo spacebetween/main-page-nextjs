@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
+import { timePosted, checkIfNew, checkType } from '../helpers';
 
-const JobsList = () => {
+const JobsList = ({jobs}) => {
 
+
+  console.log(jobs);
+  console.log('jobs')
+
+  const timeposted  = timePosted('2022-01-13T16:27:31.176Z')
+  const isNew = checkIfNew('2022-01-13T16:27:31.176Z')
+  const type = checkType("329")
+
+  console.log('TIME posted:', timeposted)
+  console.log('IS NEW??? ', isNew)
+  console.log('type ', type)
 
     const [jobsList, setJobsList] = useState([{
-        title: 'Senior Industrial Designers',
-        isNew: true,
+        jobTitle: 'Senior Industrial Designers', // done
+        isNew: true, // done
         link: 'https://www.rhl.com.au/job/senior-industrial-designers/mNfnmsEh2adD2z2rnjoQgE',
-        location: 'Australia, New South Wales - Sydney',
-        type: 'Permanent',
-        pay: 'up to $115000 per annum',
+        locationCity: 'Australia, New South Wales - Sydney', // done
+        jobTypeId: 'Permanent', //done
+        pay: 'up to $115000 per annum', 
         sector: 'Design',
         info: `Senior Industrial Designers SYDNEY Salary
         AUD 75k - 115k package (including Super)
@@ -17,7 +29,7 @@ const JobsList = () => {
         Industrial Designer with 5 to 10 years of
         POP/POS/Exhibition industry experience? My
         client is a`,
-        added: '2 days ago',
+        dateCreated: '2 days ago',  // done
         company: 'rhl'
     },
     {
@@ -61,10 +73,10 @@ const JobsList = () => {
           </div>
         </div>
         {
-            jobsList ?    jobsList.map((el, i)=>
+            jobsList ?    jobsList.map((el)=>
                 
-        <div key={i} className="pos-relative">
-          {el.isNew &&
+        <div key={el.id} className="pos-relative">
+          {checkIfNew(el.dateCreated) &&
           <div className="card_note">NEW</div>
           }
           <div className="card card-job mb-2 shadow-1">
@@ -76,7 +88,7 @@ const JobsList = () => {
                       <div className="col-12">
                         <a href={el.link}>
                           <h3 className="mb-hf">
-                            {el.title}
+                            {el.jobTitle}
                           </h3>
                         </a>
                       </div>
@@ -86,13 +98,13 @@ const JobsList = () => {
                         <div className="d-inline-block pr-1 pb-hf">
                           <i className="align-middle icomoon-pointer icon-lightGrey icomoon-p-r"></i>
                           <strong className="align-middle fontSize-14">
-                            {el.location}
+                            {el.locationCity} {el.locationRegion && ` - ${el.locationRegion}`}
                           </strong>
                         </div>
                         <div className="d-inline-block pr-1 pb-hf">
                           <i className="align-middle icomoon-clock icon-lightGrey icomoon-p-r"></i>
                           <strong className="align-middle fontSize-14">
-                           {el.type}
+                           {checkType(el.jobTypeId)}
                           </strong>
                         </div>
                         <div className="d-inline-block pb-hf">
@@ -131,12 +143,11 @@ const JobsList = () => {
                   <div className="col-12 col-sm-4 col-xl-3 mb-1 px-0">
                     <div className="d-none d-sm-block fontSize-14 icon-lightGrey py-hf ">
                       <span>
-                        Job posted{" "}
+                        Job posted
                         <strong
                           className="jobDate"
-                          data-timeposted="2022-02-06T22:49:30.967Z"
                         >
-                          {el.added}
+                          {timePosted(el.dateCreated)}
                         </strong>{" "}
                         by
                       </span>

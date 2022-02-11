@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-const Dropdowns = () => {
+const Dropdowns = ({industries}) => {
   const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
   const listOfDistances = [
     "Any",
@@ -67,7 +68,7 @@ const Dropdowns = () => {
     "Trade",
     "Travel and Tourism",
   ];
-
+  
   const initialStateDropdowns = {
     type: false,
     distance: false,
@@ -82,8 +83,10 @@ const Dropdowns = () => {
     sector: "",
   });
 
-  const handleSelectType = (el) => {
-    setSelectedFilters({ ...selectedFilters, type: el });
+  const handleSelect = (name,el) => {
+    if (name === 'type') {
+      setSelectedFilters({ ...selectedFilters, type: el });
+    }
   };
 
   const handleSelectDistance = (el) => {
@@ -304,8 +307,7 @@ const Dropdowns = () => {
                 willChange: "transform",
               }}
             >
-              {dropdowns.sector &&
-                listfOfSectors.map((el, i) => {
+              {dropdowns.sector && listfOfSectors.map((el, i) => {
                   return (
                     <li
                       key={i + "sector"}

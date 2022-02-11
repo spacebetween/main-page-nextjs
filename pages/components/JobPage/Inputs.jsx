@@ -27,7 +27,7 @@ const Inputs = ({handleKeyword, handleLocation, keyword }) => {
         <AutoComplete
         className="input"
         apiKey="AIzaSyDYs_dbyLHice28mYB3KU2Vx7xGZZeAYic"
-        onPlaceSelected={(place) => handleLocation(place)}
+        onPlaceSelected={(place) => handleLocation( place)}
         options={{
           types: ["(regions)"],
           componentRestrictions: { country: "uk" },

@@ -31,6 +31,57 @@ export const checkType = type => {
     else return '-'
 }
 
-export const determineSalary = () => {
-    
+export const determineSalary = (salaryFrom, salaryTo, salaryExtra, salaryType, salary) => {
+        let salaryText;
+
+        if (salary && salary !== "Not Specified") {
+            salaryText = salary + ' per ' + salaryType
+        } else {
+            salaryText = salaryFrom + ' - ' + salaryTo + ' per ' + salaryType
+        }
+        if (salaryExtra) {
+            salaryText = salaryText + " " + salaryExtra
+        }
+
+        if (salaryFrom === salaryTo) {
+            salaryText = salaryFrom + ' per ' + salaryType
+        }
+
+        if (salaryFrom === 0 && salaryTo === 0 && salary === "Not Specified" && salaryExtra) {
+            salaryText = salaryExtra
+        }
+
+        if (salaryFrom === 0 && salaryTo === 0 && salary === "Not Specified" && !salaryExtra) {
+            return "Not Specified"
+        }
+
+        return salaryText.replace(/GBP/g, "£")
 }
+
+export const setCompanyLogo = (websiteID) => {
+    //ABSOLUTE
+    if (websiteID === "2VEJf7b46ppZcuknn2f2qr") {
+      return (
+        <img
+          className="brandLogo_logo lozad"
+          src="https://hrgo-image-cache.spacebetween.co.uk/media/7162/absolutereed.png?format=webp"
+          data-loaded="true"
+        />
+      );
+    }
+    //RCH
+    if (websiteID === "rch")
+     return ( <img
+        className="brandLogo_logo lozad"
+        src="https://hrgo-image-cache.spacebetween.co.uk/media/6909/rhl.png?format=webp"
+        data-loaded="true"
+      />)
+    //HRGO
+    return (
+    <img
+      className="brandLogo_logo lozad"
+      src="https://hrgo-image-cache.spacebetween.co.uk/media/6911/hrgo.png?format=webp"
+      data-loaded="true"
+    />)
+  };
+  

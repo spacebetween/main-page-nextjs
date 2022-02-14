@@ -10,7 +10,9 @@
   "dependencies": {
     "axios": "^0.25.0",
     "bootstrap": "4.2.1",
+    "fs": "0.0.1-security",
     "got": "^11.8.2",
+    "html-to-text": "^8.1.0",
     "moment": "^2.29.1",
     "next": "10.2.0",
     "react": "17.0.2",

@@ -15,12 +15,12 @@ const JobPage = ({jobs}) => {
     location: null,
   });
 
+
   const [selectedFilters, setSelectedFilters] = useState({
     type: "",
     distance: "",
     sector: "",
   });
-  
 
 
   const removeFilter = (filter) => {

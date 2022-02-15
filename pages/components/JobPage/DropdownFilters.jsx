@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-const Dropdowns = ({industries}) => {
+const Dropdowns = ({handleSelectFilter,selectedFilters }) => {
   const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
   const listOfDistances = [
     "Any",
@@ -77,25 +77,6 @@ const Dropdowns = ({industries}) => {
 
   const [dropdowns, showDropdowns] = useState(initialStateDropdowns);
 
-  const [selectedFilters, setSelectedFilters] = useState({
-    type: "",
-    distance: "",
-    sector: "",
-  });
-
-  const handleSelect = (name,el) => {
-    if (name === 'type') {
-      setSelectedFilters({ ...selectedFilters, type: el });
-    }
-  };
-
-  const handleSelectDistance = (el) => {
-    setSelectedFilters({ ...selectedFilters, distance: el });
-  };
-
-  const handleSelectSector = (el) => {
-    setSelectedFilters({ ...selectedFilters, sector: el });
-  };
 
   return (
     <div className="advancedPanel col-md-10">
@@ -151,7 +132,7 @@ const Dropdowns = ({industries}) => {
                       key={i}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => handleSelectType(el)}
+                      onClick={() => handleSelectFilter('type', el)}
                     >
                       {el}
                     </li>
@@ -231,9 +212,7 @@ const Dropdowns = ({industries}) => {
                       key={i + "distance"}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => {
-                        handleSelectDistance(el);
-                      }}
+                      onClick={() => handleSelectFilter('distance', el)}
                     >
                       {el}
                     </li>
@@ -313,9 +292,7 @@ const Dropdowns = ({industries}) => {
                       key={i + "sector"}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => {
-                        handleSelectSector(el);
-                      }}
+                      onClick={() => handleSelectFilter('sector', el)}
                     >
                       {el}
                     </li>

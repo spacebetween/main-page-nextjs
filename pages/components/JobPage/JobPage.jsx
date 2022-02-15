@@ -68,6 +68,27 @@ const JobPage = ({jobs}) => {
     setSorting({recent:false, pay:true})
   }
 
+  const handleSearchJobs = () => {
+    console.log('SEARCH')
+  }
+
+
+  const handleSelectFilter = (name,el) => {
+    if (name === 'type') {
+      setSelectedFilters({ ...selectedFilters, type: el });
+    }
+    if (name === 'distance') {
+      setSelectedFilters({ ...selectedFilters, distance: el });
+    }
+    else setSelectedFilters({ ...selectedFilters, sector: el });
+    
+  };
+
+
+
+  console.log('inputs:', input.keyword, input.location)
+
+  console.log('selectFilters:', selectedFilters.type, selectedFilters.distance, selectedFilters.sector)
 
   return (
     <div className="umb-grid">
@@ -127,7 +148,7 @@ const JobPage = ({jobs}) => {
                                 Find Jobs
                               </button>
                             </div>
-                            <Dropdowns />
+                            <Dropdowns handleSelectFilter={handleSelectFilter} selectedFilters={selectedFilters} />
                             <div className="d-block d-lg-none col-md-2">
                               <button
                                 type="submit"
@@ -187,7 +208,7 @@ const JobPage = ({jobs}) => {
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <SortButtons setSortBy={setSortBy} sortBy={sortBy} />
+                      <SortButtons handleSearchJobs={handleSearchJobs} setSortBy={setSortBy} sortBy={sortBy} />
                     </div>
                   </div>
                   <SelectedFilters

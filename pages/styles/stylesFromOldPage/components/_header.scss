@@ -57,7 +57,7 @@
     left: 0;
     right: 0;
     height: 60px;
-    
+    background: #fff url('https://www.hrgo.co.uk/images/nav/nav-border.png') repeat-x bottom;
     transition: top 300ms linear;
 
     @include media-breakpoint-up(lg) {

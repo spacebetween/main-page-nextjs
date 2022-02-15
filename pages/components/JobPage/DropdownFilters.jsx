@@ -3,11 +3,6 @@ import { listOfTypes, listOfDistances } from "../helperLists";
 
 const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, dropdowns,  sectorsListWithCodes }) => {
   
-
-  console.log('***')
-  console.log(listOfDistances.find(el => el.value === selectedFilters.distance))
-  console.log(selectedFilters.distance)
-
   return (
     <div className="advancedPanel col-md-10">
       <div className="filter-wrapper">

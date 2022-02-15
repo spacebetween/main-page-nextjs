@@ -1,12 +1,12 @@
 export const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
 
 export const listOfDistances = [
-  {value: 'Any', label: 'Any'},
-  {value: 5, label: "up to 5 miles"},
-  {value: 10, label:'up to 10 miles'},
-  {value: 20, label:'up to 20 miles'},
-  {value: 30, label:'up to 30 miles'},
-  {value: 50, label:'up to 50 miles'}
+  {value: '0', label: 'Any'},
+  {value: '5', label: "up to 5 miles"},
+  {value: '10', label:'up to 10 miles'},
+  {value: '20', label:'up to 20 miles'},
+  {value: '30', label:'up to 30 miles'},
+  {value: '50', label:'up to 50 miles'}
 ];
 export const listfOfSectors = [
   {label: "All sectors"},

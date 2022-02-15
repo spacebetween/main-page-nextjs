@@ -2,7 +2,7 @@ import React from "react";
 
 import { listOfDistances } from "../helperLists";
 
-const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
+const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sectorsListWithCodes}) => {
 
   let areFiltersApplied = false;
 
@@ -40,7 +40,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
           <div  style={{cursor:'pointer'}}  onClick={() =>
                 removeFilter('distance')
               } className="filterTabs_item d-inline-block fontSize-12">
-            {selectedFilters.distance  === 'Any' ? 'Any distance' : listOfDistances[selectedFilters.distance].label }
+               {listOfDistances.find(el => el.value === selectedFilters.distance).label }
             <a
               className="icon-white filterTabs_item_link"
             >
@@ -60,7 +60,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
           <div style={{cursor:'pointer'}} onClick={() =>
                 removeFilter('sector')
               } className="filterTabs_item d-inline-block fontSize-12">
-            {selectedFilters.sector}
+             {sectorsListWithCodes.find(el => el.value === selectedFilters.sector).label }
             <a
               className="icon-white filterTabs_item_link"
               

@@ -4,27 +4,25 @@ import Inputs from "./Inputs";
 import JobsList from "./JobsList";
 import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
+import axios from "axios";
 
 const JobPage = ({ jobs, sectorsListWithCodes }) => {
+
+  console.log(jobs)
 
   const [numberOfJobs, setNumberOfJobs] = useState(987);
   const [loading, setLoading] = useState(false);
 
-  const [jobList, setJobsList] = useState([]);
+  const [jobList, setJobsList] = useState(jobs);
 
-  useEffect(()=>{
-    setJobsList(jobs)
-  })
-
+  useEffect(() => {}, [jobList]);
 
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
 
-
   //INPUTS (have to have separate states cause of google autocomplete)
   const [keyword, setKeyword] = useState("");
-  const [location, setLocation] = useState({});
-
+  const [location, setLocation] = useState(null);
 
   //FILTERS
   const initialStateFilters = {
@@ -34,7 +32,6 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
   };
   const [selectedFilters, setSelectedFilters] = useState(initialStateFilters);
 
-
   //DROPDOWNS
   const initialStateDropdowns = {
     type: false,
@@ -43,14 +40,12 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
   };
   const [dropdowns, showDropdown] = useState(initialStateDropdowns);
 
-
   //SORT BUTTONS
   const initialStateSortBtns = {
     pay: false,
     recent: false,
   };
   const [sortBy, setSorting] = useState(initialStateSortBtns);
-
 
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
@@ -104,6 +99,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
     if (name === "all") {
       setSelectedFilters(initialStateFilters);
       scrollToFilters.current.scrollIntoView({ behavior: "smooth" });
+      setJobsList(jobs)
     }
     showDropdown(initialStateDropdowns);
   };
@@ -131,13 +127,50 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
       });
     }
     if (name === "closeAll") {
-      showDropdown({
-        type: false,
-        distance: false,
-        sector: false,
-      });
+      showDropdown(initialStateDropdowns);
     }
   };
+
+  const determineJobTypeCode = () => {
+    if (selectedFilters.type === "Permanent") {
+      return "328";
+    }
+    if (selectedFilters.type === "Temporary") {
+      return "329";
+    }
+    if (selectedFilters.type === "Contract") {
+      return "330";
+    }
+  }
+
+  const getQueryParams = () => {
+    let query = {excludeNationwide: false, activeOnly: true};
+
+    if (keyword) {
+      query.search = keyword
+    }
+    if (selectedFilters.type) {
+      query.jobTypeIds = determineJobTypeCode()
+    }
+    if (selectedFilters.distance) {
+      query.distance = selectedFilters.distance
+    }
+    if (selectedFilters.sector) {
+      query.jobIndustryIds = selectedFilters.sector
+    }
+    if (location) {
+      query.latitude = location.lat
+      query.longitude = location.long
+    }
+    if (sortBy) {
+      query.sortBy = sortBy.pay ? 'sortByPay' : 'sortByDate'
+    }
+
+
+
+
+    return query;
+  }
 
   const findJobs = async () => {
     //DO NOT FETCH when no filters applied
@@ -149,56 +182,23 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
     ) {
       scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
     } else {
-      let url = "http://localhost:3001/jobs?";
+      const url = `http://localhost:3001/jobs`;
 
-      if (selectedFilters.type && selectedFilters !== "All") {
-        url = url + `&JobType=${selectedFilters.type}`;
-      }
-
-      if (selectedFilters.distance && selectedFilters !== "Any") {
-        url = url + `&Distance=${selectedFilters.distance}`;
-      }
-
-      if (selectedFilters.sector && selectedFilters !== "All sectors") {
-        url = url + `&JobSector=${selectedFilters.sector}`;
-      }
-
-      if (keyword) {
-        url = url + `&Keywords=${keyword}`;
-      }
-
-      if (location) {
-        url =
-          url +
-          `&JobLocation=${location.place}&Latitude=${location.lat}&Longitude=${location.long}&ExcludeNationwide=False`;
-      }
-
-      setLoading(true);
-      await axios.get(url).then((response) => {
-        setJobsList(response.data.data.value)
-        setLoading(false)
-        scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-      });
+      await axios
+        .get(url, {
+          params: getQueryParams()
+        })
+        .then((response) => {
+          setJobsList(response.data.data.value);
+          setLoading(false);
+          scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
+          setNumberOfJobs(response.data.data.totalCount)
+        })
+        .catch((e) => console.log("error", e));
     }
 
     setJobListFiltered(true);
-    console.log('URL: ', url)
   };
-
-
-
-  console.log("keyword:", keyword, "location:", location);
-
-  console.log(
-    "selectFilters:",
-    selectedFilters.type,
-    selectedFilters.distance,
-    selectedFilters.sector
-  );
-
-  console.log("sort recent:", sortBy.recent, "sort pay:", sortBy.pay);
-
-  console.log("isJobListFiltered:", jobListFiltered);
 
   return (
     <div ref={scrollToFilters} className="umb-grid">
@@ -256,7 +256,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
                               </div>
                             </div>
                             <Dropdowns
-                             sectorsListWithCodes={sectorsListWithCodes}
+                              sectorsListWithCodes={sectorsListWithCodes}
                               showDropdowns={showDropdowns}
                               dropdowns={dropdowns}
                               cleanFilter={cleanFilter}
@@ -322,6 +322,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
                     jobListFiltered={jobListFiltered}
                     selectedFilters={selectedFilters}
                     removeFilter={cleanFilter}
+                    sectorsListWithCodes={sectorsListWithCodes}
                   />
                   <JobsList jobs={jobList} />
                 </div>

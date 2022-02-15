@@ -95,20 +95,7 @@ export async function getServerSideProps() {
 
   const sectorsListWithCodes = listfOfSectors.reduce((acc, sector)=>{
     const value =  industries.find(industry => sector.label === industry.jobIndustryName || sector.label === industry.alias )
-    const id = value ? value.id : null
-    //EXCEPTIONS:
-    // if (sector === "Accounting") {
-    //   id = "muVtAitge8WrAW9urCAYbU"
-    // }
-    // if (sector === "Admin") {
-    //   id = "fiSmg5aEkrusiEeiWErHLx"
-    // }
-    // if (sector === "Airport") {
-    //   id = "rVLNwtpLFb7XZe8Nd9s5ME"
-    // }
-    // if (sector === "Cleaning") {
-    //   id = 
-    // }
+    const id = value ? value.id : ''
     return [...acc, {...sector, value: id}]
   }, [])
 

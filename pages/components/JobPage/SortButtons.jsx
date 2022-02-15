@@ -23,7 +23,7 @@ const SortButtons = ({setSortBy, sortBy}) => {
                             >
                               <label
                                 htmlFor="sortByDate"
-                                className={`sortBy_element sortBy_element-date mb-hf ${sortBy.recent && 'active'} `}
+                                className={`sortBy_element sortBy_element-date mb-hf ${sortBy === 'date' && 'active'} `}
                                 id="sortByDateLabel"
                               >
                                 Most Recent
@@ -35,12 +35,12 @@ const SortButtons = ({setSortBy, sortBy}) => {
                                   id="sortByDate"
                                   name="SortBy"
                                   type="radio"
-                                  onClick={()=>setSortBy('recent')}
+                                  onClick={()=>setSortBy('date')}
                                 />
                               </label>
                               <label
                                 htmlFor="sortByPay"
-                                className={`sortBy_element sortBy_element-pay mb-hf ${sortBy.pay && 'active'} `}
+                                className={`sortBy_element sortBy_element-pay mb-hf ${sortBy === 'pay' && 'active'} `}
                                 id="sortByPayLabel"
                               >
                                 Highest Pay

@@ -15,7 +15,7 @@ const Jobs = ({ jobs }) => {
       {jobs ? (
         jobs.map((el) => (
           <div key={el.id} className="pos-relative">
-            {checkIfNew(el.dateCreated) && <div className="card_note">NEW</div>}
+            {checkIfNew(el.datePosted) && <div className="card_note">NEW</div>}
             <div className="card card-job mb-2 shadow-1">
               <div className="card_body">
                 <div className="card_bottom">
@@ -84,7 +84,7 @@ const Jobs = ({ jobs }) => {
                         <span>
                           {`Job posted `}
                           <strong className="jobDate">
-                            { timePosted(el.dateCreated)}
+                            { timePosted(el.datePosted)}
                           </strong>{" "}
                           by
                         </span>

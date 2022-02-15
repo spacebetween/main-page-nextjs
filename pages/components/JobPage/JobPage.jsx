@@ -7,13 +7,14 @@ import SortButtons from "./SortButtons";
 import axios from "axios";
 
 const JobPage = ({ jobs, sectorsListWithCodes }) => {
-
+  
   console.log(jobs)
-
+  
   const [numberOfJobs, setNumberOfJobs] = useState(987);
   const [loading, setLoading] = useState(false);
-
   const [jobList, setJobsList] = useState(jobs);
+  //SORT
+  const [sortBy, setSorting] = useState("");
 
   useEffect(() => {}, [jobList]);
 
@@ -40,12 +41,6 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
   };
   const [dropdowns, showDropdown] = useState(initialStateDropdowns);
 
-  //SORT BUTTONS
-  const initialStateSortBtns = {
-    pay: false,
-    recent: false,
-  };
-  const [sortBy, setSorting] = useState(initialStateSortBtns);
 
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
@@ -66,9 +61,14 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
   };
 
   const setSortBy = (name) => {
-    if (name === "recent") {
-      setSorting({ recent: true, pay: false });
-    } else setSorting({ recent: false, pay: true });
+    if (name === "date" && sortBy !== 'date') {
+      setSorting('date');
+      findJobs('date')
+    } 
+    if (name === "pay" && sortBy !== 'pay') {
+      setSorting('pay');
+      findJobs('pay')
+    }
   };
 
   const handleSelectFilter = (name, value) => {
@@ -143,7 +143,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
     }
   }
 
-  const getQueryParams = () => {
+  const getQueryParams = (orderBy) => {
     let query = {excludeNationwide: false, activeOnly: true};
 
     if (keyword) {
@@ -162,23 +162,21 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
       query.latitude = location.lat
       query.longitude = location.long
     }
-    if (sortBy) {
-      query.sortBy = sortBy.pay ? 'sortByPay' : 'sortByDate'
+    if (sortBy || orderBy) {
+      query.sortBy = orderBy ? orderBy : sortBy
     }
-
-
-
 
     return query;
   }
 
-  const findJobs = async () => {
+  const findJobs = async (orderBy) => {
+
     //DO NOT FETCH when no filters applied
     if (
       selectedFilters === initialStateFilters &&
       keyword === "" &&
       location === {} &&
-      sortBy === initialStateSortBtns
+      sortBy === ""
     ) {
       scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
     } else {
@@ -186,7 +184,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
 
       await axios
         .get(url, {
-          params: getQueryParams()
+          params: getQueryParams(orderBy)
         })
         .then((response) => {
           setJobsList(response.data.data.value);

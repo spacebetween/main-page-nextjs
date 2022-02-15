@@ -4,12 +4,12 @@ import Header from "./components/Common/Header";
 import JobPage from "./components/JobPage/JobPage";
 import axios from 'axios';
 
-export default function HomePage({jobs, sectorsListWithCodes}) {
+export default function HomePage({jobsWithSectors, sectorsListWithCodes}) {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobPage jobs={jobs} sectorsListWithCodes={sectorsListWithCodes}/>
+      <JobPage jobs={jobsWithSectors} sectorsListWithCodes={sectorsListWithCodes}/>
       <Footer />
     </div>
   );
@@ -100,5 +100,5 @@ export async function getServerSideProps() {
   }, [])
 
 
-  return { props: { jobs, sectorsListWithCodes} }
+  return { props: { jobsWithSectors, sectorsListWithCodes} }
 }

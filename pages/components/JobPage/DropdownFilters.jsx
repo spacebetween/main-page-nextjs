@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-const Dropdowns = ({handleSelectFilter,selectedFilters }) => {
+const Dropdowns = ({handleSelectFilter,selectedFilters, cleanFilter }) => {
   const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
   const listOfDistances = [
     "Any",
@@ -148,7 +148,7 @@ const Dropdowns = ({handleSelectFilter,selectedFilters }) => {
               style={{ display: "inline-block" }}
               id="menu-remove-jobTypeInput"
               onClick={() => {
-                setSelectedFilters({ ...selectedFilters, type: "" });
+                cleanFilter('type')
                 showDropdowns(initialStateDropdowns);
               }}
               type="button"
@@ -228,7 +228,7 @@ const Dropdowns = ({handleSelectFilter,selectedFilters }) => {
               style={{ display: "inline-block" }}
               id="menu-remove-distanceInput"
               onClick={() => {
-                setSelectedFilters({ ...selectedFilters, distance: "" });
+                cleanFilter('distance')
                 showDropdowns(initialStateDropdowns);
               }}
               type="button"
@@ -308,7 +308,7 @@ const Dropdowns = ({handleSelectFilter,selectedFilters }) => {
               style={{ display: "inline-block" }}
               id="menu-remove-sectorInput"
               onClick={() => {
-                setSelectedFilters({ ...selectedFilters, sector: "" });
+                cleanFilter('sector')
                 showDropdowns(initialStateDropdowns);
               }}
               type="button"

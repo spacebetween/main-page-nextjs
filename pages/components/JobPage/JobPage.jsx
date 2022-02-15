@@ -80,9 +80,22 @@ const JobPage = ({jobs}) => {
     if (name === 'distance') {
       setSelectedFilters({ ...selectedFilters, distance: el });
     }
-    else setSelectedFilters({ ...selectedFilters, sector: el });
-    
+    if (name === 'sector') {
+      setSelectedFilters({ ...selectedFilters, sector: el });
+    }
   };
+
+  const cleanFilter = (name) => {
+    if (name === 'type') {
+      setSelectedFilters({ ...selectedFilters, type: "" });
+    }
+    if (name === 'distance') {
+      setSelectedFilters({ ...selectedFilters, distance: "" });
+    }
+    if (name === 'sector') {
+      setSelectedFilters({ ...selectedFilters, sector: "" });
+    }
+  }
 
 
 
@@ -148,7 +161,7 @@ const JobPage = ({jobs}) => {
                                 Find Jobs
                               </button>
                             </div>
-                            <Dropdowns handleSelectFilter={handleSelectFilter} selectedFilters={selectedFilters} />
+                            <Dropdowns cleanFilter={cleanFilter} handleSelectFilter={handleSelectFilter} selectedFilters={selectedFilters} />
                             <div className="d-block d-lg-none col-md-2">
                               <button
                                 type="submit"

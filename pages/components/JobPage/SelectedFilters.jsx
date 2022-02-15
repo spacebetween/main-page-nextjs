@@ -86,7 +86,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
           </a>
         </div>
       )}
-    </div>
+    </div> 
   );
 };
 

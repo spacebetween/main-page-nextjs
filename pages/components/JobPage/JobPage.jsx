@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Dropdowns from "./DropdownFilters.jsx";
 import Inputs from "./Inputs";
 import JobsList from "./JobsList";
@@ -10,6 +10,7 @@ const JobPage = ({jobs}) => {
 
 
   const [numberOfJobs, setNumberOfJobs] = useState(987);
+  const scrollRef = useRef(null)
 
   //INPUTS (have to have separate states cause of google autocomplete)
 
@@ -130,7 +131,9 @@ const JobPage = ({jobs}) => {
   }
 
   const findJobs = () => {
+    console.log('FIND JOBS')
     setJobListFiltered(true);
+    scrollRef.current.scrollIntoView({behavior: 'smooth'})
   }
 
   console.log('keyword:', keyword, 'location:', location)
@@ -138,6 +141,8 @@ const JobPage = ({jobs}) => {
   console.log('selectFilters:', selectedFilters.type, selectedFilters.distance, selectedFilters.sector)
 
   console.log('sort recent:', sortBy.recent, 'sort pay:', sortBy.pay)
+
+  console.log('isJobListFiltered:', jobListFiltered)
 
   return (
     <div className="umb-grid">
@@ -185,31 +190,27 @@ const JobPage = ({jobs}) => {
                               keyword={keyword}
                             />
                             <div className="d-none d-lg-block col-md-2">
-                              <button
+                              <div
                                 className="searchForm_searchButton hvr-buzz-out"
                                 onClick={findJobs}
                                 style={{cursor:'pointer'}}
                               >
                                 <i className="icon hvr-icon"></i>
                                 Find Jobs
-                              </button>
+                              </div>
                             </div>
                             <Dropdowns showDropdowns={showDropdowns} dropdowns={dropdowns} cleanFilter={cleanFilter} handleSelectFilter={handleSelectFilter} selectedFilters={selectedFilters} />
                             <div className="d-block d-lg-none col-md-2">
-                              <button
-          
+                              <div
                                 className="searchForm_searchButton hvr-buzz-out"
                                 onClick={findJobs}
                                 style={{cursor:'pointer'}}
                               >
                                 <i className="icon hvr-icon"></i>
                                 Find Jobs
-                              </button>
+                              </div>
                             </div>
-                            <div
-                              id="placesAttribution"
-                              style={{ display: "none" }}
-                            ></div>
+    
                           </div>
                         </div>
                       </div>
@@ -237,7 +238,7 @@ const JobPage = ({jobs}) => {
             <div className="row clearfix">
               <div className="col-md-12 column">
                 <div>
-                  <div className="row" id="scrollToHere">
+                  <div className="row" ref={scrollRef}>
                     <div className="col-md-8">
                       <div
                         style={{

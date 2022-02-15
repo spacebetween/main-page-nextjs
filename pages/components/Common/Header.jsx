@@ -335,11 +335,6 @@ const Header = () => {
         </ul>
       </div>
       <div onClick={handleClickHamburger} className="hamburger d-lg-none">
-        <img
-          src="https://cdn.iconscout.com/icon/free/png-256/hamburger-menu-462145.png"
-          alt="hamburger"
-          width="100%"
-        ></img>
       </div>
       <div className="indicator d-lg-none"></div>
     </div>

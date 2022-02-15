@@ -57,7 +57,7 @@
     left: 0;
     right: 0;
     height: 60px;
-    background: #fff url(/images/nav/nav-border.png) repeat-x bottom;
+    
     transition: top 300ms linear;
 
     @include media-breakpoint-up(lg) {
@@ -103,7 +103,7 @@
         height: 32px;
         width: 32px;
         margin: 0 0 0 10px;
-        background: url(/images/nav/nav-hamburger.svg);
+        background: url("https://www.hrgo.co.uk/images/nav/nav-hamburger.svg");
         background-size: 32px;
         cursor: pointer;
 

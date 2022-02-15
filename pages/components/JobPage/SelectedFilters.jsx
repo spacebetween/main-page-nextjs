@@ -1,5 +1,7 @@
 import React from "react";
 
+import { listOfDistances } from "../helperLists";
+
 const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
 
   let areFiltersApplied = false;
@@ -38,7 +40,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
           <div  style={{cursor:'pointer'}}  onClick={() =>
                 removeFilter('distance')
               } className="filterTabs_item d-inline-block fontSize-12">
-            {selectedFilters.distance  === 'Any' ? 'Any distance' : selectedFilters.distance}
+            {selectedFilters.distance  === 'Any' ? 'Any distance' : listOfDistances[selectedFilters.distance].label }
             <a
               className="icon-white filterTabs_item_link"
             >

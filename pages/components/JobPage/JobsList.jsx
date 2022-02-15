@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import { timePosted, checkIfNew, checkType, determineSalary, setCompanyLogo } from "../helpers";
+import { timePosted, checkIfNew, checkType, determineSalary, setCompanyLogo } from "../helperFunctions";
 const { htmlToText } = require('html-to-text');
 
-const JobsList = ({ jobs }) => {
-
-  const [jobsList, setJobsList] = useState(jobs);
+const Jobs = ({ jobs }) => {
 
   return (
-    <div className="pos-relative" id="jobsListingWrapper">
+    <div className="pos-relative" id="jobsingWrapper">
       <div className="spinner_wrapper w-100 d-none" id="spinnerWrapper">
         <div className="spinner_component card-grayLightest rounded p-hf pt-1">
           <div className="spinner_component_icon d-block align-middle icomoon-spinner mb-hf"></div>
           <small>Loading Jobs</small>
         </div>
       </div>
-      {jobsList ? (
-        jobsList.map((el) => (
+      {jobs ? (
+        jobs.map((el) => (
           <div key={el.id} className="pos-relative">
             {checkIfNew(el.dateCreated) && <div className="card_note">NEW</div>}
             <div className="card card-job mb-2 shadow-1">
@@ -224,4 +222,4 @@ const JobsList = ({ jobs }) => {
   );
 };
 
-export default JobsList;
+export default Jobs;

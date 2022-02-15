@@ -1,75 +1,12 @@
 import React from "react";
+import { listOfTypes, listOfDistances } from "../helperLists";
 
-const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, dropdowns }) => {
+const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, dropdowns,  sectorsListWithCodes }) => {
   
-  const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
 
-  const listOfDistances = [
-    {value: 'Any', label: 'Any'},
-    {value: '5', label: "up to 5 miles"},
-    {value: '10', label:'up to 10 miles'},
-    {value: '20', label:'up to 20 miles'},
-    {value: '30', label:'up to 30 miles'},
-    {value: '50', label:'up to 50 miles'}
-  ];
-  const listfOfSectors = [
-    "All sectors",
-    "Accounting",
-    "Admin",
-    "Agriculture Fishing and Forestry",
-    "Airport",
-    "Automotive",
-    "Banking",
-    "Building Services / FM",
-    "Building and Construction",
-    "Cleaning",
-    "Community Services",
-    "Construction",
-    "Consultancy",
-    "Customer Service",
-    "Design",
-    "Downstream oil and gas",
-    "Driving",
-    "Education and Training",
-    "Electricians &amp; Lightning Protection",
-    "Electronics",
-    "Engineering",
-    "Estate Agent",
-    "FMCG",
-    "Factory",
-    "Financial Services",
-    "Graduates and Trainees",
-    "HR",
-    "Health and Safety",
-    "Health and Social Care",
-    "Hospitality",
-    "IT",
-    "Insurance",
-    "Legal",
-    "Leisure and Sport",
-    "Life Sciences",
-    "Logistics",
-    "Maintenance",
-    "Manufacturing",
-    "Marketing",
-    "Media",
-    "New Media and Internet",
-    "Not for Profit and Charities",
-    "Nursing",
-    "Oil and Gas",
-    "Procurement",
-    "Property and Housing",
-    "Public Sector",
-    "Recruitment",
-    "Recruitment Consultancy",
-    "Refrigeration / AC",
-    "Retail",
-    "Sales",
-    "Science",
-    "Trade",
-    "Travel and Tourism",
-  ];
-  
+  console.log('***')
+  console.log(listOfDistances.find(el => el.value === selectedFilters.distance))
+  console.log(selectedFilters.distance)
 
   return (
     <div className="advancedPanel col-md-10">
@@ -132,7 +69,7 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               id="menu-remove-jobTypeInput"
               onClick={() => {
                 cleanFilter('type')
-                showDropdowns(initialStateDropdowns);
+                showDropdowns('closeAll');
               }}
               type="button"
             >
@@ -202,12 +139,12 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               id="menu-remove-distanceInput"
               onClick={() => {
                 cleanFilter('distance')
-                showDropdowns(initialStateDropdowns);
+                showDropdowns('closeAll');
               }}
               type="button"
             >
               <span id="menu-remove-text-distanceInput">
-                {selectedFilters.distance}
+               {listOfDistances.find(el => el.value === selectedFilters.distance).label}
               </span>
               &nbsp;
               <span aria-hidden="true">×</span>
@@ -249,15 +186,15 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
                 willChange: "transform",
               }}
             >
-              {dropdowns.sector && listfOfSectors.map((el, i) => {
+              {dropdowns.sector && sectorsListWithCodes.map((el, i) => {
                   return (
                     <li
                       key={i + "sector"}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => handleSelectFilter('sector', el)}
+                      onClick={() => handleSelectFilter('sector', el.value)}
                     >
-                      {el}
+                      {el.label}
                     </li>
                   );
                 })}
@@ -272,12 +209,12 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               id="menu-remove-sectorInput"
               onClick={() => {
                 cleanFilter('sector')
-                showDropdowns(initialStateDropdowns);
+                showDropdowns('closeAll');
               }}
               type="button"
             >
               <span id="menu-remove-text-sectorInput">
-                {selectedFilters.sector}
+              {sectorsListWithCodes.find(el => el.value === selectedFilters.sector).label}
               </span>
               &nbsp;
               <span aria-hidden="true">×</span>

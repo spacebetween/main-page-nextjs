@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropdowns from "./DropdownFilters.jsx";
 import Inputs from "./Inputs";
 import JobsList from "./JobsList";
@@ -8,60 +8,61 @@ import SortButtons from "./SortButtons";
 
 const JobPage = ({jobs}) => {
 
+
   const [numberOfJobs, setNumberOfJobs] = useState(987);
 
-  const [input, setInput] = useState({
-    keyword: "",
-    location: null,
-  });
+  //INPUTS (have to have separate states cause of google autocomplete)
 
+  const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState({});
+
+//FILTERS
   const initialStateFilters = {
     type: "",
     distance: "",
     sector: "",
   }
-
   const [selectedFilters, setSelectedFilters] = useState(initialStateFilters);
 
 
-  const removeFilter = (filter) => {
-    if (filter === 'type') {
-        setSelectedFilters({...selectedFilters, type: ""})
-    }
-    if (filter === 'distance') {
-        setSelectedFilters({...selectedFilters, distance: ""})
-    }
-    if (filter === 'sector') {
-        setSelectedFilters({...selectedFilters, sector: ""})
-    }
-    if (filter === 'all') {
-      setSelectedFilters(initialStateFilters)
-    }
-    
+//DROPDOWNS
+  const initialStateDropdowns = {
+    type: false,
+    distance: false,
+    sector: false,
   };
 
+  const [dropdowns, showDropdown] = useState(initialStateDropdowns);
+
+  //SORT BUTTONS 
+
+  const initialStateSortBtns = {
+    pay: false,
+    recent: false
+}
+
+  const [sortBy, setSorting] = useState(initialStateSortBtns)
+
+  // SEARCH on/off
+
+  const [jobListFiltered, setJobListFiltered] = useState(false)
+
+
   const handleKeyword = (event) => {
-    setInput({ ...input, keyword: event.target.value });
+    setKeyword(event.target.value);
   };
+
 
   const handleLocation = (place) => {
     const lat = place.geometry.location.lat();
     const long = place.geometry.location.lng();
 
-    setInput({
-      ...input,
-      location: {
+    setLocation({
         place: place.formatted_address,
         lat: lat,
         long: long,
-      },
-    });
+    })
   };
-
-  const [sortBy, setSorting] = useState({
-    pay: false,
-    recent: false
-})
 
   const setSortBy = (name) => {
     if (name === 'recent') {
@@ -70,12 +71,9 @@ const JobPage = ({jobs}) => {
     setSorting({recent:false, pay:true})
   }
 
-  const handleSearchJobs = () => {
-    console.log('SEARCH')
-  }
-
 
   const handleSelectFilter = (name,el) => {
+    setJobListFiltered(false);
     if (name === 'type') {
       setSelectedFilters({ ...selectedFilters, type: el });
     }
@@ -88,6 +86,9 @@ const JobPage = ({jobs}) => {
   };
 
   const cleanFilter = (name) => {
+
+    setJobListFiltered(false);
+
     if (name === 'type') {
       setSelectedFilters({ ...selectedFilters, type: "" });
     }
@@ -97,13 +98,46 @@ const JobPage = ({jobs}) => {
     if (name === 'sector') {
       setSelectedFilters({ ...selectedFilters, sector: "" });
     }
+    if (name === 'all') {
+      setSelectedFilters(initialStateFilters);
+    }
+    showDropdown(initialStateDropdowns)
   }
 
 
+  const showDropdowns = (name) => {
+    if (name === 'type') {
+      showDropdown({
+        type: true,
+        distance: false,
+        sector: false,
+      })
+    }
+    if (name === 'distance') {
+      showDropdown({
+        type: false,
+        distance: true,
+        sector: false,
+      })
+    }
+    if (name === 'sector') {
+      showDropdown({
+        type: false,
+        distance: false,
+        sector: true,
+      })
+    }
+  }
 
-  console.log('inputs:', input.keyword, input.location)
+  const findJobs = () => {
+    setJobListFiltered(true);
+  }
+
+  console.log('keyword:', keyword, 'location:', location)
 
   console.log('selectFilters:', selectedFilters.type, selectedFilters.distance, selectedFilters.sector)
+
+  console.log('sort recent:', sortBy.recent, 'sort pay:', sortBy.pay)
 
   return (
     <div className="umb-grid">
@@ -148,30 +182,25 @@ const JobPage = ({jobs}) => {
                             <Inputs
                               handleKeyword={handleKeyword}
                               handleLocation={handleLocation}
-                              keyword={input.keyword}
+                              keyword={keyword}
                             />
                             <div className="d-none d-lg-block col-md-2">
                               <button
-                                type="submit"
                                 className="searchForm_searchButton hvr-buzz-out"
-                                data-category="jobSearch"
-                                data-action="click"
-                                data-label="Search"
-                                tabIndex="0"
+                                onClick={findJobs}
+                                style={{cursor:'pointer'}}
                               >
                                 <i className="icon hvr-icon"></i>
                                 Find Jobs
                               </button>
                             </div>
-                            <Dropdowns cleanFilter={cleanFilter} handleSelectFilter={handleSelectFilter} selectedFilters={selectedFilters} />
+                            <Dropdowns showDropdowns={showDropdowns} dropdowns={dropdowns} cleanFilter={cleanFilter} handleSelectFilter={handleSelectFilter} selectedFilters={selectedFilters} />
                             <div className="d-block d-lg-none col-md-2">
                               <button
-                                type="submit"
+          
                                 className="searchForm_searchButton hvr-buzz-out"
-                                data-category="jobSearch"
-                                data-action="click"
-                                data-label="Search"
-                                tabIndex="0"
+                                onClick={findJobs}
+                                style={{cursor:'pointer'}}
                               >
                                 <i className="icon hvr-icon"></i>
                                 Find Jobs
@@ -223,12 +252,13 @@ const JobPage = ({jobs}) => {
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <SortButtons handleSearchJobs={handleSearchJobs} setSortBy={setSortBy} sortBy={sortBy} />
+                      <SortButtons setSortBy={setSortBy} sortBy={sortBy} />
                     </div>
                   </div>
                   <SelectedFilters
+                  jobListFiltered={jobListFiltered}
                     selectedFilters={selectedFilters}
-                    removeFilter={removeFilter}
+                    removeFilter={cleanFilter}
                   />
                   <JobsList jobs={jobs}/>
                 </div>

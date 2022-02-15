@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelectedFilters = ({selectedFilters, removeFilter}) => {
+const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
 
   let areFiltersApplied = false;
 
@@ -10,11 +10,11 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
     }
   });
 
-  return (
+  return ( jobListFiltered &&
     <div className="filterTabs mb-2 pos-relative icon-lightGrey">
       {selectedFilters.type.length > 0 && (
         <div className="d-inline-block">
-          <div onClick={() =>
+          <div style={{cursor:'pointer'}} onClick={() =>
                 removeFilter('type')
               } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.type}
@@ -35,7 +35,7 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
       )}
       {selectedFilters.distance.length > 0 && (
         <div className="d-inline-block">
-          <div    onClick={() =>
+          <div  style={{cursor:'pointer'}}  onClick={() =>
                 removeFilter('distance')
               } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.distance}
@@ -55,7 +55,7 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
       )}
       {selectedFilters.sector.length > 0 && (
         <div className="d-inline-block">
-          <div onClick={() =>
+          <div style={{cursor:'pointer'}} onClick={() =>
                 removeFilter('sector')
               } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.sector}
@@ -75,12 +75,10 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
         </div>
       )}
       {areFiltersApplied && (
-        <div className="d-inline-block mt-hf">
+        <div style={{cursor:'pointer'}} onClick={() =>
+          removeFilter('all')
+        } className="d-inline-block mt-hf">
           <a
-            href=""
-            onClick={() =>
-              removeFilter('all')
-            }
             className="fontSize-14"
             id="clearAllFilters"
           >

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const SortButtons = ({setSortBy, sortBy, handleSearchJobs}) => {
+const SortButtons = ({setSortBy, sortBy}) => {
 
     return (
         <form
@@ -57,14 +57,6 @@ const SortButtons = ({setSortBy, sortBy, handleSearchJobs}) => {
                               </label>
                             </div>
                           </div>
-                          <button
-                            type="submit"
-                            className="d-none"
-                            value="Search"
-                            name="submit"
-                            id="js-jobSearchFilter"
-                            onClick={handleSearchJobs}
-                          ></button>
                         </form>
     )
 }

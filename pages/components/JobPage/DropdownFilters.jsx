@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React from "react";
 
-const Dropdowns = ({handleSelectFilter,selectedFilters, cleanFilter }) => {
+const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, dropdowns }) => {
+  
   const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
+
   const listOfDistances = [
     "Any",
     "up to 5 miles",
@@ -69,14 +70,6 @@ const Dropdowns = ({handleSelectFilter,selectedFilters, cleanFilter }) => {
     "Travel and Tourism",
   ];
   
-  const initialStateDropdowns = {
-    type: false,
-    distance: false,
-    sector: false,
-  };
-
-  const [dropdowns, showDropdowns] = useState(initialStateDropdowns);
-
 
   return (
     <div className="advancedPanel col-md-10">
@@ -94,19 +87,9 @@ const Dropdowns = ({handleSelectFilter,selectedFilters, cleanFilter }) => {
               className="btn dropdown-toggle"
               id="menu-jobTypeInput"
               type="button"
-              onFocus={() =>
-                showDropdowns({
-                  type: true,
-                  distance: false,
-                  sector: false,
-                })
+              onFocus={()=>showDropdowns('type')
               }
-              onBlur={() =>
-                showDropdowns({
-                  type: true,
-                  distance: false,
-                  sector: false,
-                })
+              onBlur={()=>showDropdowns('type')
               }
             >
               Job type
@@ -175,20 +158,10 @@ const Dropdowns = ({handleSelectFilter,selectedFilters, cleanFilter }) => {
               className="btn dropdown-toggle"
               id="menu-distanceInput"
               type="button"
-              onFocus={() =>
-                showDropdowns({
-                  type: false,
-                  distance: true,
-                  sector: false,
-                })
-              }
-              onBlur={() =>
-                showDropdowns({
-                  type: false,
-                  distance: true,
-                  sector: false,
-                })
-              }
+              onFocus={()=>showDropdowns('distance')
+            }
+            onBlur={()=>showDropdowns('distance')
+            }
             >
               Distance to job
             </button>
@@ -255,20 +228,10 @@ const Dropdowns = ({handleSelectFilter,selectedFilters, cleanFilter }) => {
               className="btn dropdown-toggle"
               id="menu-distanceInput"
               type="button"
-              onFocus={() =>
-                showDropdowns({
-                  type: false,
-                  distance: false,
-                  sector: true,
-                })
-              }
-              onBlur={() =>
-                showDropdowns({
-                  type: false,
-                  distance: false,
-                  sector: true,
-                })
-              }
+              onFocus={()=>showDropdowns('sector')
+            }
+            onBlur={()=>showDropdowns('sector')
+            }
             >
               Job sector
             </button>

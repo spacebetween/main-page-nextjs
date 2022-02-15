@@ -17,7 +17,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
           <div style={{cursor:'pointer'}} onClick={() =>
                 removeFilter('type')
               } className="filterTabs_item d-inline-block fontSize-12">
-            {selectedFilters.type}
+            {selectedFilters.type === 'All' ? 'All job types' : selectedFilters.type}
             <a
               className="icon-white filterTabs_item_link"
 
@@ -38,7 +38,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
           <div  style={{cursor:'pointer'}}  onClick={() =>
                 removeFilter('distance')
               } className="filterTabs_item d-inline-block fontSize-12">
-            {selectedFilters.distance}
+            {selectedFilters.distance  === 'Any' ? 'Any distance' : selectedFilters.distance}
             <a
               className="icon-white filterTabs_item_link"
             >
@@ -78,12 +78,12 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered}) => {
         <div style={{cursor:'pointer'}} onClick={() =>
           removeFilter('all')
         } className="d-inline-block mt-hf">
-          <a
+          <div
             className="fontSize-14"
-            id="clearAllFilters"
+            style={{color:'#2095f3'}}
           >
             Clear all filters
-          </a>
+          </div>
         </div>
       )}
     </div> 

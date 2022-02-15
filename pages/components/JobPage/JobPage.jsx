@@ -10,7 +10,8 @@ const JobPage = ({jobs}) => {
 
 
   const [numberOfJobs, setNumberOfJobs] = useState(987);
-  const scrollRef = useRef(null)
+  const scrollToJobList = useRef(null)
+  const scrollToFilters = useRef(null)
 
   //INPUTS (have to have separate states cause of google autocomplete)
 
@@ -101,6 +102,7 @@ const JobPage = ({jobs}) => {
     }
     if (name === 'all') {
       setSelectedFilters(initialStateFilters);
+      scrollToFilters.current.scrollIntoView({behavior: 'smooth'})
     }
     showDropdown(initialStateDropdowns)
   }
@@ -133,7 +135,7 @@ const JobPage = ({jobs}) => {
   const findJobs = () => {
     console.log('FIND JOBS')
     setJobListFiltered(true);
-    scrollRef.current.scrollIntoView({behavior: 'smooth'})
+    scrollToJobList.current.scrollIntoView({behavior: 'smooth'})
   }
 
   console.log('keyword:', keyword, 'location:', location)
@@ -145,7 +147,7 @@ const JobPage = ({jobs}) => {
   console.log('isJobListFiltered:', jobListFiltered)
 
   return (
-    <div className="umb-grid">
+    <div ref={scrollToFilters} className="umb-grid">
       <div className="grid section">
         <div className="row-container pb-0 pt-0 bg-primary">
           <div className="container">
@@ -238,7 +240,7 @@ const JobPage = ({jobs}) => {
             <div className="row clearfix">
               <div className="col-md-12 column">
                 <div>
-                  <div className="row" ref={scrollRef}>
+                  <div className="row" ref={scrollToJobList}>
                     <div className="col-md-8">
                       <div
                         style={{

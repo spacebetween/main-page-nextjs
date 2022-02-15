@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 
 
-const SortButtons = () => {
+const SortButtons = ({setSortBy, sortBy}) => {
 
     const handleSearchJobs = () => {
         console.log('SEARCH FOR JOBS')
     }
-
-    const [sortBy, setSortBy] = useState({
-        pay: false,
-        recent: false
-    })
 
     return (
         <form
@@ -44,7 +39,7 @@ const SortButtons = () => {
                                   id="sortByDate"
                                   name="SortBy"
                                   type="radio"
-                                  onClick={()=>{setSortBy({recent:true, pay:false})}}
+                                  onClick={setSortBy('recent')}
                                 />
                               </label>
                               <label
@@ -61,7 +56,7 @@ const SortButtons = () => {
                                   id="sortByPay"
                                   name="SortBy"
                                   type="radio"
-                                  onClick={()=>{setSortBy({recent:false, pay:true})}}
+                                  onClick={setSortBy('pay')}
                                 />
                               </label>
                             </div>

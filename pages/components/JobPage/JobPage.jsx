@@ -56,6 +56,18 @@ const JobPage = ({jobs}) => {
     });
   };
 
+  const [sortBy, setSorting] = useState({
+    pay: false,
+    recent: false
+})
+
+  const setSortBy = (name) => {
+    if (name === 'recent') {
+      setSorting({recent:true, pay:false})
+    } else 
+    setSorting({recent:false, pay:true})
+  }
+
 
   return (
     <div className="umb-grid">
@@ -175,7 +187,7 @@ const JobPage = ({jobs}) => {
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <SortButtons />
+                      <SortButtons setSortBy={setSortBy} sortBy={sortBy} />
                     </div>
                   </div>
                   <SelectedFilters

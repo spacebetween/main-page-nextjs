@@ -8,8 +8,8 @@ import SortButtons from "./SortButtons";
 
 const JobPage = ({jobs}) => {
 
-
   const [numberOfJobs, setNumberOfJobs] = useState(987);
+
   const scrollToJobList = useRef(null)
   const scrollToFilters = useRef(null)
 
@@ -132,11 +132,46 @@ const JobPage = ({jobs}) => {
     }
   }
 
-  const findJobs = () => {
+  const findJobs = async () => {
+    //DO NOT FETCH when no filters applied 
+    if (selectedFilters === initialStateFilters && keyword === "" && location === {} && sortBy === initialStateSortBtns) {
+      scrollToJobList.current.scrollIntoView({behavior: 'smooth'})
+    } else {
+
+      let url = "http://localhost:3001/jobs?";
+
+      if (selectedFilters.type && selectedFilters !== "All") {
+        url = url +  `&JobType=${selectedFilters.type}`
+      }
+
+      if (selectedFilters.distance && selectedFilters !== "Any") {
+        url = url +  `&Distance=${selectedFilters.distance}`
+      }
+
+      if (selectedFilters.sector && selectedFilters !== "All sectors") {
+        url = url +  `&JobSector=${selectedFilters.sector}`
+      }
+
+      // &JobType=Permanent&Distance=5&JobSector=fiSmg5aEkrusiEeiWErHLx
+
+      if (keyword) {
+        url = url + `&Keywords=${keyword}` 
+      }
+
+      if (location) {
+        url = url + `&JobLocation=${location.place}&Latitude=${location.lat}&Longitude=${location.long}&ExcludeNationwide=False` 
+      }
+
+      await axios.get(`http://localhost:3001/jobs`,).then(response => {
+        jobs = response.data.data.value
+      });
+    }
+
+    // https://www.hrgo.co.uk/jobs?Keywords=gh&JobLocation=Harrogate&Latitude=53.99212&Longitude=-1.541812&ExcludedKeywords=&ExcludeNationwide=False&JobType=Permanent&Distance=5&JobSector=fiSmg5aEkrusiEeiWErHLx
     console.log('FIND JOBS')
     setJobListFiltered(true);
     scrollToJobList.current.scrollIntoView({behavior: 'smooth'})
-  }
+  };
 
   console.log('keyword:', keyword, 'location:', location)
 

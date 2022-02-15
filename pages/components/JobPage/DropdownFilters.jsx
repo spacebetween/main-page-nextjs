@@ -5,12 +5,12 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
   const listOfTypes = ["All", "Permanent", "Contract", "Temporary"];
 
   const listOfDistances = [
-    "Any",
-    "up to 5 miles",
-    "up to 10 miles",
-    "up to 20 miles",
-    "up to 30 miles",
-    "up to 50 miles",
+    {value: 'Any', label: 'Any'},
+    {value: '5', label: "up to 5 miles"},
+    {value: '10', label:'up to 10 miles'},
+    {value: '20', label:'up to 20 miles'},
+    {value: '30', label:'up to 30 miles'},
+    {value: '50', label:'up to 50 miles'}
   ];
   const listfOfSectors = [
     "All sectors",
@@ -185,9 +185,9 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
                       key={i + "distance"}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => handleSelectFilter('distance', el)}
+                      onClick={() => handleSelectFilter('distance', el.value)}
                     >
-                      {el}
+                      {el.label}
                     </li>
                   );
                 })}

@@ -6,12 +6,12 @@ import axios from 'axios';
 
 
 
-export default function HomePage({newList}) {
+export default function HomePage({jobsWithSectors}) {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobPage jobs={newList}/>
+      <JobPage jobs={jobsWithSectors}/>
       <Footer />
     </div>
   );
@@ -23,16 +23,8 @@ export async function getServerSideProps() {
   let industries;
   let websiteLink;
 
-
-  // const fetchData = async () => {
-  //   await axios.get('http://localhost:3001/jobs').then(response => {
-  //     jobs = response.data.data.value
-  //   })
-  //     .catch(() => {
-  //       console.log('error')
-  //     })
       
-  await axios.get('http://localhost:3001/jobs').then(response => {
+  await axios.get('http://localhost:3001/jobs?').then(response => {
     jobs = response.data.data.value
   });
 
@@ -47,23 +39,5 @@ export async function getServerSideProps() {
   }, [])
 
 
-  let newList = [];
-
-  await Promise.all(
-    jobsWithSectors.map(async (el) => {
-      await axios
-        .get(
-          `http://localhost:3001/websites/${el.primaryWebsiteId}`)
-        .then((response) => 
-          newList.push({...el, websiteID: response.data.data.value.id})
-        )
-        .catch((e) => {
-          console.log(e);
-        });
-    })
-  );
-
-
-
-  return { props: { newList} }
+  return { props: { jobsWithSectors} }
 }

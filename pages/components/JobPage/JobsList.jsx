@@ -92,7 +92,7 @@ const JobsList = ({ jobs }) => {
                         </span>
                       </div>
                       <div className="d-none d-sm-block pull-lg-right brandLogo mb-1 p-1">
-                        {setCompanyLogo(el.websiteID)}
+                        {setCompanyLogo(el.primaryWebsiteId)}
                       </div>
                       <a
                         href={el.link}

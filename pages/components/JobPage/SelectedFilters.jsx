@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const SelectedFilters = ({selectedFilters, removeFilter}) => {
 
@@ -14,14 +14,13 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
     <div className="filterTabs mb-2 pos-relative icon-lightGrey">
       {selectedFilters.type.length > 0 && (
         <div className="d-inline-block">
-          <div className="filterTabs_item d-inline-block fontSize-12">
+          <div onClick={() =>
+                removeFilter('type')
+              } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.type}
             <a
-              href=""
               className="icon-white filterTabs_item_link"
-              onClick={() =>
-                removeFilter('type')
-              }
+
             >
               <i
                 className="icomoon-cross align-middle fontSize-18 filterTabs_item-close"
@@ -36,14 +35,12 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
       )}
       {selectedFilters.distance.length > 0 && (
         <div className="d-inline-block">
-          <div className="filterTabs_item d-inline-block fontSize-12">
+          <div    onClick={() =>
+                removeFilter('distance')
+              } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.distance}
             <a
-              href=""
               className="icon-white filterTabs_item_link"
-              onClick={() =>
-                removeFilter('distance')
-              }
             >
               <i
                 className="icomoon-cross align-middle fontSize-18 filterTabs_item-close"
@@ -58,14 +55,13 @@ const SelectedFilters = ({selectedFilters, removeFilter}) => {
       )}
       {selectedFilters.sector.length > 0 && (
         <div className="d-inline-block">
-          <div className="filterTabs_item d-inline-block fontSize-12">
+          <div onClick={() =>
+                removeFilter('sector')
+              } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.sector}
             <a
-              href=""
               className="icon-white filterTabs_item_link"
-              onClick={() =>
-                removeFilter('sector')
-              }
+              
             >
               <i
                 className="icomoon-cross align-middle fontSize-18 filterTabs_item-close"

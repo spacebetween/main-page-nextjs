@@ -15,12 +15,13 @@ const JobPage = ({jobs}) => {
     location: null,
   });
 
-
-  const [selectedFilters, setSelectedFilters] = useState({
+  const initialStateFilters = {
     type: "",
     distance: "",
     sector: "",
-  });
+  }
+
+  const [selectedFilters, setSelectedFilters] = useState(initialStateFilters);
 
 
   const removeFilter = (filter) => {
@@ -33,9 +34,10 @@ const JobPage = ({jobs}) => {
     if (filter === 'sector') {
         setSelectedFilters({...selectedFilters, sector: ""})
     }
-    else {
-        setSelectedFilters({type: "", distance: "", sector: ""})
+    if (filter === 'all') {
+      setSelectedFilters(initialStateFilters)
     }
+    
   };
 
   const handleKeyword = (event) => {

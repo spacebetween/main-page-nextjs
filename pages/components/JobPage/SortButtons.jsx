@@ -27,7 +27,8 @@ const SortButtons = ({setSortBy, sortBy}) => {
                                 id="sortByDateLabel"
                               >
                                 Most Recent
-                                <input
+                                <button
+                                disabled={sortBy === 'date'}
                                   className="d-none"
                                   data-action="radiobutton"
                                   data-category="jobSearchFilters"
@@ -44,7 +45,8 @@ const SortButtons = ({setSortBy, sortBy}) => {
                                 id="sortByPayLabel"
                               >
                                 Highest Pay
-                                <input
+                                <button
+                                 disabled={sortBy === 'pay'}
                                   className="d-none"
                                   data-action="radiobutton"
                                   data-category="jobSearchFilters"

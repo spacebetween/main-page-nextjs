@@ -12,9 +12,12 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
     }
   });
 
+  console.log(jobListFiltered)
+  console.log(selectedFilters)
+
   return ( jobListFiltered &&
     <div className="filterTabs mb-2 pos-relative icon-lightGrey">
-      {selectedFilters.type.length > 0 && (
+      {selectedFilters.type && (
         <div className="d-inline-block">
           <div style={{cursor:'pointer'}} onClick={() =>
                 removeFilter('type')
@@ -35,7 +38,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
           </div>
         </div>
       )}
-      {selectedFilters.distance.length > 0 && (
+      {selectedFilters.distance && (
         <div className="d-inline-block">
           <div  style={{cursor:'pointer'}}  onClick={() =>
                 removeFilter('distance')
@@ -55,7 +58,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
           </div>
         </div>
       )}
-      {selectedFilters.sector.length > 0 && (
+      {selectedFilters.sector && (
         <div className="d-inline-block">
           <div style={{cursor:'pointer'}} onClick={() =>
                 removeFilter('sector')

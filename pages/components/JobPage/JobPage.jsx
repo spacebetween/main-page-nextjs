@@ -8,13 +8,13 @@ import axios from "axios";
 
 const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   
-  console.log(jobs)
+  
   
   const [numberOfJobs, setNumberOfJobs] = useState(987);
   const [loading, setLoading] = useState(false);
   const [jobList, setJobsList] = useState(jobs);
   //SORT
-  const [sortBy, setSorting] = useState("");
+  const [sortBy, setSorting] = useState("date");
 
   useEffect(() => {}, [jobList]);
 
@@ -32,6 +32,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
     sector: "",
   };
   const [selectedFilters, setSelectedFilters] = useState(initialStateFilters);
+
 
   //DROPDOWNS
   const initialStateDropdowns = {
@@ -60,15 +61,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
     });
   };
 
-  const setSortBy = async (name) => {
-    if (name === "date" && sortBy !== 'date') {
-      setSorting('date');
-    } 
-    if (name === "pay" && sortBy !== 'pay') {
-      setSorting('pay');
-    }
-
-    await findJobs()
+  const setSortBy = (name) => {
+    setSorting(name);
+    findJobs()
   };
 
   const handleSelectFilter = (name, value) => {
@@ -85,7 +80,8 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const cleanFilter = (name) => {
-    setJobListFiltered(false);
+
+    console.log('CLEAN FILTER', name)
 
     if (name === "type") {
       setSelectedFilters({ ...selectedFilters, type: "" });
@@ -102,6 +98,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
       setJobsList(jobs)
     }
     showDropdown(initialStateDropdowns);
+    console.log(selectedFilters)
+
+    findJobs();
   };
 
   const showDropdowns = (name) => {
@@ -152,7 +151,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   }
 
   const getQueryParams = () => {
-    let query = {excludeNationwide: false, activeOnly: true};
+    let query = {excludeNationwide: true, activeOnly: true};
 
     if (keyword) {
       query.search = keyword
@@ -161,7 +160,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
       query.jobTypeIds = determineJobTypeCode()
     }
     if (selectedFilters.distance) {
-      query.distance = selectedFilters.distance
+      query.distance = selectedFilters.distance === "" ? '0' : selectedFilters.sector 
     }
     if (selectedFilters.sector) {
       query.jobIndustryIds = selectedFilters.sector === "All sectors" ? '' : selectedFilters.sector 

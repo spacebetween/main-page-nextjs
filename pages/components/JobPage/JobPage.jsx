@@ -6,7 +6,7 @@ import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
 import axios from "axios";
 
-const JobPage = ({ jobs, sectorsListWithCodes }) => {
+const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   
   console.log(jobs)
   
@@ -60,15 +60,15 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
     });
   };
 
-  const setSortBy = (name) => {
+  const setSortBy = async (name) => {
     if (name === "date" && sortBy !== 'date') {
       setSorting('date');
-      findJobs('date')
     } 
     if (name === "pay" && sortBy !== 'pay') {
       setSorting('pay');
-      findJobs('pay')
     }
+
+    await findJobs()
   };
 
   const handleSelectFilter = (name, value) => {
@@ -131,6 +131,14 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
     }
   };
 
+  const hideDropdowns = (name) => {
+      showDropdown({
+        type: false,
+        distance: false,
+        sector: false,
+      });
+  };
+
   const determineJobTypeCode = () => {
     if (selectedFilters.type === "Permanent") {
       return "328";
@@ -143,7 +151,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
     }
   }
 
-  const getQueryParams = (orderBy) => {
+  const getQueryParams = () => {
     let query = {excludeNationwide: false, activeOnly: true};
 
     if (keyword) {
@@ -156,26 +164,26 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
       query.distance = selectedFilters.distance
     }
     if (selectedFilters.sector) {
-      query.jobIndustryIds = selectedFilters.sector
+      query.jobIndustryIds = selectedFilters.sector === "All sectors" ? '' : selectedFilters.sector 
     }
     if (location) {
       query.latitude = location.lat
       query.longitude = location.long
     }
-    if (sortBy || orderBy) {
-      query.sortBy = orderBy ? orderBy : sortBy
+    if (sortBy) {
+      query.sortBy = sortBy === 'date' ? 'pay' : 'date'
     }
 
     return query;
   }
 
-  const findJobs = async (orderBy) => {
+  const findJobs = async () => {
 
     //DO NOT FETCH when no filters applied
     if (
       selectedFilters === initialStateFilters &&
       keyword === "" &&
-      location === {} &&
+      !location &&
       sortBy === ""
     ) {
       scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
@@ -184,10 +192,15 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
 
       await axios
         .get(url, {
-          params: getQueryParams(orderBy)
+          params: getQueryParams()
         })
         .then((response) => {
-          setJobsList(response.data.data.value);
+          const list = response.data.data.value
+          const listWithSectors = list.reduce((acc, job)=>{
+            const industry = industries.find(industry => industry.id === job.jobIndustryId);
+            return [...acc, {...job, sector: industry.jobIndustryName}]
+          }, [])
+          setJobsList(listWithSectors);
           setLoading(false);
           scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
           setNumberOfJobs(response.data.data.totalCount)
@@ -254,6 +267,7 @@ const JobPage = ({ jobs, sectorsListWithCodes }) => {
                               </div>
                             </div>
                             <Dropdowns
+                            hideDropdowns={hideDropdowns}
                               sectorsListWithCodes={sectorsListWithCodes}
                               showDropdowns={showDropdowns}
                               dropdowns={dropdowns}

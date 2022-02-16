@@ -1,7 +1,7 @@
 import React from "react";
 import { listOfTypes, listOfDistances } from "../helperLists";
 
-const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, dropdowns,  sectorsListWithCodes }) => {
+const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, hideDropdowns, dropdowns,  sectorsListWithCodes }) => {
   
   return (
     <div className="advancedPanel col-md-10">
@@ -21,7 +21,7 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               type="button"
               onFocus={()=>showDropdowns('type')
               }
-              onBlur={()=>showDropdowns('type')
+              onMouseDown={()=>hideDropdowns('type')
               }
             >
               Job type
@@ -92,7 +92,7 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               type="button"
               onFocus={()=>showDropdowns('distance')
             }
-            onBlur={()=>showDropdowns('distance')
+            onMouseDown={()=>hideDropdowns('distance')
             }
             >
               Distance to job
@@ -162,7 +162,7 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               type="button"
               onFocus={()=>showDropdowns('sector')
             }
-            onBlur={()=>showDropdowns('sector')
+            onMouseDown={()=>hideDropdowns('sector')
             }
             >
               Job sector

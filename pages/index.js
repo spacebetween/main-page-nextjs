@@ -4,12 +4,12 @@ import Header from "./components/Common/Header";
 import JobPage from "./components/JobPage/JobPage";
 import axios from 'axios';
 
-export default function HomePage({jobsWithSectors, sectorsListWithCodes}) {
+export default function HomePage({jobsWithSectors, sectorsListWithCodes, industries}) {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobPage jobs={jobsWithSectors} sectorsListWithCodes={sectorsListWithCodes}/>
+      <JobPage jobs={jobsWithSectors} industries={industries} sectorsListWithCodes={sectorsListWithCodes}/>
       <Footer />
     </div>
   );
@@ -95,10 +95,10 @@ export async function getServerSideProps() {
 
   const sectorsListWithCodes = listfOfSectors.reduce((acc, sector)=>{
     const value =  industries.find(industry => sector.label === industry.jobIndustryName || sector.label === industry.alias )
-    const id = value ? value.id : ''
+    const id = value ? value.id : 'All sectors'
     return [...acc, {...sector, value: id}]
   }, [])
 
 
-  return { props: { jobsWithSectors, sectorsListWithCodes} }
+  return { props: { jobsWithSectors, sectorsListWithCodes, industries} }
 }

@@ -5,12 +5,12 @@ import JobPage from "./components/Jobs/Jobs";
 import Job from "./components/Job/Job";
 import axios from 'axios';
 
-export default function HomePage({jobsWithSectors, sectorsListWithCodes, industries}) {
+export default function HomePage({jobsList, sectorsListWithCodes, websites}) {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobPage jobs={jobsWithSectors} industries={industries} sectorsListWithCodes={sectorsListWithCodes}/>
+      <JobPage jobs={jobsList} websites={websites} sectorsListWithCodes={sectorsListWithCodes}/>
       {/* <Job/> */}
       <Footer />
     </div>
@@ -21,6 +21,7 @@ export async function getServerSideProps() {
 
   let jobs;
   let industries;
+  let websites;
 
       
   await axios.get('http://localhost:3001/jobs?').then(response => {
@@ -31,11 +32,12 @@ export async function getServerSideProps() {
     industries = response.data.data.value
   });  
 
- // ADD SECTOR TO EVERY JOB
-  const jobsWithSectors = jobs.reduce((acc, job)=>{
-    const industry = industries.find(industry => industry.id === job.jobIndustryId);
-    return [...acc, {...job, sector: industry.jobIndustryName}]
-  }, [])
+
+  await axios.get('http://localhost:3001/websites').then(response => {
+    websites = response.data.data.value
+  });  
+
+
 
   const listfOfSectors = [
     {label: "All sectors"},
@@ -101,7 +103,11 @@ export async function getServerSideProps() {
     return [...acc, {...sector, value: id}]
   }, [])
 
+  
+  const jobsList = jobs.reduce((acc, agency)=>{
+    const website =  websites.find(website => agency.primaryWebsiteId === website.id )
+    return [...acc, {...agency, website: website.websiteName }]
+  }, [])
 
-
-  return { props: { jobsWithSectors, sectorsListWithCodes, industries} }
+  return { props: { jobsList, sectorsListWithCodes, websites} }
 }

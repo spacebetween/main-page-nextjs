@@ -58,30 +58,85 @@ export const determineSalary = (job) => {
         return salaryText.replace(/GBP/g, "£")
 }
 
-export const setCompanyLogo = (websiteID) => {
+
+export const determineWhereRedirect = (el) => {
+  const jobTitle = el.jobTitle.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase();
+  const jobID = el.id
+  if (el.website === "HR GO Recruitment" || el.website === "HR GO Driving" || el.website === "hrgo/hrgo_boards.txt" ) {
+  return  {
+      pathname: `/${jobTitle}`,
+        query: {id: `${el.id}`}
+    }
+  }
+  if (el.website === "rhl" || el.website === "RHL - OLD" ) {
+    return  `https://www.rhl.com.au/job/${jobTitle}/${jobID}`
+}
+if (el.website === "Exectec" ) {
+  return  `https://www.exectecsolutions.co.uk/job/${jobTitle}/${jobID}`
+}
+if (el.website === "RHL AU" ) {
+  return  `https://www.rhl.com.au/job/${jobTitle}/${jobID}`
+}
+if (el.website === "HR GO Poland" ) {
+  return  `https://www.hrgorecruitment.pl/job/${jobTitle}/${jobID}`
+}
+if (el.website === "Gel Resourcing" ) {
+  return  `https://www.gelresourcing.co.uk/job/${jobTitle}/${jobID}`
+}
+if (el.website === "Absolute" ) {
+  return  `https://www.absoluteexecutivesearch.co.uk/job/${jobTitle}/${jobID}`
+}
+else return "www.hrgo.co.uk"
+};
+export const setCompanyLogo = (website) => {
+
+
     //ABSOLUTE
-    if (websiteID === "2VEJf7b46ppZcuknn2f2qr") {
+    if (website === "Absolute") {
       return (
         <img
           className="brandLogo_logo lozad"
           src="https://hrgo-image-cache.spacebetween.co.uk/media/7162/absolutereed.png?format=webp"
-          data-loaded="true"
+         
         />
       );
     }
     //RCH
-    if (websiteID === "rch")
+    if (website === "rhl" || website === 'RHL AU' )
      return ( <img
         className="brandLogo_logo lozad"
         src="https://hrgo-image-cache.spacebetween.co.uk/media/6909/rhl.png?format=webp"
-        data-loaded="true"
+       
       />)
+      //Exectec
+      if (website === "Exectec")
+      return ( <img
+         className="brandLogo_logo lozad"
+         src="https://www.hrgo.co.uk/media/6910/exectec.png?width=500&mode=max&animationprocessmode=first"
+        
+       />)
+       if (website === "Gel Resourcing") 
+       return (
+         <img
+         className="brandLogo_logo lozad"
+         src="https://hrgo-image-cache.spacebetween.co.uk/media/5354/gel-resourcing.png?format=webp"
+         >
+         </img>
+       )
+       if (website === "HR GO Recruitment" || website === "HR GO Driving" || website === "hrgo/hrgo_boards.txt" || website === "HR GO Poland") 
+       return (
+         <img
+         className="brandLogo_logo lozad"
+         src="https://hrgo-image-cache.spacebetween.co.uk/media/6911/hrgo.png?format=webp"
+         >
+         </img>
+       )
     //HRGO
     return (
     <img
       className="brandLogo_logo lozad"
-      src="https://hrgo-image-cache.spacebetween.co.uk/media/6911/hrgo.png?format=webp"
-      data-loaded="true"
+      src=""
+     
     />)
   };
   
@@ -97,3 +152,18 @@ export const setCompanyLogo = (websiteID) => {
     )
     return sector;
   }
+
+  export const determineWhoPosted = (user) => {
+    const name = user.substring(0, user.indexOf('@')).replace('.', ' ')
+  
+    return name.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+
+  }
+
+  export const determineLinkToRecruiter = (user) => {
+    const name = user.substring(0, user.indexOf('@')).replace('.', '-')
+  
+    return `https://www.hrgo.co.uk/team/${name}`
+
+  }
+

@@ -7,7 +7,7 @@ return (
     <div className="job-details-header">
     <div className="container d-flex">
         <div className="column main">
-            <h3 className="column-header label">You're interested in</h3>
+            <h4 className="column-header label">You're interested in</h4>
             <div className="column-content primary">
                 {job.jobTitle}
             </div>
@@ -16,7 +16,7 @@ return (
             </div>
         </div>
         <div className="column">
-            <h3 className="column-header label">In or around this area</h3>
+            <h4 className="column-header label">In or around this area</h4>
             <div className="column-content primary">
                 {job.locationCity ? job.locationCity : job.locationRegion}
             </div>
@@ -25,7 +25,7 @@ return (
             </div>
         </div>
         <div className="column">
-            <h3 className="column-header label">Job reference</h3>
+            <h4 className="column-header label">Job reference</h4>
             <div className="column-content primary">
                 {job.jobReference}
             </div>
@@ -36,7 +36,7 @@ return (
             </div>
         </div>
         <div className="column d-md-none">
-            <h3 className="column-header label">Salary</h3>
+            <h4 className="column-header label">Salary</h4>
             <div className="column-content primary">
             {determineSalary(job)}
             </div>

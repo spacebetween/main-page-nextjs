@@ -4,12 +4,12 @@ import Header from "./components/Common/Header";
 import JobDescription from "./components/Job/Job";
 import axios from 'axios';
 
-const Job = ({job, sector}) => {
+const Job = ({job, sector, similarJobs}) => {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobDescription job={job} sector={sector} />
+      <JobDescription job={job} sector={sector} similarJobs={similarJobs} />
       <Footer />
     </div>
   );
@@ -22,6 +22,7 @@ export async function getServerSideProps(context) {
   let job;
   let industries;
   let sector;
+  let similarJobs;
 
   await axios.get('http://localhost:3001/industries').then(response => {
     industries = response.data.data.value
@@ -29,10 +30,9 @@ export async function getServerSideProps(context) {
 
   await axios.get(`http://localhost:3001/jobs/${id}`).then(response => {
     job = response.data.data.value
-  }).catch(() => {
-    console.log('Catch')
+  }).catch((e) => {
+    console.log(e)
   });
-
 
   const listfOfSectors = [
     {label: "Accounting"},
@@ -103,10 +103,26 @@ export async function getServerSideProps(context) {
     }
   })
 
-  console.log({ props: { job, sector} })
+  // FOR SIMILAR JOBS:
+
+  await axios
+  .get("http://localhost:3001/jobs", {
+    params: {
+      excludeNationwide: true,
+      activeOnly: true,
+      jobIndustryIds: job.jobIndustryId,
+      latitude: job.geoLocation.coordinates[0],
+      longitude: job.geoLocation.coordinates[1],
+      items: 6
+    }
+  })
+  .then((response) => {
+    similarJobs = response.data.data.value
+  })
+  .catch((e) => console.log("error", e));
 
 
-  return { props: { job:job, sector} }
+  return { props: { job:job, sector, similarJobs} }
 }
 
 export default Job;

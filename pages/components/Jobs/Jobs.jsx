@@ -8,10 +8,7 @@ import axios from "axios";
 import { Fragment } from "react/cjs/react.production.min";
 
 
-const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
-
-
-  console.log(jobs)
+const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
 
   
   const [numberOfJobs, setNumberOfJobs] = useState(null);
@@ -70,7 +67,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const handleSelectFilter = (name, value) => {
-    console.log('CALLED WITH: ', name)
     setJobListFiltered(false);
     if (name === "type") {
       setSelectedFilters({ ...selectedFilters, type: value });
@@ -103,7 +99,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const showDropdowns = (name) => {
-    console.log('on click: ', name)
     if (name === "type") {
       showDropdown({
         type: true,
@@ -131,7 +126,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const hideDropdowns = (name) => {
-    console.log('on blur: ', name)
 
     if (name === "type") {
       showDropdown({
@@ -211,11 +205,11 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
         })
         .then((response) => {
           const list = response.data.data.value
-          const listWithSectors = list.reduce((acc, job)=>{
-            const industry = industries.find(industry => industry.id === job.jobIndustryId);
-            return [...acc, {...job, sector: industry.jobIndustryName}]
+          const jobsList = list.reduce((acc, agency)=>{
+            const website =  websites.find(website => agency.primaryWebsiteId === website.id )
+            return [...acc, {...agency, website: website.websiteName }]
           }, [])
-          setJobsList(listWithSectors);
+          setJobsList(jobsList);
           scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
           setNumberOfJobs(response.data.data.totalCount)
         })

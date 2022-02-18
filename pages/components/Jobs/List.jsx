@@ -5,7 +5,8 @@ import {
   checkType,
   determineSalary,
   setCompanyLogo,
-  determineSector
+  determineSector,
+  determineWhereRedirect
 } from "../helperFunctions";
 const { htmlToText } = require("html-to-text");
 import Link from "next/link";
@@ -31,13 +32,7 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                       <div className="row">
                         <div className="col-12">
                           <Link
-                            href={{
-                              pathname: `/${el.jobTitle
-                                .replace(/ /g, "")
-                                .replace(/\\/g, "")
-                              .replace(/%/g, 'percents')}`,
-                                query: {id: `${el.id}`}
-                            }}
+                          href={determineWhereRedirect(el)}
                           >
                             <h3 className="mb-hf"><a href=''>{el.jobTitle}</a></h3>
                           </Link>
@@ -99,7 +94,7 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                         </span>
                       </div>
                       <div className="d-none d-sm-block pull-lg-right brandLogo mb-1 p-1">
-                        {setCompanyLogo(el.primaryWebsiteId)}
+                        {setCompanyLogo(el.website)}
                       </div>
                       <a
                         href={el.link}

@@ -31,27 +31,27 @@ export const checkType = type => {
     else return '-'
 }
 
-export const determineSalary = (salaryFrom, salaryTo, salaryExtra, salaryType, salary) => {
+export const determineSalary = (job) => {
         let salaryText;
 
-        if (salary && salary !== "Not Specified") {
-            salaryText = salary + ' per ' + salaryType
+        if (job.salary && job.salary !== "Not Specified") {
+            salaryText = job.salary + ' per ' + job.salaryType
         } else {
-            salaryText = salaryFrom + ' - ' + salaryTo + ' per ' + salaryType
+            salaryText = job.salaryFrom + ' - ' + job.salaryTo + ' per ' + job.salaryType
         }
-        if (salaryExtra) {
-            salaryText = salaryText + " " + salaryExtra
-        }
-
-        if (salaryFrom === salaryTo) {
-            salaryText = salaryFrom + ' per ' + salaryType
+        if (job.salaryExtra) {
+            salaryText = salaryText + " " + job.salaryExtra
         }
 
-        if (salaryFrom === 0 && salaryTo === 0 && salary === "Not Specified" && salaryExtra) {
-            salaryText = salaryExtra
+        if (job.salaryFrom === job.salaryTo) {
+            salaryText = job.salaryFrom + ' per ' + job.salaryType
         }
 
-        if (salaryFrom === 0 && salaryTo === 0 && salary === "Not Specified" && !salaryExtra) {
+        if (job.salaryFrom === 0 && job.salaryTo === 0 && job.salary === "Not Specified" && job.salaryExtra) {
+            salaryText = job.salaryExtra
+        }
+
+        if (job.salaryFrom === 0 && job.salaryTo === 0 && job.salary === "Not Specified" && !job.salaryExtra) {
             return "Not Specified"
         }
 
@@ -85,3 +85,15 @@ export const setCompanyLogo = (websiteID) => {
     />)
   };
   
+
+  export const determineSector = (sectorsListWithCodes, id) => {
+    let sector;
+
+    sectorsListWithCodes.map((el)=>{
+      if (el.value === id) {
+        sector = el.label
+      }
+    }
+    )
+    return sector;
+  }

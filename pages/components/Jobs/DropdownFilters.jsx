@@ -1,8 +1,15 @@
 import React from "react";
 import { listOfTypes, listOfDistances } from "../helperLists";
 
-const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdowns, hideDropdowns, dropdowns,  sectorsListWithCodes }) => {
-  
+const Dropdowns = ({
+  handleSelectFilter,
+  selectedFilters,
+  cleanFilter,
+  showDropdowns,
+  hideDropdowns,
+  dropdowns,
+  sectorsListWithCodes,
+}) => {
   return (
     <div className="advancedPanel col-md-10">
       <div className="filter-wrapper">
@@ -19,10 +26,8 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               className="btn dropdown-toggle"
               id="menu-jobTypeInput"
               type="button"
-              onFocus={()=>showDropdowns('type')
-              }
-              onMouseDown={()=>hideDropdowns('type')
-              }
+              onBlur={() => hideDropdowns("type")}
+              onClick={() => showDropdowns("type")}
             >
               Job type
             </button>
@@ -47,7 +52,10 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
                       key={i}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => handleSelectFilter('type', el)}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSelectFilter("type", el);
+                      }}
                     >
                       {el}
                     </li>
@@ -63,8 +71,8 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               style={{ display: "inline-block" }}
               id="menu-remove-jobTypeInput"
               onClick={() => {
-                cleanFilter('type')
-                showDropdowns('closeAll');
+                cleanFilter("type");
+                showDropdowns("closeAll");
               }}
               type="button"
             >
@@ -90,10 +98,8 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               className="btn dropdown-toggle"
               id="menu-distanceInput"
               type="button"
-              onFocus={()=>showDropdowns('distance')
-            }
-            onMouseDown={()=>hideDropdowns('distance')
-            }
+              onBlur={() => hideDropdowns("distance")}
+              onClick={() => showDropdowns("distance")}
             >
               Distance to job
             </button>
@@ -117,7 +123,10 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
                       key={i + "distance"}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => handleSelectFilter('distance', el.value)}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSelectFilter("distance", el.value);
+                      }}
                     >
                       {el.label}
                     </li>
@@ -133,13 +142,17 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               style={{ display: "inline-block" }}
               id="menu-remove-distanceInput"
               onClick={() => {
-                cleanFilter('distance')
-                showDropdowns('closeAll');
+                cleanFilter("distance");
+                showDropdowns("closeAll");
               }}
               type="button"
             >
               <span id="menu-remove-text-distanceInput">
-               {listOfDistances.find(el => el.value === selectedFilters.distance).label}
+                {
+                  listOfDistances.find(
+                    (el) => el.value === selectedFilters.distance
+                  ).label
+                }
               </span>
               &nbsp;
               <span aria-hidden="true">×</span>
@@ -160,10 +173,8 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               className="btn dropdown-toggle"
               id="menu-distanceInput"
               type="button"
-              onFocus={()=>showDropdowns('sector')
-            }
-            onMouseDown={()=>hideDropdowns('sector')
-            }
+              onBlur={() => hideDropdowns("sector")}
+              onClick={() => showDropdowns("sector")}
             >
               Job sector
             </button>
@@ -181,13 +192,17 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
                 willChange: "transform",
               }}
             >
-              {dropdowns.sector && sectorsListWithCodes.map((el, i) => {
+              {dropdowns.sector &&
+                sectorsListWithCodes.map((el, i) => {
                   return (
                     <li
                       key={i + "sector"}
                       style={{ cursor: "pointer" }}
                       className="dropdown-item"
-                      onClick={() => handleSelectFilter('sector', el.value)}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSelectFilter("sector", el.value);
+                      }}
                     >
                       {el.label}
                     </li>
@@ -203,13 +218,17 @@ const Dropdowns = ({handleSelectFilter, selectedFilters, cleanFilter, showDropdo
               style={{ display: "inline-block" }}
               id="menu-remove-sectorInput"
               onClick={() => {
-                cleanFilter('sector')
-                showDropdowns('closeAll');
+                cleanFilter("sector");
+                showDropdowns("closeAll");
               }}
               type="button"
             >
               <span id="menu-remove-text-sectorInput">
-              {sectorsListWithCodes.find(el => el.value === selectedFilters.sector).label}
+                {
+                  sectorsListWithCodes.find(
+                    (el) => el.value === selectedFilters.sector
+                  ).label
+                }
               </span>
               &nbsp;
               <span aria-hidden="true">×</span>

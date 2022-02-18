@@ -1,44 +1,40 @@
 import { React, useState } from "react";
 import Footer from "./components/Common/Footer";
 import Header from "./components/Common/Header";
-import JobPage from "./components/Jobs/Jobs";
-import Job from "./components/Job/Job";
+import JobDescription from "./components/Job/Job";
 import axios from 'axios';
 
-export default function HomePage({jobsWithSectors, sectorsListWithCodes, industries}) {
+const Job = ({job, sector}) => {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobPage jobs={jobsWithSectors} industries={industries} sectorsListWithCodes={sectorsListWithCodes}/>
-      {/* <Job/> */}
+      <JobDescription job={job} sector={sector} />
       <Footer />
     </div>
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
 
-  let jobs;
+  const { id } = context.query;
+
+  let job;
   let industries;
+  let sector;
 
-      
-  await axios.get('http://localhost:3001/jobs?').then(response => {
-    jobs = response.data.data.value
-  });
-
-    await axios.get('http://localhost:3001/industries').then(response => {
+  await axios.get('http://localhost:3001/industries').then(response => {
     industries = response.data.data.value
   });  
 
- // ADD SECTOR TO EVERY JOB
-  const jobsWithSectors = jobs.reduce((acc, job)=>{
-    const industry = industries.find(industry => industry.id === job.jobIndustryId);
-    return [...acc, {...job, sector: industry.jobIndustryName}]
-  }, [])
+  await axios.get(`http://localhost:3001/jobs/${id}`).then(response => {
+    job = response.data.data.value
+  }).catch(() => {
+    console.log('Catch')
+  });
+
 
   const listfOfSectors = [
-    {label: "All sectors"},
     {label: "Accounting"},
     {label: "Admin"},
     {label: "Agriculture Fishing and Forestry"},
@@ -101,7 +97,16 @@ export async function getServerSideProps() {
     return [...acc, {...sector, value: id}]
   }, [])
 
+  sectorsListWithCodes.map((el)=>{
+    if (el.value === job.jobIndustryId) {
+      sector = el.label
+    }
+  })
+
+  console.log({ props: { job, sector} })
 
 
-  return { props: { jobsWithSectors, sectorsListWithCodes, industries} }
+  return { props: { job:job, sector} }
 }
+
+export default Job;

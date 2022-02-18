@@ -12,9 +12,6 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
     }
   });
 
-  console.log(jobListFiltered)
-  console.log(selectedFilters)
-
   return ( jobListFiltered &&
     <div className="filterTabs mb-2 pos-relative icon-lightGrey">
       {selectedFilters.type && (

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { timePosted, checkIfNew, checkType, determineSalary, setCompanyLogo } from "../helperFunctions";
-const { htmlToText } = require('html-to-text');
+import {
+  timePosted,
+  checkIfNew,
+  checkType,
+  determineSalary,
+  setCompanyLogo,
+  determineSector
+} from "../helperFunctions";
+const { htmlToText } = require("html-to-text");
+import Link from "next/link";
 
-const Jobs = ({ jobs }) => {
-
+const Jobs = ({ jobs, sectorsListWithCodes }) => {
   return (
     <div className="pos-relative" id="jobsingWrapper">
       <div className="spinner_wrapper w-100 d-none" id="spinnerWrapper">
@@ -23,9 +30,17 @@ const Jobs = ({ jobs }) => {
                     <div className="col-12 col-sm-8 col-xl-9 mb-1 pl-0">
                       <div className="row">
                         <div className="col-12">
-                          <a href="www.google.com">
-                            <h3 className="mb-hf">{el.jobTitle}</h3>
-                          </a>
+                          <Link
+                            href={{
+                              pathname: `/${el.jobTitle
+                                .replace(/ /g, "")
+                                .replace(/\\/g, "")
+                              .replace(/%/g, 'percents')}`,
+                                query: {id: `${el.id}`}
+                            }}
+                          >
+                            <h3 className="mb-hf"><a href=''>{el.jobTitle}</a></h3>
+                          </Link>
                         </div>
                       </div>
                       <div className="row">
@@ -46,13 +61,7 @@ const Jobs = ({ jobs }) => {
                           <div className="d-inline-block pb-hf">
                             <i className="align-middle icomoon-pound icon-lightGrey icomoon-p-r"></i>
                             <strong className="align-middle fontSize-14">
-                              {determineSalary(
-                                el.salaryFrom,
-                                el.salaryTo,
-                                el.salaryExtra,
-                                el.salaryType,
-                                el.salary
-                              )}
+                              {determineSalary(el)}
                             </strong>
                           </div>
                         </div>
@@ -65,14 +74,14 @@ const Jobs = ({ jobs }) => {
                               className="align-middle fontSize-14"
                               href="www.google.com"
                             >
-                              {el.sector}
+                              {determineSector(sectorsListWithCodes, el.jobIndustryId)}
                             </a>
                           </div>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          {htmlToText(el.jobDescription).slice(0,240)}
+                          {htmlToText(el.jobDescription).slice(0, 240)}
                           <a className="icon-lightGrey" href="www.google.com">
                             <strong>(...)</strong>
                           </a>
@@ -84,7 +93,7 @@ const Jobs = ({ jobs }) => {
                         <span>
                           {`Job posted `}
                           <strong className="jobDate">
-                            { timePosted(el.datePosted)}
+                            {timePosted(el.datePosted)}
                           </strong>{" "}
                           by
                         </span>

@@ -1,22 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import Dropdowns from "./DropdownFilters.jsx";
 import Inputs from "./Inputs";
-import JobsList from "./JobsList";
+import JobsList from "./List";
 import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
 import axios from "axios";
+import { Fragment } from "react/cjs/react.production.min";
+
 
 const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
+
+
+  console.log(jobs)
+
   
-  
-  
-  const [numberOfJobs, setNumberOfJobs] = useState(987);
-  const [loading, setLoading] = useState(false);
+  const [numberOfJobs, setNumberOfJobs] = useState(null);
   const [jobList, setJobsList] = useState(jobs);
   //SORT
   const [sortBy, setSorting] = useState("date");
 
-  useEffect(() => {}, [jobList]);
+  useEffect(() => {}, [jobList, numberOfJobs]);
 
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
@@ -67,6 +70,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const handleSelectFilter = (name, value) => {
+    console.log('CALLED WITH: ', name)
     setJobListFiltered(false);
     if (name === "type") {
       setSelectedFilters({ ...selectedFilters, type: value });
@@ -80,8 +84,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const cleanFilter = (name) => {
-
-    console.log('CLEAN FILTER', name)
 
     if (name === "type") {
       setSelectedFilters({ ...selectedFilters, type: "" });
@@ -98,12 +100,10 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
       setJobsList(jobs)
     }
     showDropdown(initialStateDropdowns);
-    console.log(selectedFilters)
-
-    findJobs();
   };
 
   const showDropdowns = (name) => {
+    console.log('on click: ', name)
     if (name === "type") {
       showDropdown({
         type: true,
@@ -131,12 +131,28 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
   };
 
   const hideDropdowns = (name) => {
+    console.log('on blur: ', name)
+
+    if (name === "type") {
       showDropdown({
+        ...dropdowns,
         type: false,
+      });
+    }
+    if (name === "distance") {
+      showDropdown({
+        ...dropdowns,
         distance: false,
+      });
+    }
+    if (name === "sector") {
+      showDropdown({
+        ...dropdowns,
         sector: false,
       });
+    }
   };
+
 
   const determineJobTypeCode = () => {
     if (selectedFilters.type === "Permanent") {
@@ -200,7 +216,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
             return [...acc, {...job, sector: industry.jobIndustryName}]
           }, [])
           setJobsList(listWithSectors);
-          setLoading(false);
           scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
           setNumberOfJobs(response.data.data.totalCount)
         })
@@ -266,9 +281,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
                               </div>
                             </div>
                             <Dropdowns
-                            hideDropdowns={hideDropdowns}
                               sectorsListWithCodes={sectorsListWithCodes}
                               showDropdowns={showDropdowns}
+                              hideDropdowns={hideDropdowns}
                               dropdowns={dropdowns}
                               cleanFilter={cleanFilter}
                               handleSelectFilter={handleSelectFilter}
@@ -322,7 +337,10 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
                         }}
                         className="mb-hf "
                       >
-                        Displaying {numberOfJobs} Jobs
+                      {numberOfJobs === 0 ? 
+                    'No jobs found'  :
+                    `Displaying ${numberOfJobs} Jobs`
+                    }  
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -335,7 +353,42 @@ const JobPage = ({ jobs, sectorsListWithCodes, industries }) => {
                     removeFilter={cleanFilter}
                     sectorsListWithCodes={sectorsListWithCodes}
                   />
-                  <JobsList jobs={jobList} />
+                  {numberOfJobs === 0 ? 
+                  <Fragment>
+
+                <p className="fontSize-18">
+                <span className="rteHelper">Please try to change your search criteria or, alternatively, register your CV below</span>
+              </p>
+              <div className="card_register bg-secondary transparent-overlay-secondary rounded-0 d-block w-100 lozad" data-background-image="" data-loaded="true">
+              <div className="card_body align-vertical">
+                  <div className="card_bottom mx-1">
+                      <div className="row">
+                          <div className="col-12">
+                              <h2>
+                                  <span className="rteHelper"><p>Register and Upload CV</p></span>
+                              </h2>
+                          </div>
+                          <div className="col-12 col-md-7 fontSize-18">
+                              <p>
+                                  <span className="rteHelper">If you don’t find a perfect match, register with us and
+          be alerted to new opportunities before they go online!</span>
+                              </p>
+                          </div>
+                              <div className="col-12 py-hf">
+                                  <a href="#" className="btn btn-primary_alternative fontSize-18">
+                                      <strong>
+                                          <span className="rteHelper"><p>Register my CV</p></span>
+                                      </strong>
+                                  </a>
+                              </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+                  </Fragment>
+              :
+              <JobsList jobs={jobList} sectorsListWithCodes={sectorsListWithCodes} />
+                }
                 </div>
               </div>
             </div>

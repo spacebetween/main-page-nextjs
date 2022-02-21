@@ -72,7 +72,7 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                       <div className="row">
                         <div className="col-12">
                           {htmlToText(el.jobDescription).slice(0, 240)}
-                          <a className="icon-lightGrey" href="www.google.com">
+                          <a className="icon-lightGrey" href={determineWhereRedirect(el)}>
                             <strong>(...)</strong>
                           </a>
                         </div>

@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import Link from 'next/link'
 
 export const timePosted = (date) => {
     
@@ -63,30 +64,58 @@ export const determineWhereRedirect = (el) => {
   const jobTitle = el.jobTitle.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase();
   const jobID = el.id
   if (el.website === "HR GO Recruitment" || el.website === "HR GO Driving" || el.website === "hrgo/hrgo_boards.txt" ) {
-  return  {
-      pathname: `/${jobTitle}`,
-        query: {id: `${el.id}`}
-    }
-  }
+  return  (
+  <Link
+  href={{
+    pathname: `/${jobTitle}`,
+      query: {id: `${el.id}`}
+  }}
+  >
+    <a href=''><h3 className="mb-hf">{el.jobTitle}</h3></a>
+  </Link>)}
   if (el.website === "rhl" || el.website === "RHL - OLD" ) {
-    return  `https://www.rhl.com.au/job/${jobTitle}/${jobID}`
+    return  (   
+       <a href={`https://www.rhl.com.au/job/${jobTitle}/${jobID}`} target="_blank">
+      <h3 className="mb-hf">{el.jobTitle}</h3>
+  </a>)
 }
 if (el.website === "Exectec" ) {
-  return  `https://www.exectecsolutions.co.uk/job/${jobTitle}/${jobID}`
+  return (   
+    <a href={`https://www.exectecsolutions.co.uk/job/${jobTitle}/${jobID}`} target="_blank">
+   <h3 className="mb-hf">{el.jobTitle}</h3>
+</a>)
 }
 if (el.website === "RHL AU" ) {
-  return  `https://www.rhl.com.au/job/${jobTitle}/${jobID}`
+  return (   
+    <a href={`https://www.rhl.com.au/job/${jobTitle}/${jobID}`} target="_blank">
+   <h3 className="mb-hf">{el.jobTitle}</h3>
+</a>)
 }
 if (el.website === "HR GO Poland" ) {
-  return  `https://www.hrgorecruitment.pl/job/${jobTitle}/${jobID}`
+  return (   
+    <a href={`https://www.hrgorecruitment.pl/job/${jobTitle}/${jobID}`} target="_blank">
+   <h3 className="mb-hf">{el.jobTitle}</h3>
+</a>)
 }
 if (el.website === "Gel Resourcing" ) {
-  return  `https://www.gelresourcing.co.uk/job/${jobTitle}/${jobID}`
+  return (   
+    <a href={`https://www.gelresourcing.co.uk/job/${jobTitle}/${jobID}`} target="_blank">
+   <h3 className="mb-hf">{el.jobTitle}</h3>
+</a>)
 }
 if (el.website === "Absolute" ) {
-  return  `https://www.absoluteexecutivesearch.co.uk/job/${jobTitle}/${jobID}`
+  return (   
+    <a href={`https://www.absoluteexecutivesearch.co.uk/job/${jobTitle}/${jobID}`} target="_blank">
+   <h3 className="mb-hf">{el.jobTitle}</h3>
+</a>)
 }
-else return "www.hrgo.co.uk"
+else return  <Link
+href={{
+  pathname: `/${jobTitle}`
+}}
+>
+  <h3 className="mb-hf">{el.jobTitle}</h3>
+</Link>
 };
 export const setCompanyLogo = (website) => {
 

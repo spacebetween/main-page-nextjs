@@ -5,12 +5,12 @@ import JobPage from "./components/Jobs/Jobs";
 import Job from "./components/Job/Job";
 import axios from 'axios';
 
-export default function HomePage({jobsList, sectorsListWithCodes, websites}) {
+export default function HomePage({jobsList, sectorsListWithCodes, websites, numberOfJobs}) {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobPage jobs={jobsList} websites={websites} sectorsListWithCodes={sectorsListWithCodes}/>
+      <JobPage numberOfJobs={numberOfJobs} jobs={jobsList} websites={websites} sectorsListWithCodes={sectorsListWithCodes}/>
       {/* <Job/> */}
       <Footer />
     </div>
@@ -22,10 +22,12 @@ export async function getServerSideProps() {
   let jobs;
   let industries;
   let websites;
+  let numberOfJobs;
 
       
-  await axios.get('http://localhost:3001/jobs?').then(response => {
+  await axios.get('http://localhost:3001/jobs?',{ params: {excludeNationwide: true, activeOnly: true }}).then(response => {
     jobs = response.data.data.value
+    numberOfJobs = response.data.data.totalCount
   });
 
     await axios.get('http://localhost:3001/industries').then(response => {
@@ -109,5 +111,5 @@ export async function getServerSideProps() {
     return [...acc, {...agency, website: website.websiteName }]
   }, [])
 
-  return { props: { jobsList, sectorsListWithCodes, websites} }
+  return { props: { jobsList, sectorsListWithCodes, websites, numberOfJobs} }
 }

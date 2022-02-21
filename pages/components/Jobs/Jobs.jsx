@@ -6,20 +6,25 @@ import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
 import axios from "axios";
 import { Fragment } from "react/cjs/react.production.min";
+import PaginatedItems from "./Pagination.jsx";
 
 
-const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
+const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
 
   
-  const [numberOfJobs, setNumberOfJobs] = useState(null);
+  const [jobsNumber, setNumberOfJobs] = useState(numberOfJobs);
   const [jobList, setJobsList] = useState(jobs);
   //SORT
   const [sortBy, setSorting] = useState("date");
 
-  useEffect(() => {}, [jobList, numberOfJobs]);
+  useEffect(() => {
+    
+  }, [jobList, numberOfJobs]);
 
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
+
+  console.log(jobs)
 
   //INPUTS (have to have separate states cause of google autocomplete)
   const [keyword, setKeyword] = useState("");
@@ -161,7 +166,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
   }
 
   const getQueryParams = () => {
-    let query = {excludeNationwide: true, activeOnly: true};
+    let query = {excludeNationwide: true, activeOnly: true, distance: 5 };
 
     if (keyword) {
       query.search = keyword
@@ -170,10 +175,10 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
       query.jobTypeIds = determineJobTypeCode()
     }
     if (selectedFilters.distance) {
-      query.distance = selectedFilters.distance === "" ? '0' : selectedFilters.sector 
+      query.distance = selectedFilters.distance
     }
     if (selectedFilters.sector) {
-      query.jobIndustryIds = selectedFilters.sector === "All sectors" ? '' : selectedFilters.sector 
+      query.jobIndustryIds = selectedFilters.sector 
     }
     if (location) {
       query.latitude = location.lat
@@ -183,8 +188,10 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
       query.sortBy = sortBy === 'date' ? 'pay' : 'date'
     }
 
+    console.log(query)
     return query;
   }
+
 
   const findJobs = async () => {
 
@@ -331,9 +338,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
                         }}
                         className="mb-hf "
                       >
-                      {numberOfJobs === 0 ? 
+                      {jobsNumber === 0 ? 
                     'No jobs found'  :
-                    `Displaying ${numberOfJobs} Jobs`
+                    `Displaying ${jobsNumber} Jobs`
                     }  
                       </div>
                     </div>
@@ -347,7 +354,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
                     removeFilter={cleanFilter}
                     sectorsListWithCodes={sectorsListWithCodes}
                   />
-                  {numberOfJobs === 0 ? 
+                  {jobsNumber === 0 ? 
                   <Fragment>
 
                 <p className="fontSize-18">
@@ -383,6 +390,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites }) => {
               :
               <JobsList jobs={jobList} sectorsListWithCodes={sectorsListWithCodes} />
                 }
+              <PaginatedItems numberOfJobs={numberOfJobs} itemsPerPage={50} jobs={jobList} />
                 </div>
               </div>
             </div>

@@ -71,7 +71,7 @@ const Dropdowns = ({
               style={{ display: "inline-block" }}
               id="menu-remove-jobTypeInput"
               onClick={() => {
-                cleanFilter("type");
+                cleanFilter("type", 'dropdown');
                 showDropdowns("closeAll");
               }}
               type="button"
@@ -142,7 +142,7 @@ const Dropdowns = ({
               style={{ display: "inline-block" }}
               id="menu-remove-distanceInput"
               onClick={() => {
-                cleanFilter("distance");
+                cleanFilter("distance",'dropdown');
                 showDropdowns("closeAll");
               }}
               type="button"
@@ -218,7 +218,7 @@ const Dropdowns = ({
               style={{ display: "inline-block" }}
               id="menu-remove-sectorInput"
               onClick={() => {
-                cleanFilter("sector");
+                cleanFilter("sector",'dropdown');
                 showDropdowns("closeAll");
               }}
               type="button"

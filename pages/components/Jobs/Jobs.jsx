@@ -14,14 +14,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   const [pageSelected, setPageSelected] = useState(0)
   const [jobsNumber, setNumberOfJobs] = useState(numberOfJobs);
   const [jobList, setJobsList] = useState(jobs);
-  //SORT
   const [sortBy, setSorting] = useState("date");
-
-  useEffect(() => {
-    
-  }, [jobList, numberOfJobs, pageSelected]);
-
-
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
 
@@ -46,10 +39,12 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   };
   const [dropdowns, showDropdown] = useState(initialStateDropdowns);
 
-  //PAGES
-
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
+
+  useEffect(() => {
+    
+  }, [jobList, numberOfJobs, pageSelected]);
 
   const handleKeyword = (event) => {
     setKeyword(event.target.value);
@@ -64,6 +59,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       lat: lat,
       long: long,
     });
+
+
+
   };
 
   const setSortBy = (name) => {
@@ -84,8 +82,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     }
   };
 
-  const cleanFilter = (name) => {
-
+  const cleanFilter = (name, where) => {
     if (name === "type") {
       setSelectedFilters({ ...selectedFilters, type: "" });
     }
@@ -100,8 +97,14 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       scrollToFilters.current.scrollIntoView({ behavior: "smooth" });
       setJobsList(jobs)
     }
+
     showDropdown(initialStateDropdowns);
+
+    if (where === 'filters') {
+      findJobs({clean: name})
+    }
   };
+
 
   const showDropdowns = (name) => {
     if (name === "type") {
@@ -170,18 +173,20 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   }
 
   const getQueryParams = (argQuery = {}) => {
-    let query = {excludeNationwide: true, activeOnly: true, distance: 5, page: argQuery.page || 0 };
+
+// INITIAL QUERY:
+    let query = {excludeNationwide: true, activeOnly: true, page: argQuery.page || 0 };
 
     if (keyword) {
       query.search = keyword
     }
-    if (selectedFilters.type) {
+    if (selectedFilters.type && argQuery.clean !== 'type'  && argQuery.clean !== 'all') {
       query.jobTypeIds = determineJobTypeCode()
     }
-    if (selectedFilters.distance) {
-      query.distance = selectedFilters.distance
+    if (selectedFilters.distance && argQuery.clean !== 'distance'  && argQuery.clean !== 'all') {
+      query.distance =  selectedFilters.distance
     }
-    if (selectedFilters.sector) {
+    if (selectedFilters.sector && selectedFilters.sector !== 'All sectors' && argQuery.clean !== 'sector' && argQuery.clean !== 'all' ) {
       query.jobIndustryIds = selectedFilters.sector 
     }
     if (location) {
@@ -192,19 +197,22 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       query.sortBy = argQuery.sort ? argQuery.sort : sortBy
     }
 
-    console.log(query)
     return query;
   }
 
 
   const findJobs = async (argQuery = {}) => {
 
-    //DO NOT FETCH when no filters applied
+    if (!selectedFilters.distance && location) {
+      setSelectedFilters({...selectedFilters, distance: '20'})
+    }
+    
+    let total;
+    //DO NOT FETCH when no filters applied:
     if (
       selectedFilters === initialStateFilters &&
       keyword === "" &&
-      !location &&
-      sortBy === ""
+      !location
     ) {
       scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
     } else {
@@ -213,7 +221,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       if(!argQuery.page) {
         setPageSelected(0)
       }
-
 
       await axios
         .get(url, {
@@ -227,11 +234,12 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
           }, [])
           setJobsList(jobsList);
           scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-          setNumberOfJobs(response.data.data.totalCount)
+          total = response.data.data.totalCount
         })
         .catch((e) => console.log("error", e));
     }
 
+    setNumberOfJobs(total)
     setJobListFiltered(true);
   };
 
@@ -320,6 +328,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
                         href="https://www.hrgo.co.uk/candidate-homepage"
                         title="Candidate Homepage"
                         data-udi="umb://document/780b00ee50dc4087afef7aff71381192"
+                        ref={scrollToJobList}
                       >
                         Not sure what type of job you want? Get started here
                         &gt;
@@ -336,7 +345,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
             <div className="row clearfix">
               <div className="col-md-12 column">
                 <div>
-                  <div className="row" ref={scrollToJobList}>
+                  <div className="row" >
                     <div className="col-md-8">
                       <div
                         style={{
@@ -349,7 +358,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
                       >
                       {jobsNumber === 0 ? 
                     'No jobs found'  :
-                    `Displaying ${jobsNumber} Jobs`
+                    `Displaying ${jobsNumber === 1 ? jobsNumber + ' Job' : jobsNumber + " Jobs"}`
                     }  
                       </div>
                     </div>
@@ -399,7 +408,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
               :
               <JobsList jobs={jobList} sectorsListWithCodes={sectorsListWithCodes} />
                 }
-              <PaginatedItems numberOfJobs={numberOfJobs} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={setPageSelected} />
+              <PaginatedItems numberOfJobs={jobsNumber} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={setPageSelected} />
                 </div>
               </div>
             </div>

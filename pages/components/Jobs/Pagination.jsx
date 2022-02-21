@@ -4,9 +4,8 @@ import ReactPaginate from 'react-paginate';
 
 
 const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelected, setPageSelected }) => {
+
   const [pageCount, setPageCount] = useState(0);
-
-
   const [itemOffset, setItemOffset] = useState(0);
   const [displayMessage, setDisplayMessage] = useState('')
 
@@ -15,7 +14,7 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
     const endOffset = itemOffset + itemsPerPage;
     setDisplayMessage(`${itemOffset} - ${endOffset > numberOfJobs ? numberOfJobs : endOffset} of ${numberOfJobs} jobs`)
     setPageCount(Math.ceil(numberOfJobs / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+  }, [itemOffset, itemsPerPage, numberOfJobs]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
@@ -36,8 +35,6 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
     setPageSelected(pageToSet)
     fetchDataOnPage(pageToSet)
   }
-
-console.log(pageSelected)
 
   return (
     <div className='w-100 customPagination' >

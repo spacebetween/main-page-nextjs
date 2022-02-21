@@ -17,7 +17,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
       {selectedFilters.type && (
         <div className="d-inline-block">
           <div style={{cursor:'pointer'}} onClick={() =>
-                removeFilter('type')
+                removeFilter('type', 'filters')
               } className="filterTabs_item d-inline-block fontSize-12">
             {selectedFilters.type === 'All' ? 'All job types' : selectedFilters.type}
             <a
@@ -38,7 +38,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
       {selectedFilters.distance && (
         <div className="d-inline-block">
           <div  style={{cursor:'pointer'}}  onClick={() =>
-                removeFilter('distance')
+                removeFilter('distance', 'filters')
               } className="filterTabs_item d-inline-block fontSize-12">
                {listOfDistances.find(el => el.value === selectedFilters.distance).label }
             <a
@@ -58,7 +58,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
       {selectedFilters.sector && (
         <div className="d-inline-block">
           <div style={{cursor:'pointer'}} onClick={() =>
-                removeFilter('sector')
+                removeFilter('sector', 'filters')
               } className="filterTabs_item d-inline-block fontSize-12">
              {sectorsListWithCodes.find(el => el.value === selectedFilters.sector).label }
             <a
@@ -78,7 +78,7 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
       )}
       {areFiltersApplied && (
         <div style={{cursor:'pointer'}} onClick={() =>
-          removeFilter('all')
+          removeFilter('all', 'filters')
         } className="d-inline-block mt-hf">
           <div
             className="fontSize-14"

@@ -11,7 +11,7 @@ import PaginatedItems from "./Pagination.jsx";
 
 const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
 
-  
+  const [pageSelected, setPageSelected] = useState(0)
   const [jobsNumber, setNumberOfJobs] = useState(numberOfJobs);
   const [jobList, setJobsList] = useState(jobs);
   //SORT
@@ -19,12 +19,11 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
 
   useEffect(() => {
     
-  }, [jobList, numberOfJobs]);
+  }, [jobList, numberOfJobs, pageSelected]);
+
 
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
-
-  console.log(jobs)
 
   //INPUTS (have to have separate states cause of google autocomplete)
   const [keyword, setKeyword] = useState("");
@@ -47,6 +46,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   };
   const [dropdowns, showDropdown] = useState(initialStateDropdowns);
 
+  //PAGES
 
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
@@ -68,7 +68,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
 
   const setSortBy = (name) => {
     setSorting(name);
-    findJobs()
+    findJobs({sort: name})
   };
 
   const handleSelectFilter = (name, value) => {
@@ -152,6 +152,10 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     }
   };
 
+  const fetchDataOnPage = (page) => {
+    findJobs({page: page})
+}
+
 
   const determineJobTypeCode = () => {
     if (selectedFilters.type === "Permanent") {
@@ -165,8 +169,8 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     }
   }
 
-  const getQueryParams = () => {
-    let query = {excludeNationwide: true, activeOnly: true, distance: 5 };
+  const getQueryParams = (argQuery = {}) => {
+    let query = {excludeNationwide: true, activeOnly: true, distance: 5, page: argQuery.page || 0 };
 
     if (keyword) {
       query.search = keyword
@@ -185,7 +189,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       query.longitude = location.long
     }
     if (sortBy) {
-      query.sortBy = sortBy === 'date' ? 'pay' : 'date'
+      query.sortBy = argQuery.sort ? argQuery.sort : sortBy
     }
 
     console.log(query)
@@ -193,7 +197,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   }
 
 
-  const findJobs = async () => {
+  const findJobs = async (argQuery = {}) => {
 
     //DO NOT FETCH when no filters applied
     if (
@@ -206,11 +210,14 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     } else {
       const url = `http://localhost:3001/jobs`;
 
-      setQueryParams(getQueryParams())
+      if(!argQuery.page) {
+        setPageSelected(0)
+      }
+
 
       await axios
         .get(url, {
-          params: getQueryParams()
+          params: getQueryParams(argQuery)
         })
         .then((response) => {
           const list = response.data.data.value
@@ -392,7 +399,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
               :
               <JobsList jobs={jobList} sectorsListWithCodes={sectorsListWithCodes} />
                 }
-              <PaginatedItems numberOfJobs={numberOfJobs} itemsPerPage={50} jobs={jobList} />
+              <PaginatedItems numberOfJobs={numberOfJobs} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={setPageSelected} />
                 </div>
               </div>
             </div>

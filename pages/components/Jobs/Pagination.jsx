@@ -3,13 +3,11 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
 
-const PaginatedItems = ({ numberOfJobs, itemsPerPage, jobs }) => {
+const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelected, setPageSelected }) => {
   const [pageCount, setPageCount] = useState(0);
 
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+
   const [itemOffset, setItemOffset] = useState(0);
-  const [pageSelected, setPageSelected] = useState(0)
   const [displayMessage, setDisplayMessage] = useState('')
 
   useEffect(() => {
@@ -21,22 +19,22 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, jobs }) => {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-      console.log(event)
       setPageSelected(event.selected)
       const newOffset = (event.selected * itemsPerPage) % numberOfJobs;
-    setItemOffset(newOffset);
+      setItemOffset(newOffset);
+      fetchDataOnPage(event.selected)
   };
 
   const handlePrevious = () => {
       const pageToSet = pageSelected -1
     setPageSelected(pageToSet)
-    handlePageClick({selected: pageToSet})
+    fetchDataOnPage(pageToSet)
   }
 
   const handleNext = () => {
     const pageToSet = pageSelected +1
-    setPageSelected(pageSelected+1)
-    handlePageClick({selected: pageSelected+1})
+    setPageSelected(pageToSet)
+    fetchDataOnPage(pageToSet)
   }
 
 console.log(pageSelected)

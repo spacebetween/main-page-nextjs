@@ -63,7 +63,7 @@ export const determineSalary = (job) => {
 export const determineWhereRedirect = (el) => {
   const jobTitle = el.jobTitle.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase();
   const jobID = el.id
-  if (el.website === "HR GO Recruitment" || el.website === "HR GO Driving" || el.website === "hrgo/hrgo_boards.txt" ) {
+  if (el.website === "HR GO Recruitment" || el.website === "HR GO Driving" || el.website === "hrgo/hrgo_boards.txt" || el.website === "Teachright"  ) {
   return  (
   <Link
   href={{
@@ -152,7 +152,7 @@ export const setCompanyLogo = (website) => {
          >
          </img>
        )
-       if (website === "HR GO Recruitment" || website === "HR GO Driving" || website === "hrgo/hrgo_boards.txt" || website === "HR GO Poland") 
+       if (website === "HR GO Recruitment" || website === "HR GO Driving" || website === "hrgo/hrgo_boards.txt" || website === "Teachright" || website === "HR GO Poland") 
        return (
          <img
          className="brandLogo_logo lozad"

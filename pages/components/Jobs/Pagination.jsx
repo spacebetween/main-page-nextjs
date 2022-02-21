@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
 
@@ -28,15 +28,15 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, jobs }) => {
   };
 
   const handlePrevious = () => {
-    const newOffset = (pageSelected-1 * itemsPerPage) % jobs.length;
-
-    setItemOffset(newOffset);
+      const pageToSet = pageSelected -1
+    setPageSelected(pageToSet)
+    handlePageClick({selected: pageToSet})
   }
 
   const handleNext = () => {
-    const newOffset = (pageSelected+1 * itemsPerPage) % jobs.length;
-
-    setItemOffset(newOffset);
+    const pageToSet = pageSelected +1
+    setPageSelected(pageSelected+1)
+    handlePageClick({selected: pageSelected+1})
   }
 
 console.log(pageSelected)
@@ -51,7 +51,7 @@ console.log(pageSelected)
                         </div>
                     </div>
     <div onClick={handlePrevious} className="float-left d-inline customPagination_element">
-                        <a href="" className={`customPagination_element_link rounded d-inline-block ${pageSelected <= 0 && 'disabled'}`} rel="prev">
+                        <div className={`linkColor pointer customPagination_element_link rounded d-inline-block ${pageSelected <= 0 && 'disabled'}`}>
                             <div className="d-inline-block d-lg-none">
                                 <i className="fontSize-13 icomoon-arrow-left"></i>
                             </div>
@@ -59,7 +59,7 @@ console.log(pageSelected)
                                 <i className="fontSize-13 icomoon-arrow-left"></i>
                                 <strong>Previous</strong>
                             </div>
-                        </a>
+                        </div>
                     </div>
       <ReactPaginate
         breakLabel="..."
@@ -76,9 +76,10 @@ console.log(pageSelected)
         nextClassName='none'
         breakClassName='d-inline-block icon-lightGrey px-hf nomarker '
         hrefAllControls={true}
+        forcePage={pageSelected}
       />
       <div onClick={handleNext} className="float-right d-inline customPagination_element">
-                        <a href=""  className={`customPagination_element_link rounded d-inline-block ${pageSelected+1 === pageCount && 'disabled'}`} rel="next">
+                        <div className={`linkColor pointer customPagination_element_link rounded d-inline-block ${pageSelected+1 === pageCount && 'disabled'}`} rel="next">
                             <div className="d-inline-block d-lg-none">
                                 <i className="fontSize-13 icomoon-arrow-right"></i>
                             </div>
@@ -86,7 +87,7 @@ console.log(pageSelected)
                                 <strong>Next</strong>
                                 <i className="fontSize-13 icomoon-arrow-right"></i>
                             </div>
-                        </a>
+                        </div>
                     </div>
     </div>
   );

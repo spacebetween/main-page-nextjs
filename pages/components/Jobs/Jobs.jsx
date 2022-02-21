@@ -206,6 +206,8 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     } else {
       const url = `http://localhost:3001/jobs`;
 
+      setQueryParams(getQueryParams())
+
       await axios
         .get(url, {
           params: getQueryParams()

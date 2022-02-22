@@ -25,7 +25,7 @@ export async function getServerSideProps() {
   let numberOfJobs;
 
       
-  await axios.get('http://localhost:3001/jobs', { params: {excludeNationwide: true, activeOnly: true, page: 0, sortBy: 'date' }}).then(response => {
+  await axios.get('http://localhost:3001/jobs', { params: {excludeNationwide: true, activeOnly: true, sortBy: 'date', page: 1 }}).then(response => {
     jobs = response.data.data.value
     numberOfJobs = response.data.data.totalCount
   });

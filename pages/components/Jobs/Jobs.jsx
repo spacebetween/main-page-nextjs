@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Dropdowns from "./DropdownFilters.jsx";
 import Inputs from "./Inputs";
 import JobsList from "./List";
@@ -14,7 +14,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   const [pageSelected, setPageSelected] = useState(0)
   const [jobsNumber, setNumberOfJobs] = useState(numberOfJobs);
   const [jobList, setJobsList] = useState(jobs);
-  const [sortBy, setSorting] = useState("date");
+  const [sortBy, setSorting] = useState("");
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
 
@@ -30,7 +30,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   };
   const [selectedFilters, setSelectedFilters] = useState(initialStateFilters);
 
-
   //DROPDOWNS
   const initialStateDropdowns = {
     type: false,
@@ -42,13 +41,24 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
 
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem('state') != 0 ) {
+      setPageSelected(parseInt(sessionStorage.getItem('state')))
+      findJobs({page: parseInt(sessionStorage.getItem('state')) })
+    } 
+  }, [])
+
   useEffect(() => {
     
-  }, [jobList, numberOfJobs, pageSelected]);
+  }, [jobList, numberOfJobs]);
 
   const handleKeyword = (event) => {
     setKeyword(event.target.value);
   };
+
+  const handleSetSelectedPage = (props) => {
+    setPageSelected(props)
+  }
 
   const handleLocation = (place) => {
     const lat = place.geometry.location.lat();
@@ -59,9 +69,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       lat: lat,
       long: long,
     });
-
-
-
   };
 
   const setSortBy = (name) => {
@@ -175,7 +182,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   const getQueryParams = (argQuery = {}) => {
 
 // INITIAL QUERY:
-    let query = {excludeNationwide: true, activeOnly: true, page: argQuery.page || 0 };
+    let query = {excludeNationwide: true, activeOnly: true, page: argQuery.page + 1 || 1 };
 
     if (keyword) {
       query.search = keyword
@@ -193,7 +200,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       query.latitude = location.lat
       query.longitude = location.long
     }
-    if (sortBy) {
+    if (sortBy || argQuery.sort) {
       query.sortBy = argQuery.sort ? argQuery.sort : sortBy
     }
 
@@ -207,7 +214,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       setSelectedFilters({...selectedFilters, distance: '20'})
     }
     
-    let total;
     //DO NOT FETCH when no filters applied:
     if (
       selectedFilters === initialStateFilters &&
@@ -217,10 +223,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
       scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
     } else {
       const url = `http://localhost:3001/jobs`;
-
-      if(!argQuery.page) {
-        setPageSelected(0)
-      }
 
       await axios
         .get(url, {
@@ -233,15 +235,15 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
             return [...acc, {...agency, website: website.websiteName }]
           }, [])
           setJobsList(jobsList);
+          setNumberOfJobs(response.data.data.totalCount)
           scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-          total = response.data.data.totalCount
         })
         .catch((e) => console.log("error", e));
     }
-
-    setNumberOfJobs(total)
+    
     setJobListFiltered(true);
   };
+
 
   return (
     <div ref={scrollToFilters} className="umb-grid">
@@ -408,7 +410,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
               :
               <JobsList jobs={jobList} sectorsListWithCodes={sectorsListWithCodes} />
                 }
-              <PaginatedItems numberOfJobs={jobsNumber} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={setPageSelected} />
+              <PaginatedItems numberOfJobs={jobsNumber} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={handleSetSelectedPage} />
                 </div>
               </div>
             </div>

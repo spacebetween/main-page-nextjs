@@ -9,19 +9,23 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
   const [itemOffset, setItemOffset] = useState(0);
   const [displayMessage, setDisplayMessage] = useState('')
 
+  
   useEffect(() => {
     // Fetch items from another resources.
     const endOffset = itemOffset + itemsPerPage;
-    setDisplayMessage(`${itemOffset} - ${endOffset > numberOfJobs ? numberOfJobs : endOffset} of ${numberOfJobs} jobs`)
+    setDisplayMessage(`${itemOffset === 0 ? 1 : itemOffset} - ${endOffset > numberOfJobs ? numberOfJobs : endOffset} of ${numberOfJobs} jobs`)
     setPageCount(Math.ceil(numberOfJobs / itemsPerPage));
-  }, [itemOffset, itemsPerPage, numberOfJobs]);
+
+      sessionStorage.setItem('state', pageSelected.toString())
+    
+  }, [itemOffset, itemsPerPage, numberOfJobs, pageSelected]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-      setPageSelected(event.selected)
       const newOffset = (event.selected * itemsPerPage) % numberOfJobs;
       setItemOffset(newOffset);
       fetchDataOnPage(event.selected)
+      setPageSelected(event.selected)
   };
 
   const handlePrevious = () => {
@@ -35,6 +39,8 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
     setPageSelected(pageToSet)
     fetchDataOnPage(pageToSet)
   }
+
+
 
   return (
     <div className='w-100 customPagination' >

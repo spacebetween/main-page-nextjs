@@ -24,15 +24,16 @@ export async function getServerSideProps(context) {
   let sector;
   let similarJobs;
 
+  await axios.get(`http://localhost:3001/jobs/${id}`).then(response => {
+    job = response.data.data.value
+  }).catch((e) => {
+    return { redirect: '/error' }
+  });
+
   await axios.get('http://localhost:3001/industries').then(response => {
     industries = response.data.data.value
   });  
 
-  await axios.get(`http://localhost:3001/jobs/${id}`).then(response => {
-    job = response.data.data.value
-  }).catch((e) => {
-    console.log(e)
-  });
 
   const listfOfSectors = [
     {label: "Accounting"},
@@ -97,14 +98,16 @@ export async function getServerSideProps(context) {
     return [...acc, {...sector, value: id}]
   }, [])
 
-  sectorsListWithCodes.map((el)=>{
-    if (el.value === job.jobIndustryId) {
-      sector = el.label
-    }
-  })
+  if (job) {
+    sectorsListWithCodes.map((el)=>{
+      if (el.value === job.jobIndustryId) {
+        sector = el.label
+      }
+    })
+  }
 
   // FOR SIMILAR JOBS:
-
+if (job) {
   await axios
   .get("http://localhost:3001/jobs", {
     params: {
@@ -120,9 +123,10 @@ export async function getServerSideProps(context) {
     similarJobs = response.data.data.value
   })
   .catch((e) => console.log("error", e));
-
-
+}
+if (job) {
   return { props: { job:job, sector, similarJobs} }
+} return { redirect : '/error'}
 }
 
 export default Job;

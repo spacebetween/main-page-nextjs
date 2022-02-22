@@ -4,12 +4,12 @@ import Header from "./components/Common/Header";
 import JobDescription from "./components/Job/Job";
 import axios from 'axios';
 
-const Job = ({job, sector, similarJobs}) => {
+const Job = ({job, sector, similarJobs, linkToShare}) => {
 
   return (
     <div className="mega-navigation">
       <Header />
-      <JobDescription job={job} sector={sector} similarJobs={similarJobs} />
+      <JobDescription job={job} sector={sector} similarJobs={similarJobs} linkToShare={linkToShare} />
       <Footer />
     </div>
   );
@@ -18,11 +18,15 @@ const Job = ({job, sector, similarJobs}) => {
 export async function getServerSideProps(context) {
 
   const { id } = context.query;
+  const { elo } = context.params;
+
+  console.log(elo, 'ELO')
 
   let job;
   let industries;
   let sector;
   let similarJobs;
+  let linkToShare;
 
   await axios.get(`http://localhost:3001/jobs/${id}`).then(response => {
     job = response.data.data.value
@@ -104,6 +108,7 @@ export async function getServerSideProps(context) {
         sector = el.label
       }
     })
+    linkToShare = `${job.jobTitle.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase()}` + `?id=` +`${id}` 
   }
 
   // FOR SIMILAR JOBS:
@@ -124,8 +129,9 @@ if (job) {
   })
   .catch((e) => console.log("error", e));
 }
+
 if (job) {
-  return { props: { job:job, sector, similarJobs} }
+  return { props: { job:job, sector, similarJobs, linkToShare} }
 } return { redirect : '/error'}
 }
 

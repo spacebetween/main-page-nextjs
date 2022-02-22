@@ -2,12 +2,12 @@ import React from "react";
 import DescriptionBody from "./DescriptionBody";
 import DescriptionHeader from "./DescriptionHeader";
 
-const Job = ({job, sector, similarJobs}) => {
+const Job = ({job, sector, similarJobs, linkToShare}) => {
 
   return (
     <div className="job-details">
       <DescriptionHeader job={job} sector={sector}  />
-      <DescriptionBody similarJobs={similarJobs} job={job} />
+      <DescriptionBody similarJobs={similarJobs} linkToShare={linkToShare} job={job} />
     </div>
   );
 };

@@ -50,6 +50,9 @@
     &-facebook::before {
         content: '\eeef';
     }
+    &-whatsapp::before {
+        content: '\eef2';
+    }
 
     &-twitter::before {
         content: '\eef5';

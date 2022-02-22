@@ -46,7 +46,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
       setSortBy(params.sortBy);
     }
     if (params.page) {
-      setPageSelected(params.page);
+      setPageSelected(params.page - 1);
     }
     if (params.jobTypeIds) {
       setSelectedFilters({...selectedFilters, type: checkType(params.jobTypeIds)});

@@ -22,7 +22,6 @@ export const checkIfNew = date => {
     if (moment(new Date()).diff(datePosted, 'days') <= 3) {
        return true
     } else return false
-
 }
 
 export const checkType = type => {

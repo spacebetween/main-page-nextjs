@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import AutoComplete  from 'react-google-autocomplete';
 
-const Inputs = ({handleKeyword, handleLocation, keyword }) => {
+const Inputs = ({handleKeyword, handleLocation, keyword, location }) => {
 
   return (
     <Fragment>
@@ -25,6 +25,7 @@ const Inputs = ({handleKeyword, handleLocation, keyword }) => {
           Where?
         </label>
         <AutoComplete
+        defaultValue={location && location.place || ""}
         className="input"
         apiKey="AIzaSyDYs_dbyLHice28mYB3KU2Vx7xGZZeAYic"
         onPlaceSelected={(place) => handleLocation( place)}

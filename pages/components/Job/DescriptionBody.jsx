@@ -1,9 +1,12 @@
 import React from "react";
 const parse = require('html-react-parser');
 import {determineLinkToRecruiter, determineWhoPosted, determineSalary} from "../helperFunctions";
-import Link from "next/link";
+import { useRouter } from 'next/router'
+
 
 const DescriptionBody = ({ job, similarJobs }) => {
+  
+  const router = useRouter()
 
   return (
     <div className="job-details-main">
@@ -12,17 +15,17 @@ const DescriptionBody = ({ job, similarJobs }) => {
           <div className="col-12">
             <div className="info-block">
               <h4 className="main-title">Job Description</h4>
-              <Link href="/">
-              <button className="btn btn-secondary float-right d-none d-md-block">
+
+              <button onClick={() => router.back()} className="btn btn-secondary float-right d-none d-md-block">
                 <i className="icomoon-arrow-left"></i>
                 Back to search
               </button>
-              </Link>
-              <Link href="/">
-              <button className="btn btn-secondary  float-right d-md-none">
+
+              
+              <button onClick={() => router.back()} className="btn btn-secondary  float-right d-md-none">
                 <i className="icomoon-arrow-left"></i>
               </button>
-              </Link>
+          
             </div>
 
             <div className="card-main">
@@ -100,12 +103,10 @@ const DescriptionBody = ({ job, similarJobs }) => {
                 </div>
               </div>
               <div>
-              
-                <a href='/' className="btn btn-secondary">
-                  <i  className="icomoon-arrow-left"></i>
-                  Back to search
-                </a>
-            
+              <button onClick={() => router.back()} className="btn btn-secondary">
+                <i className="icomoon-arrow-left"></i>
+                Back to search
+              </button>      
               </div>
             </div>
           </div>

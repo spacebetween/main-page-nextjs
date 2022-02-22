@@ -7,18 +7,17 @@ import SortButtons from "./SortButtons";
 import axios from "axios";
 import { Fragment } from "react/cjs/react.production.min";
 import PaginatedItems from "./Pagination.jsx";
+import { useRouter } from 'next/router'
+import { checkType } from "../helperFunctions.js";
 
 
-const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
+const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCity }) => {
+  const router = useRouter()
 
   const [pageSelected, setPageSelected] = useState(0)
-  const [jobsNumber, setNumberOfJobs] = useState(numberOfJobs);
-  const [jobList, setJobsList] = useState(jobs);
   const [sortBy, setSorting] = useState("");
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
-
-  //INPUTS (have to have separate states cause of google autocomplete)
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState(null);
 
@@ -41,16 +40,40 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
 
-  useLayoutEffect(() => {
-    if (sessionStorage.getItem('state') != 0 ) {
-      setPageSelected(parseInt(sessionStorage.getItem('state')))
-      findJobs({page: parseInt(sessionStorage.getItem('state')) })
-    } 
-  }, [])
 
   useEffect(() => {
-    
-  }, [jobList, numberOfJobs]);
+    if (params.sortBy) {
+      setSortBy(params.sortBy);
+    }
+    if (params.page) {
+      setPageSelected(params.page);
+    }
+    if (params.jobTypeIds) {
+      setSelectedFilters({...selectedFilters, type: checkType(params.jobTypeIds)});
+    }
+    if (params.distance) {
+      setJobListFiltered(true);
+      setSelectedFilters({...selectedFilters, distance: params.distance });
+    }
+    if (params.jobIndustryIds) {
+      setSelectedFilters({...selectedFilters, sector: params.jobIndustryIds});
+    }
+    if (locationCity) {
+      setLocation({
+        place: locationCity,
+        lat: params.latitude,
+        long: params.longitude,
+      });
+    }
+    if (params.search) {
+      setKeyword(
+        params.search
+      );
+    }
+
+    scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
+  }, [numberOfJobs]);
+
 
   const handleKeyword = (event) => {
     setKeyword(event.target.value);
@@ -102,7 +125,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     if (name === "all") {
       setSelectedFilters(initialStateFilters);
       scrollToFilters.current.scrollIntoView({ behavior: "smooth" });
-      setJobsList(jobs)
     }
 
     showDropdown(initialStateDropdowns);
@@ -166,84 +188,42 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
     findJobs({page: page})
 }
 
-
-  const determineJobTypeCode = () => {
-    if (selectedFilters.type === "Permanent") {
-      return "328";
+  const findJobs = (argQuery = {}) => {
+    setJobListFiltered(true);
+    let href = '?'
+    if (argQuery.page) {
+      href += `page=${argQuery.page+1}&` 
     }
-    if (selectedFilters.type === "Temporary") {
-      return "329";
-    }
-    if (selectedFilters.type === "Contract") {
-      return "330";
-    }
-  }
-
-  const getQueryParams = (argQuery = {}) => {
-
-// INITIAL QUERY:
-    let query = {excludeNationwide: true, activeOnly: true, page: argQuery.page + 1 || 1 };
-
-    if (keyword) {
-      query.search = keyword
+    if (argQuery.sort || sortBy) {
+      href += `sortBy=${argQuery.sort || sortBy}&` 
     }
     if (selectedFilters.type && argQuery.clean !== 'type'  && argQuery.clean !== 'all') {
-      query.jobTypeIds = determineJobTypeCode()
+      if (selectedFilters.type === "Permanent") {
+        href += `jobTypeIds=328&` 
+      }
+      if (selectedFilters.type === "Temporary") {
+        href += `jobTypeIds=329&` 
+      }
+      if (selectedFilters.type === "Contract") {
+        href += `jobTypeIds=330&` 
+      }
     }
     if (selectedFilters.distance && argQuery.clean !== 'distance'  && argQuery.clean !== 'all') {
-      query.distance =  selectedFilters.distance
+      href += `distance=${selectedFilters.distance}&`
     }
     if (selectedFilters.sector && selectedFilters.sector !== 'All sectors' && argQuery.clean !== 'sector' && argQuery.clean !== 'all' ) {
-      query.jobIndustryIds = selectedFilters.sector 
+      href += `jobIndustryIds=${selectedFilters.sector}&`
+    }
+    if (keyword) {
+      href += `search=${keyword}&`
     }
     if (location) {
-      query.latitude = location.lat
-      query.longitude = location.long
-    }
-    if (sortBy || argQuery.sort) {
-      query.sortBy = argQuery.sort ? argQuery.sort : sortBy
+      href += `latitude=${location.lat}&longitude=${location.long}&locationMatch=${location.place}&`
     }
 
-    return query;
+
+    router.push(href)
   }
-
-
-  const findJobs = async (argQuery = {}) => {
-
-    if (!selectedFilters.distance && location) {
-      setSelectedFilters({...selectedFilters, distance: '20'})
-    }
-    
-    //DO NOT FETCH when no filters applied:
-    if (
-      selectedFilters === initialStateFilters &&
-      keyword === "" &&
-      !location
-    ) {
-      scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-    } else {
-      const url = `http://localhost:3001/jobs`;
-
-      await axios
-        .get(url, {
-          params: getQueryParams(argQuery)
-        })
-        .then((response) => {
-          const list = response.data.data.value
-          const jobsList = list.reduce((acc, agency)=>{
-            const website =  websites.find(website => agency.primaryWebsiteId === website.id )
-            return [...acc, {...agency, website: website.websiteName }]
-          }, [])
-          setJobsList(jobsList);
-          setNumberOfJobs(response.data.data.totalCount)
-          scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-        })
-        .catch((e) => console.log("error", e));
-    }
-    
-    setJobListFiltered(true);
-  };
-
 
   return (
     <div ref={scrollToFilters} className="umb-grid">
@@ -289,6 +269,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
                               handleKeyword={handleKeyword}
                               handleLocation={handleLocation}
                               keyword={keyword}
+                              location={location}
                             />
                             <div className="d-none d-lg-block col-md-2">
                               <div
@@ -358,9 +339,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
                         }}
                         className="mb-hf "
                       >
-                      {jobsNumber === 0 ? 
+                      {numberOfJobs === 0 ? 
                     'No jobs found'  :
-                    `Displaying ${jobsNumber === 1 ? jobsNumber + ' Job' : jobsNumber + " Jobs"}`
+                    `Displaying ${numberOfJobs === 1 ? numberOfJobs + ' Job' : numberOfJobs + " Jobs"}`
                     }  
                       </div>
                     </div>
@@ -374,7 +355,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
                     removeFilter={cleanFilter}
                     sectorsListWithCodes={sectorsListWithCodes}
                   />
-                  {jobsNumber === 0 ? 
+                  {numberOfJobs === 0 ? 
                   <Fragment>
 
                 <p className="fontSize-18">
@@ -408,9 +389,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, websites, numberOfJobs }) => {
           </div>
                   </Fragment>
               :
-              <JobsList jobs={jobList} sectorsListWithCodes={sectorsListWithCodes} />
+              <JobsList jobs={jobs} sectorsListWithCodes={sectorsListWithCodes} />
                 }
-              <PaginatedItems numberOfJobs={jobsNumber} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={handleSetSelectedPage} />
+              <PaginatedItems numberOfJobs={numberOfJobs} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={handleSetSelectedPage} />
                 </div>
               </div>
             </div>

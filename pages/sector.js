@@ -1,10 +1,8 @@
 import { React, useState } from "react";
 import Footer from "./components/Common/Footer";
 import Header from "./components/Common/Header";
-import JobPage from "./components/Jobs/Jobs";
-import Job from "./components/Job/Job";
-import axios from "axios";
 import SectorJobs from "./components/SectorJobs/SectorJobs";
+import axios from "axios";
 
 export default function HomePage({
   jobsList,
@@ -16,21 +14,13 @@ export default function HomePage({
   return (
     <div className="mega-navigation">
       <Header />
-      {/* <JobPage
+      <SectorJobs
         numberOfJobs={numberOfJobs}
         jobs={jobsList}
         sectorsListWithCodes={sectorsListWithCodes}
         params={params}
         locationCity={locationCity}
-      /> */}
-
-      <SectorJobs 
-       numberOfJobs={numberOfJobs}
-       jobs={jobsList}
-       sectorsListWithCodes={sectorsListWithCodes}
-       params={params}
-       locationCity={locationCity}
-      /> 
+      />
       <Footer />
     </div>
   );

@@ -4,72 +4,46 @@ import Header from "./components/Common/Header";
 import SectorJobs from "./components/SectorJobs/SectorJobs";
 import axios from "axios";
 
-export default function HomePage({
+export default function Sector({
   jobsList,
   sectorsListWithCodes,
   numberOfJobs,
+  numberOfPages,
   params,
-  locationCity
+  paginationMessage,
+  sector,
 }) {
   return (
     <div className="mega-navigation">
       <Header />
       <SectorJobs
         numberOfJobs={numberOfJobs}
+        numberOfPages={numberOfPages}
         jobs={jobsList}
-        sectorsListWithCodes={sectorsListWithCodes}
         params={params}
-        locationCity={locationCity}
+        sectorsListWithCodes={sectorsListWithCodes}
+        paginationMessage={paginationMessage}
+        sector={sector}
       />
       <Footer />
     </div>
   );
 }
 
-
-
 export async function getServerSideProps({ query }) {
+  const { page, sortBy, jobIndustryIds, sector } = query;
 
-  const page = query.page;
-  const sortBy = query.sortBy;
-  const jobTypeIds = query.jobTypeIds;
-  const distance = query.distance;
-  const jobIndustryIds = query.jobIndustryIds;
-  const search = query.search
-const latitude = query.latitude
-const longitude = query.longitude
-const locationCity = query.locationMatch
-
-let params = {
-  excludeNationwide: true,
-      activeOnly: true,
-      page: page || 1,
-}
-if (sortBy) {
-  params.sortBy = sortBy
-}
-
-if (jobTypeIds) {
-  params.jobTypeIds = jobTypeIds
-}
-if (distance) {
-  params.distance = distance
-}
-if (jobIndustryIds) {
-  params.jobIndustryIds = jobIndustryIds
-}
-if (search) {
-  params.search = search
-}
-if (latitude) {
-  params.latitude = latitude
-}
-if (longitude) {
-  params.longitude = longitude
-}
-if (!distance && longitude) {
-  params.distance = '20'
-}
+  let params = {
+    excludeNationwide: true,
+    activeOnly: true,
+    page: page || 1,
+  };
+  if (sortBy) {
+    params.sortBy = sortBy;
+  }
+  if (jobIndustryIds) {
+    params.jobIndustryIds = jobIndustryIds;
+  }
 
   let jobs;
   let industries;
@@ -151,6 +125,7 @@ if (!distance && longitude) {
     { label: "Travel and Tourism" },
   ];
 
+  // Add id value from backend for every sector that is in the sectors dropdown list
   const sectorsListWithCodes = listfOfSectors.reduce((acc, sector) => {
     const value = industries.find(
       (industry) =>
@@ -161,6 +136,7 @@ if (!distance && longitude) {
     return [...acc, { ...sector, value: id }];
   }, []);
 
+  // Assign website to each job to determine agency logo and link
   const jobsList = jobs.reduce((acc, agency) => {
     const website = websites.find(
       (website) => agency.primaryWebsiteId === website.id
@@ -168,5 +144,41 @@ if (!distance && longitude) {
     return [...acc, { ...agency, website: website.websiteName }];
   }, []);
 
-  return { props: { jobsList, sectorsListWithCodes, numberOfJobs, params, locationCity: locationCity || "" } };
+  // Pagination Data:
+  const itemsPerPage = 50;
+  const selectedPageNumber = Number(page) || 1;
+  const numberOfPages = Math.ceil(numberOfJobs / itemsPerPage);
+  let paginationMessage;
+
+  let startOfSet;
+  let endOfSet;
+
+  if (numberOfPages === 1) {
+    paginationMessage = `${numberOfJobs} of ${numberOfJobs} jobs`;
+  } else {
+    startOfSet =
+      selectedPageNumber === 1
+        ? 1
+        : selectedPageNumber +
+          itemsPerPage * selectedPageNumber -
+          itemsPerPage -
+          selectedPageNumber;
+    endOfSet = selectedPageNumber * itemsPerPage;
+    paginationMessage = `${startOfSet} - ${
+      endOfSet > numberOfJobs ? numberOfJobs : endOfSet
+    } of ${numberOfJobs} jobs`;
+  }
+
+
+  return {
+    props: {
+      jobsList,
+      sectorsListWithCodes,
+      numberOfJobs,
+      params,
+      paginationMessage,
+      numberOfPages,
+      sector: sector || "",
+    },
+  };
 }

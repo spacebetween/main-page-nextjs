@@ -4,13 +4,9 @@ import React, { useState } from 'react';
 const SortButtons = ({setSortBy, sortBy}) => {
 
     return (
-        <form
-                          action="/jobs"
-                          method="get"
+        <div
                           id="filterForm"
                           className="d-inline-block sort-form"
-                          noValidate="novalidate"
-                          data-hs-cf-bound="true"
                         >
                           <input type="hidden" name="isMetric" value="false" />
                           <div className="d-inline-block">
@@ -59,7 +55,7 @@ const SortButtons = ({setSortBy, sortBy}) => {
                               </label>
                             </div>
                           </div>
-                        </form>
+                        </div>
     )
 }
 

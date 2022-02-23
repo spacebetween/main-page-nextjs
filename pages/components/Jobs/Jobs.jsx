@@ -4,22 +4,20 @@ import Inputs from "./Inputs";
 import JobsList from "./List";
 import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
-import axios from "axios";
 import { Fragment } from "react/cjs/react.production.min";
 import PaginatedItems from "./Pagination.jsx";
 import { useRouter } from 'next/router'
 import { checkType } from "../helperFunctions.js";
+import NoJobsFound from "./NoJobsFound.jsx";
 
 
-const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCity }) => {
+const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCity, paginationMessage, numberOfPages }) => {
   const router = useRouter()
-
-  const [pageSelected, setPageSelected] = useState(0)
-  const [sortBy, setSorting] = useState("");
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState(null);
+  const [firstLoad, setFirstLoad] = useState(true);
 
   //FILTERS
   const initialStateFilters = {
@@ -42,11 +40,9 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
 
 
   useEffect(() => {
+ 
     if (params.sortBy) {
       setSortBy(params.sortBy);
-    }
-    if (params.page) {
-      setPageSelected(params.page - 1);
     }
     if (params.jobTypeIds) {
       setSelectedFilters({...selectedFilters, type: checkType(params.jobTypeIds)});
@@ -70,18 +66,18 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
         params.search
       );
     }
+   if (!firstLoad) {
+     scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
+   } else {
+     setFirstLoad(false)
+   }
 
-    scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-  }, [numberOfJobs]);
+  }, [numberOfJobs, params.length]);
 
 
   const handleKeyword = (event) => {
     setKeyword(event.target.value);
   };
-
-  const handleSetSelectedPage = (props) => {
-    setPageSelected(props)
-  }
 
   const handleLocation = (place) => {
     const lat = place.geometry.location.lat();
@@ -95,7 +91,6 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
   };
 
   const setSortBy = (name) => {
-    setSorting(name);
     findJobs({sort: name})
   };
 
@@ -127,13 +122,12 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
       scrollToFilters.current.scrollIntoView({ behavior: "smooth" });
     }
 
-    showDropdown(initialStateDropdowns);
+    showDropdown(initialStateDropdowns)
 
     if (where === 'filters') {
       findJobs({clean: name})
     }
   };
-
 
   const showDropdowns = (name) => {
     if (name === "type") {
@@ -184,18 +178,20 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
     }
   };
 
-  const fetchDataOnPage = (page) => {
+  const fetchJobsOnPageChange = (page) => {
     findJobs({page: page})
 }
 
   const findJobs = (argQuery = {}) => {
+    
     setJobListFiltered(true);
     let href = '?'
     if (argQuery.page) {
       href += `page=${argQuery.page+1}&` 
     }
-    if (argQuery.sort || sortBy) {
-      href += `sortBy=${argQuery.sort || sortBy}&` 
+    
+    if (argQuery.sort || params.sortBy) {
+      href += `sortBy=${argQuery.sort || params.sortBy}&` 
     }
     if (selectedFilters.type && argQuery.clean !== 'type'  && argQuery.clean !== 'all') {
       if (selectedFilters.type === "Permanent") {
@@ -221,9 +217,10 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
       href += `latitude=${location.lat}&longitude=${location.long}&locationMatch=${location.place}&`
     }
 
+    router.push(href === '?' ? '' : href);
 
-    router.push(href)
   }
+
 
   return (
     <div ref={scrollToFilters} className="umb-grid">
@@ -346,7 +343,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <SortButtons setSortBy={setSortBy} sortBy={sortBy} />
+                      <SortButtons setSortBy={setSortBy} sortBy={params.sortBy} />
                     </div>
                   </div>
                   <SelectedFilters
@@ -356,42 +353,13 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
                     sectorsListWithCodes={sectorsListWithCodes}
                   />
                   {numberOfJobs === 0 ? 
-                  <Fragment>
-
-                <p className="fontSize-18">
-                <span className="rteHelper">Please try to change your search criteria or, alternatively, register your CV below</span>
-              </p>
-              <div className="card_register bg-secondary transparent-overlay-secondary rounded-0 d-block w-100 lozad" data-background-image="" data-loaded="true">
-              <div className="card_body align-vertical">
-                  <div className="card_bottom mx-1">
-                      <div className="row">
-                          <div className="col-12">
-                              <h2>
-                                  <span className="rteHelper"><p>Register and Upload CV</p></span>
-                              </h2>
-                          </div>
-                          <div className="col-12 col-md-7 fontSize-18">
-                              <p>
-                                  <span className="rteHelper">If you don’t find a perfect match, register with us and
-          be alerted to new opportunities before they go online!</span>
-                              </p>
-                          </div>
-                              <div className="col-12 py-hf">
-                                  <a href="#" className="btn btn-primary_alternative fontSize-18">
-                                      <strong>
-                                          <span className="rteHelper"><p>Register my CV</p></span>
-                                      </strong>
-                                  </a>
-                              </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-                  </Fragment>
+                <NoJobsFound/>
               :
+              <Fragment>  
               <JobsList jobs={jobs} sectorsListWithCodes={sectorsListWithCodes} />
+              <PaginatedItems paginationMessage={paginationMessage} numberOfPages={numberOfPages} fetchJobsOnPageChange={fetchJobsOnPageChange} pageSelected={params.page-1} />
+              </Fragment>
                 }
-              <PaginatedItems numberOfJobs={numberOfJobs} itemsPerPage={50} fetchDataOnPage={fetchDataOnPage} pageSelected={pageSelected} setPageSelected={handleSetSelectedPage} />
                 </div>
               </div>
             </div>

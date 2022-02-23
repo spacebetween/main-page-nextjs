@@ -66,8 +66,8 @@ export const determineWhereRedirect = (el) => {
   return  (
   <Link
   href={{
-    pathname: `/${jobTitle}`,
-      query: {id: `${el.id}`}
+    pathname: `/job`,
+      query: {title: jobTitle, id: `${el.id}`}
   }}
   >
     <a href=''><h3 className="mb-hf">{el.jobTitle}</h3></a>

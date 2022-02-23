@@ -18,21 +18,31 @@ const Job = ({job, sector, similarJobs, linkToShare}) => {
 export async function getServerSideProps(context) {
 
   const { id } = context.query;
-  const { elo } = context.params;
-
-  console.log(elo, 'ELO')
+  const {title} = context.query;
 
   let job;
   let industries;
   let sector;
   let similarJobs;
   let linkToShare;
+  let error = false;
 
-  await axios.get(`http://localhost:3001/jobs/${id}`).then(response => {
+  await axios.get(`http://localhost:3001/jobs/${id}`)
+  .then(response => {
     job = response.data.data.value
   }).catch((e) => {
-    return { redirect: '/error' }
+    error = true;
   });
+
+  if (error) {
+    return {
+      redirect: {
+        destination: `/error`,
+        permanent: false,
+      },
+    };
+  }
+
 
   await axios.get('http://localhost:3001/industries').then(response => {
     industries = response.data.data.value
@@ -108,7 +118,7 @@ export async function getServerSideProps(context) {
         sector = el.label
       }
     })
-    linkToShare = `${job.jobTitle.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase()}` + `?id=` +`${id}` 
+    linkToShare = `${title.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase()}` + `?id=` +`${id}` 
   }
 
   // FOR SIMILAR JOBS:
@@ -131,8 +141,10 @@ if (job) {
 }
 
 if (job) {
+  
   return { props: { job:job, sector, similarJobs, linkToShare} }
-} return { redirect : '/error'}
+} 
+return { redirect : '/error'}
 }
 
 export default Job;

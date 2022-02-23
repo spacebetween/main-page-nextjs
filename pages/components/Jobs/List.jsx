@@ -9,6 +9,7 @@ import {
   determineWhereRedirect
 } from "../helperFunctions";
 const { htmlToText } = require("html-to-text");
+import Link from "next/link"
 
 const Jobs = ({ jobs, sectorsListWithCodes }) => {
   return (
@@ -60,12 +61,15 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                         <div className="col-12 mb-hf">
                           <div className="d-inline-block">
                             <i className="align-middle icomoon-case icon-lightGrey icomoon-p-r"></i>
-                            <a
-                              className="align-middle fontSize-14"
-                              href="www.google.com"
-                            >
+                            <Link 
+                            className="align-middle fontSize-14"
+                              href={{
+                                pathname: `/sectors`,
+                                  query: {jobIndustryIds: `${el.jobIndustryId}`, sector: determineSector(sectorsListWithCodes, el.jobIndustryId)}
+                              }}
+                             >
                               {determineSector(sectorsListWithCodes, el.jobIndustryId)}
-                            </a>
+                              </Link>
                           </div>
                         </div>
                       </div>
@@ -93,12 +97,13 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                       </div>
                       <a
                         href={el.link}
-                        style={{ fontSize: "14px" }}
+                        style={{ fontSize: "14px", color:'white' }}
                         className="d-none d-lg-block btn btn-primary btn-block pull-lg-right"
                       >
                         <strong>Read details and Apply</strong>
                       </a>
                       <a
+                       style={{ color:'white' }}
                         href={el.link}
                         className="d-lg-none btn btn-primary btn-block pull-lg-right"
                       >

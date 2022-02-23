@@ -1,45 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import ReactPaginate from 'react-paginate';
 
 
-const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelected, setPageSelected }) => {
+const PaginatedItems = ({ fetchJobsOnPageChange, pageSelected, paginationMessage, numberOfPages }) => {
 
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const [displayMessage, setDisplayMessage] = useState('')
-
-  
-  useEffect(() => {
-    // Fetch items from another resources.
-    const endOffset = itemOffset + itemsPerPage;
-    setDisplayMessage(`${itemOffset === 0 ? 1 : itemOffset} - ${endOffset > numberOfJobs ? numberOfJobs : endOffset} of ${numberOfJobs} jobs`)
-    setPageCount(Math.ceil(numberOfJobs / itemsPerPage));
-
-      sessionStorage.setItem('state', pageSelected.toString())
-    
-  }, [itemOffset, itemsPerPage, numberOfJobs, pageSelected]);
-
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-      const newOffset = (event.selected * itemsPerPage) % numberOfJobs;
-      setItemOffset(newOffset);
-      fetchDataOnPage(event.selected)
-      setPageSelected(event.selected)
+    fetchJobsOnPageChange(event.selected)
   };
 
   const handlePrevious = () => {
-      const pageToSet = pageSelected -1
-    setPageSelected(pageToSet)
-    fetchDataOnPage(pageToSet)
+    fetchJobsOnPageChange(pageSelected)
   }
 
   const handleNext = () => {
-    const pageToSet = pageSelected +1
-    setPageSelected(pageToSet)
-    fetchDataOnPage(pageToSet)
+    fetchJobsOnPageChange(pageSelected)
   }
-
 
 
   return (
@@ -47,7 +22,7 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
         <div className="row">
                         <div className="col-12 mb-hf">
                             <p className="customPagination-jobs pos-relative">
-                                <span className="customPagination-jobs_text px-hf">{displayMessage}</span>
+                                <span className="customPagination-jobs_text px-hf">{paginationMessage}</span>
                             </p>
                         </div>
                     </div>
@@ -66,7 +41,7 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
         breakLabel="..."
         onPageChange={handlePageClick}
         pageRangeDisplayed={6}
-        pageCount={pageCount}
+        pageCount={numberOfPages}
         renderOnZeroPageCount={null}
         marginPagesDisplayed={2}
         className='customPagination_list d-inline-flex pl-0'
@@ -80,7 +55,7 @@ const PaginatedItems = ({ numberOfJobs, itemsPerPage, fetchDataOnPage, pageSelec
         forcePage={pageSelected}
       />
       <div onClick={handleNext} className="float-right d-inline customPagination_element">
-                        <div className={`linkColor pointer customPagination_element_link rounded d-inline-block ${pageSelected+1 === pageCount && 'disabled'}`} rel="next">
+                        <div className={`linkColor pointer customPagination_element_link rounded d-inline-block ${pageSelected+1 === numberOfPages && 'disabled'}`} rel="next">
                             <div className="d-inline-block d-lg-none">
                                 <i className="fontSize-13 icomoon-arrow-right"></i>
                             </div>

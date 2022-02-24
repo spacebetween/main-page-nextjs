@@ -49,7 +49,7 @@ const SectorJobs = ({
       if (argQuery.sort || params.sortBy) {
         href += `sortBy=${argQuery.sort || params.sortBy}&` 
       }
-      if (selectedFilters.sector && selectedFilters.sector !== 'All sectors' && argQuery.clean !== 'sector' && argQuery.clean !== 'all' ) {
+      if (selectedFilters.sector && selectedFilters.sector !== 'All sectors' ) {
         href += `jobIndustryIds=${selectedFilters.sector}&`
       }
       if (sector) {

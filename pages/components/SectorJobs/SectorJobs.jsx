@@ -17,17 +17,10 @@ const SectorJobs = ({
 
     const router = useRouter()
     const scrollToJobList = useRef(null);
-    const initialStateFilters = {
-      sector: "",
-    };
-    const [selectedFilters, setSelectedFilters] = useState(initialStateFilters);
   
     useEffect(() => {
       if (params.sortBy) {
         setSortBy(params.sortBy);
-      }
-      if (params.jobIndustryIds) {
-        setSelectedFilters({...selectedFilters, sector: params.jobIndustryIds});
       }
     }, [numberOfJobs]);
   
@@ -49,12 +42,9 @@ const SectorJobs = ({
       if (argQuery.sort || params.sortBy) {
         href += `sortBy=${argQuery.sort || params.sortBy}&` 
       }
-      if (selectedFilters.sector && selectedFilters.sector !== 'All sectors' ) {
-        href += `jobIndustryIds=${selectedFilters.sector}&`
-      }
-      if (sector) {
-        href += `sector=${sector}&`
-      }
+
+      href += `jobIndustryIds=${params.jobIndustryIds}&sector=${sector}&`
+
       router.push(href === '?' ? '' : href)
     }
   
@@ -87,13 +77,6 @@ const SectorJobs = ({
         
         <div  className='row clearfix my-3'>
             <div id='sorting' className='col-md-3' >
-            <button
-                onClick={() => router.back()}
-                className="btn btn-secondary float-right"
-              >
-                <i className="icomoon-arrow-left"></i>
-                Back to search
-              </button>
             <SortButtons setSortBy={setSortBy} sortBy={params.sortBy} />
             </div>
             <div id='jobList' className='col-md-9' >

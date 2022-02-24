@@ -6,13 +6,20 @@ import SelectedFilters from "./SelectedFilters";
 import SortButtons from "./SortButtons";
 import { Fragment } from "react/cjs/react.production.min";
 import PaginatedItems from "./Pagination.jsx";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { checkType } from "../helperFunctions.js";
 import NoJobsFound from "./NoJobsFound.jsx";
 
-
-const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCity, paginationMessage, numberOfPages }) => {
-  const router = useRouter()
+const JobPage = ({
+  jobs,
+  sectorsListWithCodes,
+  numberOfJobs,
+  params,
+  locationCity,
+  paginationMessage,
+  numberOfPages,
+}) => {
+  const router = useRouter();
   const scrollToJobList = useRef(null);
   const scrollToFilters = useRef(null);
   const [keyword, setKeyword] = useState("");
@@ -38,21 +45,24 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
   // SEARCH on/off
   const [jobListFiltered, setJobListFiltered] = useState(false);
 
-
   useEffect(() => {
- 
     if (params.sortBy) {
       setSortBy(params.sortBy);
     }
     if (params.jobTypeIds) {
-      setSelectedFilters({...selectedFilters, type: checkType(params.jobTypeIds)});
+      setJobListFiltered(true);
+      setSelectedFilters({
+        ...selectedFilters,
+        type: checkType(params.jobTypeIds),
+      });
     }
     if (params.distance) {
       setJobListFiltered(true);
-      setSelectedFilters({...selectedFilters, distance: params.distance });
+      setSelectedFilters({ ...selectedFilters, distance: params.distance });
     }
     if (params.jobIndustryIds) {
-      setSelectedFilters({...selectedFilters, sector: params.jobIndustryIds});
+      setJobListFiltered(true);
+      setSelectedFilters({ ...selectedFilters, sector: params.jobIndustryIds });
     }
     if (locationCity) {
       setLocation({
@@ -62,18 +72,14 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
       });
     }
     if (params.search) {
-      setKeyword(
-        params.search
-      );
+      setKeyword(params.search);
     }
-   if (!firstLoad) {
-     scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
-   } else {
-     setFirstLoad(false)
-   }
-
+    if (!firstLoad) {
+      scrollToJobList.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setFirstLoad(false);
+    }
   }, [numberOfJobs, params.length]);
-
 
   const handleKeyword = (event) => {
     setKeyword(event.target.value);
@@ -91,136 +97,101 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
   };
 
   const setSortBy = (name) => {
-    findJobs({sort: name})
+    findJobs({ sort: name });
   };
 
   const handleSelectFilter = (name, value) => {
-    setJobListFiltered(false);
-    if (name === "type") {
-      setSelectedFilters({ ...selectedFilters, type: value });
+    if (!params.jobIndustryIds || !params.distance || !params.jobTypeIds) {
+      setJobListFiltered(false);
+    } else {
+      setJobListFiltered(true);
     }
-    if (name === "distance") {
-      setSelectedFilters({ ...selectedFilters, distance: value });
-    }
-    if (name === "sector") {
-      setSelectedFilters({ ...selectedFilters, sector: value });
-    }
+
+    setSelectedFilters({ ...selectedFilters, [name]: value });
   };
 
   const cleanFilter = (name, where) => {
-    if (name === "type") {
-      setSelectedFilters({ ...selectedFilters, type: "" });
+    if (name !== "all") {
+      setSelectedFilters({ ...selectedFilters, [name]: "" });
     }
-    if (name === "distance") {
-      setSelectedFilters({ ...selectedFilters, distance: "" });
-    }
-    if (name === "sector") {
-      setSelectedFilters({ ...selectedFilters, sector: "" });
-    }
-    if (name === "all") {
+    else {
       setSelectedFilters(initialStateFilters);
       scrollToFilters.current.scrollIntoView({ behavior: "smooth" });
     }
 
-    showDropdown(initialStateDropdowns)
+    showDropdown(initialStateDropdowns);
 
-    if (where === 'filters') {
-      findJobs({clean: name})
+    if (where === "filters") {
+      findJobs({ clean: name });
     }
   };
 
   const showDropdowns = (name) => {
-    if (name === "type") {
-      showDropdown({
-        type: true,
-        distance: false,
-        sector: false,
-      });
-    }
-    if (name === "distance") {
-      showDropdown({
-        type: false,
-        distance: true,
-        sector: false,
-      });
-    }
-    if (name === "sector") {
-      showDropdown({
-        type: false,
-        distance: false,
-        sector: true,
-      });
-    }
-    if (name === "closeAll") {
-      showDropdown(initialStateDropdowns);
-    }
+    if (name !== "closeAll") {
+      showDropdown({ ...dropdowns, [name]: true });
+    } else showDropdown(initialStateDropdowns);
   };
 
   const hideDropdowns = (name) => {
-
-    if (name === "type") {
-      showDropdown({
-        ...dropdowns,
-        type: false,
-      });
-    }
-    if (name === "distance") {
-      showDropdown({
-        ...dropdowns,
-        distance: false,
-      });
-    }
-    if (name === "sector") {
-      showDropdown({
-        ...dropdowns,
-        sector: false,
-      });
-    }
+    showDropdown({
+      ...dropdowns,
+      [name]: false,
+    });
   };
 
   const fetchJobsOnPageChange = (page) => {
-    findJobs({page: page})
-}
+    findJobs({ page: page });
+  };
 
   const findJobs = (argQuery = {}) => {
-    
     setJobListFiltered(true);
-    let href = '?'
+    let href = "?";
     if (argQuery.page) {
-      href += `page=${argQuery.page+1}&` 
+      href += `page=${argQuery.page + 1}&`;
     }
-    
+
     if (argQuery.sort || params.sortBy) {
-      href += `sortBy=${argQuery.sort || params.sortBy}&` 
+      href += `sortBy=${argQuery.sort || params.sortBy}&`;
     }
-    if (selectedFilters.type && argQuery.clean !== 'type'  && argQuery.clean !== 'all') {
+    if (
+      selectedFilters.type &&
+      argQuery.clean !== "type" &&
+      argQuery.clean !== "all"
+    ) {
       if (selectedFilters.type === "Permanent") {
-        href += `jobTypeIds=328&` 
+        href += `jobTypeIds=328&`;
       }
       if (selectedFilters.type === "Temporary") {
-        href += `jobTypeIds=329&` 
+        href += `jobTypeIds=329&`;
       }
       if (selectedFilters.type === "Contract") {
-        href += `jobTypeIds=330&` 
+        href += `jobTypeIds=330&`;
       }
     }
-    if (selectedFilters.distance && argQuery.clean !== 'distance'  && argQuery.clean !== 'all') {
-      href += `distance=${selectedFilters.distance}&`
+    if (
+      selectedFilters.distance &&
+      argQuery.clean !== "distance" &&
+      argQuery.clean !== "all"
+    ) {
+      href += `distance=${selectedFilters.distance}&`;
     }
-    if (selectedFilters.sector && selectedFilters.sector !== 'All sectors' && argQuery.clean !== 'sector' && argQuery.clean !== 'all' ) {
-      href += `jobIndustryIds=${selectedFilters.sector}&`
+    if (
+      selectedFilters.sector &&
+      selectedFilters.sector !== "All sectors" &&
+      argQuery.clean !== "sector" &&
+      argQuery.clean !== "all"
+    ) {
+      href += `jobIndustryIds=${selectedFilters.sector}&`;
     }
     if (keyword) {
-      href += `search=${keyword}&`
+      href += `search=${keyword}&`;
     }
     if (location) {
-      href += `latitude=${location.lat}&longitude=${location.long}&locationMatch=${location.place}&`
+      href += `latitude=${location.lat}&longitude=${location.long}&locationMatch=${location.place}&`;
     }
 
-    router.push(href === '?' ? '' : href);
-
-  }
-
+    router.push(href === "?" ? "" : href);
+  };
 
   return (
     <div ref={scrollToFilters} className="umb-grid">
@@ -325,7 +296,7 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
             <div className="row clearfix">
               <div className="col-md-12 column">
                 <div>
-                  <div className="row" >
+                  <div className="row">
                     <div className="col-md-8">
                       <div
                         style={{
@@ -336,14 +307,20 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
                         }}
                         className="mb-hf "
                       >
-                      {numberOfJobs === 0 ? 
-                    'No jobs found'  :
-                    `Displaying ${numberOfJobs === 1 ? numberOfJobs + ' Job' : numberOfJobs + " Jobs"}`
-                    }  
+                        {numberOfJobs === 0
+                          ? "No jobs found"
+                          : `Displaying ${
+                              numberOfJobs === 1
+                                ? numberOfJobs + " Job"
+                                : numberOfJobs + " Jobs"
+                            }`}
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <SortButtons setSortBy={setSortBy} sortBy={params.sortBy} />
+                      <SortButtons
+                        setSortBy={setSortBy}
+                        sortBy={params.sortBy}
+                      />
                     </div>
                   </div>
                   <SelectedFilters
@@ -352,14 +329,22 @@ const JobPage = ({ jobs, sectorsListWithCodes, numberOfJobs, params, locationCit
                     removeFilter={cleanFilter}
                     sectorsListWithCodes={sectorsListWithCodes}
                   />
-                  {numberOfJobs === 0 ? 
-                <NoJobsFound/>
-              :
-              <Fragment>  
-              <JobsList jobs={jobs} sectorsListWithCodes={sectorsListWithCodes} />
-              <PaginatedItems paginationMessage={paginationMessage} numberOfPages={numberOfPages} fetchJobsOnPageChange={fetchJobsOnPageChange} pageSelected={params.page-1} />
-              </Fragment>
-                }
+                  {numberOfJobs === 0 ? (
+                    <NoJobsFound />
+                  ) : (
+                    <Fragment>
+                      <JobsList
+                        jobs={jobs}
+                        sectorsListWithCodes={sectorsListWithCodes}
+                      />
+                      <PaginatedItems
+                        paginationMessage={paginationMessage}
+                        numberOfPages={numberOfPages}
+                        fetchJobsOnPageChange={fetchJobsOnPageChange}
+                        pageSelected={params.page - 1}
+                      />
+                    </Fragment>
+                  )}
                 </div>
               </div>
             </div>

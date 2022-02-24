@@ -44,9 +44,47 @@ export async function getServerSideProps(context) {
   }
 
 
-  await axios.get('http://localhost:3001/industries').then(response => {
+  await axios.get('http://localhost:3001/industries')
+  .then(response => {
     industries = response.data.data.value
-  });  
+  })
+  .catch(e=>error=true);  
+
+  if (error) {
+    return {
+      redirect: {
+        destination: `/error`,
+        permanent: false,
+      },
+    };
+  }
+
+    // FOR SIMILAR JOBS:
+if (job) {
+  await axios
+  .get("http://localhost:3001/jobs", {
+    params: {
+      excludeNationwide: true,
+      activeOnly: true,
+      jobIndustryIds: job.jobIndustryId,
+      latitude: job.geoLocation.coordinates[0],
+      longitude: job.geoLocation.coordinates[1],
+      items: 6
+    }
+  })
+  .then((response) => {
+    similarJobs = response.data.data.value
+  })
+  .catch((e) => error = true);
+}
+if (error) {
+  return {
+    redirect: {
+      destination: `/error`,
+      permanent: false,
+    },
+  };
+}
 
 
   const listfOfSectors = [
@@ -112,39 +150,17 @@ export async function getServerSideProps(context) {
     return [...acc, {...sector, value: id}]
   }, [])
 
-  if (job) {
-    sectorsListWithCodes.map((el)=>{
+
+  sectorsListWithCodes.map((el)=>{
       if (el.value === job.jobIndustryId) {
         sector = el.label
       }
     })
     linkToShare = `${title.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase()}` + `?id=` +`${id}` 
-  }
-
-  // FOR SIMILAR JOBS:
-if (job) {
-  await axios
-  .get("http://localhost:3001/jobs", {
-    params: {
-      excludeNationwide: true,
-      activeOnly: true,
-      jobIndustryIds: job.jobIndustryId,
-      latitude: job.geoLocation.coordinates[0],
-      longitude: job.geoLocation.coordinates[1],
-      items: 6
-    }
-  })
-  .then((response) => {
-    similarJobs = response.data.data.value
-  })
-  .catch((e) => console.log("error", e));
-}
-
-if (job) {
   
+
   return { props: { job:job, sector, similarJobs, linkToShare} }
-} 
-return { redirect : '/error'}
+
 }
 
 export default Job;

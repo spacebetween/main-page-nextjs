@@ -21,8 +21,8 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
         </div>
       </div>
       {jobs && (
-        jobs.map((el) => (
-          <div key={el.id} className="pos-relative">
+        jobs.map((el) =>  {
+          return (<div key={el.id} className="pos-relative">
             {checkIfNew(el.datePosted) && <div className="card_note">NEW</div>}
             <div className="card card-job mb-2 shadow-1">
               <div className="card_body">
@@ -62,13 +62,16 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                           <div className="d-inline-block">
                             <i className="align-middle icomoon-case icon-lightGrey icomoon-p-r"></i>
                             <Link 
-                            className="align-middle fontSize-14"
+                              className="align-middle fontSize-14"
                               href={{
                                 pathname: `/sectors`,
-                                  query: {jobIndustryIds: `${el.jobIndustryId}`, sector: determineSector(sectorsListWithCodes, el.jobIndustryId)}
+                                  query: {jobIndustryIds: `${el.jobIndustryId}`, sector: determineSector(sectorsListWithCodes, el.jobIndustryId, el.id)}
                               }}
                              >
-                              {determineSector(sectorsListWithCodes, el.jobIndustryId)}
+                               {/* DO NOT REMOVE A TAG BECAUSE OF ISSUE WITH NO READING THE CODE AS SINGLE REACT CHILD */}
+                               <a>
+                                {determineSector(sectorsListWithCodes, el.jobIndustryId)}
+                               </a>
                               </Link>
                           </div>
                         </div>
@@ -115,8 +118,9 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
               </div>
             </div>
           </div>
+          )}
         ))
-      )}
+      }
     </div>
   );
 };

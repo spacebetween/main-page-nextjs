@@ -36,7 +36,8 @@ export async function getServerSideProps({ query }) {
   let params = {
     excludeNationwide: true,
     activeOnly: true,
-    page: page || 1,
+    // PAGE HAS TO BE MULTIPLIED BY 50 because in backend page is passed as 'skip' and we want to skip 50 jobs on every page
+    page: page ? (Number(page) * 50)-50 : 0,
   };
   if (sortBy) {
     params.sortBy = sortBy;
@@ -175,7 +176,7 @@ export async function getServerSideProps({ query }) {
       jobsList,
       sectorsListWithCodes,
       numberOfJobs,
-      params,
+      params: {...params, page: page ? page : 1},
       paginationMessage,
       numberOfPages,
       sector: sector || "",

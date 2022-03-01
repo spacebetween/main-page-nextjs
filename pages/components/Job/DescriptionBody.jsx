@@ -4,11 +4,11 @@ import {
   determineLinkToRecruiter,
   determineWhoPosted,
   determineSalary,
-} from "../helperFunctions";
+} from "../../../lib/helperFunctions";
 import { useRouter } from "next/router";
 import SocialMediaShareButtons from "./SocialMediaShareButtons";
 
-const DescriptionBody = ({ job, similarJobs, linkToShare }) => {
+const DescriptionBody = ({ job = {}, similarJobs, linkToShare }) => {
 
 
   const router = useRouter();
@@ -60,7 +60,7 @@ const DescriptionBody = ({ job, similarJobs, linkToShare }) => {
                  <SocialMediaShareButtons linkToShare={linkToShare} title={job.jobTitle} />
                 </div>
               </div>
-              {parse(job.jobDescription)}
+              {parse(job.jobDescription || "")}
             </div>
 
             <div className="info-block similar-jobs">

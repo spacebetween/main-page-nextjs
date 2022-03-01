@@ -1,7 +1,7 @@
 import React from 'react';
-import { determineSalary, checkType } from '../helperFunctions';
+import { determineSalary, checkType } from '../../../lib/helperFunctions';
 
-const DescriptionHeader = ({job, sector}) => {
+const DescriptionHeader = ({job = {}, sector}) => {
 
 return (
     <div className="job-details-header">

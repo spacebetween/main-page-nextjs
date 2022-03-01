@@ -7,7 +7,7 @@ import {
   setCompanyLogo,
   determineSector,
   determineWhereRedirect
-} from "../helperFunctions";
+} from "../../../lib/helperFunctions";
 const { htmlToText } = require("html-to-text");
 import Link from "next/link"
 

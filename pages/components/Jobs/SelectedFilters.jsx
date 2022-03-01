@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 
-import { listOfDistances } from "../helperLists";
+import { listOfDistances } from "../../../lib/helperLists";
 
-const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sectorsListWithCodes}) => {
+const SelectedFilters = ({selectedFilters = {}, removeFilter, jobListFiltered, sectorsListWithCodes}) => {
 
   let areFiltersApplied = false;
 
@@ -12,7 +12,11 @@ const SelectedFilters = ({selectedFilters, removeFilter, jobListFiltered, sector
     }
   });
 
-  return ( jobListFiltered &&
+  if(!jobListFiltered) {
+    return <Fragment></Fragment>
+  }
+
+  return (
     <div className="filterTabs mb-2 pos-relative icon-lightGrey">
       {selectedFilters.type && (
         <div className="d-inline-block">

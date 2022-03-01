@@ -1,19 +1,19 @@
 import React from "react";
-import { listOfTypes, listOfDistances } from "../helperLists";
+import { listOfTypes, listOfDistances } from "../../../lib/helperLists";
 
 const Dropdowns = ({
   handleSelectFilter,
-  selectedFilters,
+  selectedFilters = {},
   cleanFilter,
   showDropdowns,
   hideDropdowns,
-  dropdowns,
+  dropdowns = {},
   sectorsListWithCodes,
 }) => {
   return (
     <div className="advancedPanel col-md-10">
       <div className="filter-wrapper">
-        {selectedFilters.type.length <= 0 ? (
+        {!selectedFilters.type || selectedFilters.type.length <= 0 ? (
           <div className={dropdowns.type ? "dropdown show" : "dropdown"}>
             <a
               href="#"
@@ -86,7 +86,7 @@ const Dropdowns = ({
         )}
       </div>
       <div className="filter-wrapper">
-        {selectedFilters.distance.length <= 0 ? (
+        {!selectedFilters.distance || selectedFilters.distance.length <= 0 ? (
           <div className={dropdowns.distance ? "dropdown show" : "dropdown"}>
             <a
               href="#"
@@ -161,7 +161,7 @@ const Dropdowns = ({
         )}
       </div>
       <div className="filter-wrapper">
-        {selectedFilters.sector.length <= 0 ? (
+        {!selectedFilters.sector || selectedFilters.sector.length <= 0 ? (
           <div className={dropdowns.sector ? "dropdown show" : "dropdown"}>
             <a
               href="#"

@@ -7,14 +7,14 @@ import SortButtons from "./SortButtons";
 import { Fragment } from "react/cjs/react.production.min";
 import PaginatedItems from "./Pagination.jsx";
 import { useRouter } from "next/router";
-import { checkType } from "../helperFunctions.js";
+import { checkType } from "../../../lib/helperFunctions.js";
 import NoJobsFound from "./NoJobsFound.jsx";
 
 const JobPage = ({
   jobs,
   sectorsListWithCodes,
   numberOfJobs,
-  params,
+  params = {},
   locationCity,
   paginationMessage,
   numberOfPages,

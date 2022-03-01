@@ -10,7 +10,7 @@ const SectorJobs = ({
   sectorsListWithCodes,
   numberOfJobs,
   numberOfPages,
-  params,
+  params = {},
   paginationMessage,
   sector
 }) => {

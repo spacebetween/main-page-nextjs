@@ -1,7 +1,7 @@
 import { React, useState } from "react";
-import Footer from "./components/Common/Footer";
-import Header from "./components/Common/Header";
-import JobDescription from "./components/Job/Job";
+import Footer from "../..//components/Common/Footer";
+import Header from "../../components/Common/Header";
+import JobDescription from "../../components/Job/Job";
 import axios from 'axios';
 
 const Job = ({job, sector, similarJobs, linkToShare}) => {
@@ -18,7 +18,6 @@ const Job = ({job, sector, similarJobs, linkToShare}) => {
 export async function getServerSideProps(context) {
 
   const { id } = context.query;
-  const {title} = context.query;
 
   let job;
   let industries;
@@ -156,7 +155,7 @@ if (error) {
         sector = el.label
       }
     })
-    linkToShare = `${title.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase()}` + `?id=` +`${id}` 
+    linkToShare = `${`${job.title}`.replace(/[^0-9a-zA-Z. ]/g, '').split(' ').filter(x => x.length > 0).join('-').toLowerCase()}` + `?id=` +`${id}` 
   
 
   return { props: { job:job, sector, similarJobs, linkToShare} }

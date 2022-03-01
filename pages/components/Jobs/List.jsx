@@ -21,9 +21,9 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
         </div>
       </div>
       {jobs && (
-        jobs.map((el) =>  {
-          return (<div key={el.id} className="pos-relative">
-            {checkIfNew(el.datePosted) && <div className="card_note">NEW</div>}
+        jobs.map((job) =>  {
+          return (<div key={job.id} className="pos-relative">
+            {checkIfNew(job.datePosted) && <div className="card_note">NEW</div>}
             <div className="card card-job mb-2 shadow-1">
               <div className="card_body">
                 <div className="card_bottom">
@@ -31,7 +31,11 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                     <div className="col-12 col-sm-8 col-xl-9 mb-1 pl-0">
                       <div className="row">
                         <div className="col-12">
-                          {determineWhereRedirect(el)}                         
+                          <h3 className="mb-hf">
+                            <Link {...determineWhereRedirect(job)}>
+                              {job.jobTitle}
+                            </Link>
+                          </h3>
                         </div>
                       </div>
                       <div className="row">
@@ -39,20 +43,20 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                           <div className="d-inline-block pr-1 pb-hf">
                             <i className="align-middle icomoon-pointer icon-lightGrey icomoon-p-r"></i>
                             <strong className="align-middle fontSize-14">
-                              {el.locationCity}{" "}
-                              {el.locationRegion && ` - ${el.locationRegion}`}
+                              {job.locationCity}{" "}
+                              {job.locationRegion && ` - ${job.locationRegion}`}
                             </strong>
                           </div>
                           <div className="d-inline-block pr-1 pb-hf">
                             <i className="align-middle icomoon-clock icon-lightGrey icomoon-p-r"></i>
                             <strong className="align-middle fontSize-14">
-                              {checkType(el.jobTypeId)}
+                              {checkType(job.jobTypeId)}
                             </strong>
                           </div>
                           <div className="d-inline-block pb-hf">
                             <i className="align-middle icomoon-pound icon-lightGrey icomoon-p-r"></i>
                             <strong className="align-middle fontSize-14">
-                              {determineSalary(el)}
+                              {determineSalary(job)}
                             </strong>
                           </div>
                         </div>
@@ -65,12 +69,12 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                               className="align-middle fontSize-14"
                               href={{
                                 pathname: `/sectors`,
-                                  query: {jobIndustryIds: `${el.jobIndustryId}`, sector: determineSector(sectorsListWithCodes, el.jobIndustryId, el.id)}
+                                  query: {jobIndustryIds: `${job.jobIndustryId}`, sector: determineSector(sectorsListWithCodes, job.jobIndustryId, job.id)}
                               }}
                              >
                                {/* DO NOT REMOVE A TAG BECAUSE OF ISSUE WITH NO READING THE CODE AS SINGLE REACT CHILD */}
                                <a>
-                                {determineSector(sectorsListWithCodes, el.jobIndustryId)}
+                                {determineSector(sectorsListWithCodes, job.jobIndustryId)}
                                </a>
                               </Link>
                           </div>
@@ -78,8 +82,8 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                       </div>
                       <div className="row">
                         <div className="col-12">
-                          {htmlToText(el.jobDescription).slice(0, 240)}
-                          <a className="icon-lightGrey" href={determineWhereRedirect(el)}>
+                          {htmlToText(job.jobDescription).slice(0, 240)}
+                          <a className="icon-lightGrey" href={determineWhereRedirect(job)}>
                             <strong>(...)</strong>
                           </a>
                         </div>
@@ -90,28 +94,28 @@ const Jobs = ({ jobs, sectorsListWithCodes }) => {
                         <span>
                           {`Job posted `}
                           <strong className="jobDate">
-                            {timePosted(el.datePosted)}
+                            {timePosted(job.datePosted)}
                           </strong>{" "}
                           by
                         </span>
                       </div>
                       <div className="d-none d-sm-block pull-lg-right brandLogo mb-1 p-1">
-                        {setCompanyLogo(el.website)}
+                        {setCompanyLogo(job.website)}
                       </div>
-                      <a
-                        href={el.link}
-                        style={{ fontSize: "14px", color:'white' }}
-                        className="d-none d-lg-block btn btn-primary btn-block pull-lg-right"
+                      <Link
+                        {...determineWhereRedirect(job)}
                       >
-                        <strong>Read details and Apply</strong>
-                      </a>
-                      <a
-                       style={{ color:'white' }}
-                        href={el.link}
-                        className="d-lg-none btn btn-primary btn-block pull-lg-right"
+                        <a style={{ fontSize: "14px", color:'white' }} className="d-none d-lg-block btn btn-primary btn-block pull-lg-right">
+                          <strong>Read details and Apply</strong>
+                        </a>
+                      </Link>
+                      <Link
+                        {...determineWhereRedirect(job)}
                       >
-                        <strong>Apply now</strong>
-                      </a>
+                        <a style={{ color:'white' }} className="d-lg-none btn btn-primary btn-block pull-lg-right" >
+                          <strong>Apply now</strong>
+                        </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

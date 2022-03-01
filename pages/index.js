@@ -85,7 +85,7 @@ export async function getServerSideProps({ query }) {
   console.log(params)
 
   await axios
-    .get("http://localhost:3001/jobs", {
+    .get(`${process.env.JOB_BOARD_API}/jobs`, {
       params,
     })
     .then((response) => {
@@ -93,11 +93,11 @@ export async function getServerSideProps({ query }) {
       numberOfJobs = response.data.data.totalCount;
     });
 
-  await axios.get("http://localhost:3001/industries").then((response) => {
+  await axios.get(`${process.env.JOB_BOARD_API}/industries`).then((response) => {
     industries = response.data.data.value;
   });
 
-  await axios.get("http://localhost:3001/websites").then((response) => {
+  await axios.get(`${process.env.JOB_BOARD_API}/websites`).then((response) => {
     websites = response.data.data.value;
   });
 

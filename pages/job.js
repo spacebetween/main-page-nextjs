@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
   let linkToShare;
   let error = false;
 
-  await axios.get(`http://localhost:3001/jobs/${id}`)
+  await axios.get(`${process.env.JOB_BOARD_API}/jobs/${id}`)
   .then(response => {
     job = response.data.data.value
   }).catch((e) => {
@@ -44,7 +44,7 @@ export async function getServerSideProps(context) {
   }
 
 
-  await axios.get('http://localhost:3001/industries')
+  await axios.get(`${process.env.JOB_BOARD_API}/industries`)
   .then(response => {
     industries = response.data.data.value
   })
@@ -62,7 +62,7 @@ export async function getServerSideProps(context) {
     // FOR SIMILAR JOBS:
 if (job) {
   await axios
-  .get("http://localhost:3001/jobs", {
+  .get(`${process.env.JOB_BOARD_API}/jobs`, {
     params: {
       excludeNationwide: true,
       activeOnly: true,

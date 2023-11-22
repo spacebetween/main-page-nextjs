@@ -175,7 +175,7 @@ export async function getServerSideProps({ query }) {
     const website = websites.find(
       (website) => agency.primaryWebsiteId === website.id
     );
-    return [...acc, { ...agency, website: website.websiteName }];
+    return [...acc, { ...agency, website: website.websiteName }].filter((item) => !!item.website);
   }, []);
 
   // Pagination Data:

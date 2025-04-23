@@ -120,11 +120,11 @@ const Header = () => {
           <img
             className="logo-large d-none d-md-block lozad"
             alt="HR GO Recruitment"
-            src="https://hrgo-image-cache.spacebetween.co.uk/media/6199/hr-go-rec-sitelogo.webp?format=webp"
+            src="https://www.hrgo.co.uk/media/8165/primary-logo-png.png"
           />
           <img
             className="logo-small d-block d-md-none lozad"
-            src="https://hrgo-image-cache.spacebetween.co.uk/media/6199/hr-go-rec-sitelogo.webp?format=webp"
+            src="https://www.hrgo.co.uk/media/8165/primary-logo-png.png"
             alt="HR GO Recruitment"
           />
         </a>
